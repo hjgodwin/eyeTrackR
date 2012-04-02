@@ -1,3 +1,5 @@
 eyeTrackR
 
 R package for analysing eye-tracking data. Note: very early stage of development.
+
+See http://stat.ethz.ch/R-manual/R-devel/library/utils/html/install.packages.html for how to install packages manually, as this is necessary here.
