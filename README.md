@@ -6,10 +6,9 @@ Best place for information is the Github page.
 
 ### How to install?
 
-![Head to this page][1].
+[Head to this page](https://github.com/hjgodwin/eyeTrackR/wiki/Installation/).
 
 
-[1]: https://github.com/hjgodwin/eyeTrackR/wiki/Installation/
 
 
 
