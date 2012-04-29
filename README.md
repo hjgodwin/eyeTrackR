@@ -1,7 +1,16 @@
-### eyeTrackR
+# eyeTrackR
 
 R package for analysing eye-tracking data. Note: very early stage of development.
 
-See the wiki on Github for how to both install and use this.
+Best place for information is the Github page.
+
+### How to install?
+
+![Head to this page][1].
+
+
+[1]: https://github.com/hjgodwin/eyeTrackR/wiki/Installation
+
+
 
 
