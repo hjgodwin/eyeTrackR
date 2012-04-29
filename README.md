@@ -9,7 +9,8 @@ Best place for information is the Github page.
 ![Head to this page][1].
 
 
-[1]: https://github.com/hjgodwin/eyeTrackR/wiki/Installation
+[1]: https://github.com/hjgodwin/eyeTrackR/wiki/Installation/
+
 
 
 
