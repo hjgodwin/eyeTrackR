@@ -1,0 +1,16 @@
+Package: eyeTrackR
+Type: Package
+Title: Functions for organising and analysing eye-tracking data
+Version: 0.5
+Date: 2019-30-05
+Author: Hayward J. Godwin <hg102@soton.ac.uk>
+Maintainer: Hayward J. Godwin <hg102@soton.ac.uk>
+Description: A variety of different functions for handling output from eyetrackers and providing means for analyses on a wide range of standard measures.
+License: GPL
+Packaged: 2012-04-28 20:41:06 UTC; haywardgodwin
+Depends: data.table, stringr, plyr, R (>= 3.5)
+RoxygenNote: 6.1.1
+LazyData: False
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
