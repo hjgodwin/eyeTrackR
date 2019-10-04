@@ -1,0 +1,17 @@
+--- 
+title: "A guide to eyeTrackR"
+author: "Hayward J. Godwin"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a guide to using the eyeTrackR R package."
+---
+
+# Introduction
+
+Placeholder for the future
