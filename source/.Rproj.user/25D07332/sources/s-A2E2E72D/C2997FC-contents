@@ -1,0 +1,51 @@
+
+# MARKUP UP SAVE FINAL TABLE FOR ANALYSIS
+
+# LOAD FILES ##############################################################################################################################################################
+
+messagereport <- read.table("messagereport.txt", header=T, quote="\"")
+fixreport <- read.table("fixationreport.txt", header=T, quote="\"")
+
+# DO MARKUP ##############################################################################################################################################################
+
+# REPLACE SPACES IN MESSAGES
+messagereport <- organise.message.replace_spaces(messagereport)
+
+# TAKE A LOOK
+organise.message.descriptives(messagereport)
+
+# MARKUP
+foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixreport, message="DISPLAY_START")
+foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, message="DISPLAY_CHANGE")
+
+# NOW DO ACCURACY AND RT MARKUP
+#foo$CORRECT_ANSWER <- as.numeric(as.character(foo$CORRECT_ANSWER))
+foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+
+# NOW MARK UP FIXATION CONTINGENCIES
+foo<-organise.message.fix_contingencies(foo, list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))#, "RESPONSE", "TRIAL_END", "TRIAL_RESULT_0")) 
+
+# RANDOM TRIAL TO CHECK THINGS OUT
+organise.checks.random_trial(foo)
+
+#foo[FIXATION_CONTINGENCY=='UNCLASSIFIED',,]
+#a <- foo[RECORDING_SESSION_LABEL==13 & TRIAL_INDEX==11,,]
+
+# FIX CONTINGENCIES
+organise.contingencies.descriptives(foo)
+
+# REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
+foo <- organise.message.removals(fixreport_df=foo, required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
+
+organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+
+# REMOVALS
+df_final_for_analysis <- organise.exclusions.fix_durations(fixreport_df=foo)
+
+# THAT'S IT! LET'S NOW SAVE THE FINAL THING ##############################################################################################################################################################
+write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
+save(df_final_for_analysis, file='df_final_for_analysis.RData')
+
+
+
+
