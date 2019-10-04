@@ -1,17 +1,17 @@
 Package: eyeTrackR
 Type: Package
-Title: Functions for organising and analysing eye-tracking data
-Version: 0.5
-Date: 2019-30-05
-Author: Hayward J. Godwin <hg102@soton.ac.uk>
+Title: Functions for Organising and Analysing Eye-tracking Data
+Version: 1.0.0
+Date: 2019-10-04
+Authors@R:c(
+    person("Hayward", "Godwin", email = "hg102@soton.ac.uk",role = c("aut", "cre")),
+    person("Alexander", "Muhl-Richardson", role = c("ctb")))
 Maintainer: Hayward J. Godwin <hg102@soton.ac.uk>
-Description: A variety of different functions for handling output from eyetrackers and providing means for analyses on a wide range of standard measures.
+Description: A variety of different functions for handling output from Eyelink eye-trackers, focusing on the data output from DataViewer.
 License: GPL
-Packaged: 2012-04-28 20:41:06 UTC; haywardgodwin
 Depends: data.table, stringr, plyr, R (>= 3.5)
 RoxygenNote: 6.1.1
 LazyData: False
 Suggests: knitr,
     rmarkdown
-VignetteBuilder: knitr
 Encoding: UTF-8
