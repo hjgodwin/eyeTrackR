@@ -138,7 +138,7 @@ analyse.calculate.means <- function(fixreport_df, aggregation_column_list, outpu
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
 #' fixDurs <- analyse.fix.duration(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.duration <- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+analyse.fix.duration <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_DURATION' = .Internal(mean(CURRENT_FIX_DURATION)))"
@@ -179,7 +179,7 @@ analyse.fix.duration <- function(fixreport_df, aggregation_column_list=NULL, sps
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
 #' fixCounts <- analyse.fix.count(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.count <- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+analyse.fix.count <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_COUNT' = length(CURRENT_FIX_INDEX))"
@@ -218,8 +218,9 @@ analyse.fix.count <- function(fixreport_df, aggregation_column_list=NULL, spss=F
 #' @examples
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
-#' fixTotaltime <- analyse.fix.totaltime(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+#' fixTotaltime <- analyse.fix.totaltime(fixationreport, 
+#'      aggregation_column_list = list('TRIALTYPE_TEXT'))
+analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_TOTAL_TIME' = sum(CURRENT_FIX_DURATION))"
@@ -258,8 +259,9 @@ analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list=NULL, sp
 #' @examples
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
+#' fixationreport[,CURRENT_FIX_INTEREST_AREA_RUN_ID:=1,]
 #' visitCounts <- analyse.visit.count(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.visit.count <- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+analyse.visit.count <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('VISIT_COUNT' = max(CURRENT_FIX_INTEREST_AREA_RUN_ID))"
@@ -298,8 +300,9 @@ analyse.visit.count <- function(fixreport_df, aggregation_column_list=NULL, spss
 #' @examples
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
-#' amplitudes <- analyse.sac.amplitude(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+#' amplitudes <- analyse.sac.amplitude(fixationreport, 
+#'     aggregation_column_list = list('TRIALTYPE_TEXT'))
+analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # REMOVE BLANK SAC AMPLITUDE VALUES
   fixreport_df <- fixreport_df[fixreport_df$NEXT_SAC_AMPLITUDE!='.',]
@@ -341,8 +344,9 @@ analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list=NULL, sps
 #' @examples
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
-#' firstDurations <- analyse.fix.first_duration(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list=NULL, spss=FALSE, prefixLabel=""){
+#' firstDurations <- analyse.fix.first_duration(fixationreport, 
+#'      aggregation_column_list = list('TRIALTYPE_TEXT'))
+analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('FIRST_FIX_DURATION' = CURRENT_FIX_DURATION[1])"
@@ -372,8 +376,34 @@ analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list=NUL
 #' @examples
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
-#' behaviouralData <- analyse.behavioural.data(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.behavioural.data<- function(bd_df, aggregation_column_list=NULL){
+#' data(messagereport)
+#' 
+#' 
+#' # REPLACE SPACES IN MESSAGES
+#' messagereport <- organise.message.replace_spaces(messagereport)
+#' 
+#' # TAKE A LOOK
+#' organise.message.descriptives(messagereport)
+#' 
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'    fixreport_df = fixationreport, message="DISPLAY_START")
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'    fixreport_df = fixationreport, message="DISPLAY_CHANGE")
+#' 
+#' # NOW DO ACCURACY AND RT MARKUP
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
+#' 
+#' # NOW MARK UP FIXATION CONTINGENCIES
+#' fixationreport <-organise.message.fix_contingencies(fixationreport, 
+#'    list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+#'
+#' # SET UP TRUE RT
+#' fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+#'
+#' behaviouralData <- analyse.behavioural.data(fixationreport, 
+#'    aggregation_column_list = list('TRIALTYPE_TEXT'))
+analyse.behavioural.data<- function(bd_df, aggregation_column_list){
     
   # CREATE DATA TABLE
   b_DT <- data.table(bd_df)
@@ -409,3 +439,4 @@ analyse.behavioural.data<- function(bd_df, aggregation_column_list=NULL){
   return(out_df)
 }
 #############################################################################################################################################################
+

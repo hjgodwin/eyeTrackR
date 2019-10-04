@@ -29,5 +29,6 @@ Analyse saccade amplitude
 \examples{
 # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 data(fixationreport)
-amplitudes <- analyse.sac.amplitude(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
+amplitudes <- analyse.sac.amplitude(fixationreport, 
+    aggregation_column_list = list('TRIALTYPE_TEXT'))
 }

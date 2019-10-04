@@ -29,5 +29,6 @@ Analyse total fixation time
 \examples{
 # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 data(fixationreport)
-fixTotaltime <- analyse.fix.totaltime(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
+fixTotaltime <- analyse.fix.totaltime(fixationreport, 
+     aggregation_column_list = list('TRIALTYPE_TEXT'))
 }

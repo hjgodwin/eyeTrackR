@@ -49,7 +49,7 @@ globalVariables(c(
                   'PREVIOUS_FIX_X_RESOLUTION','PREVIOUS_FIX_Y','RESPONSE_TIME','TRIAL_INDEX','TRUE_RT',
                   'inputrow','CURRENT_FIX_INDEX'))
 
-# GETS RID OF PESKY SPACES IN THE MESSAGES
+# GETS RID OF SPACES IN THE MESSAGES
 #' Replace spaces in message report message with underscores.
 #'
 #' @param message_df A message report.
@@ -70,43 +70,6 @@ organise.message.replace_spaces <- function(message_df){
   message_df$CURRENT_MSG_TEXT<-str_replace_all(message_df$CURRENT_MSG_TEXT, " ", "_")
   
   return(message_df)
-}
-
-##############################################################################################################################################################
-# GETS RID OF OFTEN UNUSED COLUMNS IN FIXREPORT
-#' Remove often unused columns in fixation reports.
-#'
-#' @param fixreport_df Input fixation report.
-#'
-#' @return Output fixation report with fewer columns.
-#' @export
-#'
-#' @examples
-#' data(fixationreport)
-#' fixationreport <- organise.fixreport.remove_rare(fixationreport)
-organise.fixreport.remove_rare <- function(fixreport_df){
-    
-  fixreport_df<-subset(fixreport_df, select=-c(CURRENT_FIX_ADJUSTED,CURRENT_FIX_BLINK_AROUND, CURRENT_FIX_END_OTHER, CURRENT_FIX_INTEREST_AREAS, CURRENT_FIX_INTEREST_AREA_DWELL_TIME,
-                                               CURRENT_FIX_INTEREST_AREA_FIX_COUNT, CURRENT_FIX_INTEREST_AREA_GROUP, CURRENT_FIX_INTEREST_AREA_INDEX, CURRENT_FIX_INTEREST_AREA_X_OFFSET,
-                                               CURRENT_FIX_INTEREST_AREA_Y_OFFSET, CURRENT_FIX_IS_RT_END, CURRENT_FIX_LABEL, CURRENT_FIX_PUPIL, CURRENT_FIX_REFIX_INTEREST_AREA,
-                                               CURRENT_FIX_REFIX_PREV_INTEREST_AREA, CURRENT_FIX_RUN_DWELL_TIME, CURRENT_FIX_START_OTHER, CURRENT_FIX_TRIAL_SPAN, CURRENT_FIX_X_OTHER,
-                                               CURRENT_FIX_X_RESOLUTION, CURRENT_FIX_Y_OTHER, CURRENT_FIX_Y_RESOLUTION, DATA_FILE, EYE_USED, IP_END_TIME, IP_LABEL, 
-                                               IP_START_TIME, LAST_BUTTON_PRESSED, LAST_BUTTON_PRESSED_TIME, LAST_BUTTON_RELEASED, LAST_BUTTON_RELEASED_TIME, LAST_BUTTON_TIME,
-                                               NEXT_FIX_BLINK_AROUND, NEXT_FIX_END_OTHER, NEXT_FIX_INTEREST_AREAS, NEXT_FIX_INTEREST_AREA_DWELL_TIME, NEXT_FIX_INTEREST_AREA_FIX_COUNT,
-                                               NEXT_FIX_INTEREST_AREA_GROUP, NEXT_FIX_INTEREST_AREA_INDEX, NEXT_FIX_INTEREST_AREA_RUN_ID, NEXT_FIX_IS_RT_END,
-                                               NEXT_FIX_LABEL, NEXT_FIX_MSG_COUNT, NEXT_FIX_NEAREST_INTEREST_AREA,
-                                               NEXT_FIX_PUPIL, NEXT_FIX_RUN_DWELL_TIME, NEXT_FIX_RUN_INDEX, NEXT_FIX_RUN_SIZE,
-                                               NEXT_FIX_START, NEXT_FIX_START_OTHER, NEXT_FIX_TRIAL_SPAN, NEXT_FIX_X, NEXT_FIX_X_OTHER, NEXT_FIX_X_RESOLUTION, NEXT_FIX_Y, NEXT_FIX_Y_OTHER, NEXT_FIX_Y_RESOLUTION,
-                                               NEXT_SAC_END_INTEREST_AREA_INDEX, NEXT_SAC_END_X_RESOLUTION, NEXT_SAC_IS_RT_END,  NEXT_SAC_LABEL,
-                                               PREVIOUS_FIX_ANGLE, PREVIOUS_FIX_BLINK_AROUND, PREVIOUS_FIX_DIRECTION, PREVIOUS_FIX_DISTANCE,
-                                               PREVIOUS_FIX_END, PREVIOUS_FIX_END_OTHER, PREVIOUS_FIX_INTEREST_AREAS, PREVIOUS_FIX_INTEREST_AREA_DWELL_TIME, PREVIOUS_FIX_INTEREST_AREA_FIX_COUNT,
-                                               PREVIOUS_FIX_INTEREST_AREA_GROUP, PREVIOUS_FIX_INTEREST_AREA_INDEX, PREVIOUS_FIX_INTEREST_AREA_RUN_ID, PREVIOUS_FIX_IS_RT_END,
-                                               PREVIOUS_FIX_LABEL, PREVIOUS_FIX_MSG_COUNT, PREVIOUS_FIX_NEAREST_INTEREST_AREA,
-                                               PREVIOUS_FIX_PUPIL, PREVIOUS_FIX_RUN_DWELL_TIME, PREVIOUS_FIX_RUN_INDEX,
-                                               PREVIOUS_FIX_RUN_SIZE, PREVIOUS_FIX_START, PREVIOUS_FIX_START_OTHER, PREVIOUS_FIX_TRIAL_SPAN, PREVIOUS_FIX_X, PREVIOUS_FIX_X_OTHER, PREVIOUS_FIX_X_RESOLUTION, PREVIOUS_FIX_Y
-                                               ))
-  
-  return(data.table(fixreport_df))
 }
 
 ##############################################################################################################################################################
@@ -331,7 +294,7 @@ organise.message.return_specific <- function(message_df, fixreport_df, message, 
 #'    message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 #'
 #'# NOW MARK UP FIXATION CONTINGENCIES
 #' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -457,7 +420,7 @@ organise.message.fix_contingencies <- function(fixreport_df, ordered_message_lis
 #'    message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 organise.responses.markup <- function(fixreport_df, correct_answer_column){
   
   # ORGANISE THE FIX REPORT
@@ -551,14 +514,14 @@ organise.responses.markup <- function(fixreport_df, correct_answer_column){
 #' organise.message.descriptives(messagereport)
 #' 
 #' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
+#' # THERE IS A TRIAL END BUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
 #' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
 #'                                message="LEADIN")
 #' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
 #'                                message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
 #' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -610,7 +573,7 @@ organise.contingencies.descriptives <- function(fixreport_df){
 #'                                message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
 #' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -720,7 +683,7 @@ organise.message.removals <- function(fixreport_df, required_message_list){
 #'                                message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
 #' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -739,7 +702,7 @@ organise.message.removals <- function(fixreport_df, required_message_list){
 #' organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
 #' 
 #' # BY-TRIAL BEHAVIOURAL DATA
-#' organise.behavioural.base(fixreport_df = foo, list('PPT_ID', 'TRIALTYPE_TEXT', 'PREVALENCE'), 
+#' organise.behavioural.base(fixreport_df = foo, list( 'TRIALTYPE_TEXT'), 
 #'                           response_period_start="SYNCTIME", 
 #'                           prefix_label="BYTRIAL")
 organise.behavioural.base <- function(fixreport_df, grouping_column_list, response_period_start="", prefix_label="") {
@@ -824,7 +787,7 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
 #'                                message="SYNCTIME")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
 #' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -843,7 +806,7 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
 #' organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
 #' 
 #' # BY-TRIAL BEHAVIOURAL DATA
-#' organise.behavioural.base(fixreport_df = foo, list('PPT_ID', 'TRIALTYPE_TEXT', 'PREVALENCE'), 
+#' organise.behavioural.base(fixreport_df = foo, list('TRIALTYPE_TEXT'), 
 #'                           response_period_start="SYNCTIME", 
 #'                           prefix_label="BYTRIAL")
 #'                           

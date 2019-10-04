@@ -36,5 +36,5 @@ foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo,
    message="SYNCTIME")
 
 # NOW DO ACCURACY AND RT MARKUP
-foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 }

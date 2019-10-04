@@ -13,5 +13,5 @@
 #' @examples
 #' data(fixationreport)
 #' 
-#' \donttest{iplotCurves(phe, times)}
+
 "fixationreport"

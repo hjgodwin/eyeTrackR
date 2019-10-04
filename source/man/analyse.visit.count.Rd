@@ -29,5 +29,6 @@ Analyse visit count
 \examples{
 # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 data(fixationreport)
+fixationreport[,CURRENT_FIX_INTEREST_AREA_RUN_ID:=1,]
 visitCounts <- analyse.visit.count(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
 }

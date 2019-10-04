@@ -26,14 +26,14 @@ messagereport <- organise.message.replace_spaces(messagereport)
 organise.message.descriptives(messagereport)
 
 # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-# THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
+# THERE IS A TRIAL END BUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
 foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
                                message="LEADIN")
 foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
                                message="SYNCTIME")
 
 # NOW DO ACCURACY AND RT MARKUP
-foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 
 # NOW MARK UP FIXATION CONTINGENCIES
 foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))

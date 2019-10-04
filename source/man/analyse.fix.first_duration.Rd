@@ -29,5 +29,6 @@ Analyse first fixation duration
 \examples{
 # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 data(fixationreport)
-firstDurations <- analyse.fix.first_duration(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
+firstDurations <- analyse.fix.first_duration(fixationreport, 
+     aggregation_column_list = list('TRIALTYPE_TEXT'))
 }

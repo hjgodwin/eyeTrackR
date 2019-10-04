@@ -20,5 +20,31 @@ Analyse behavioural data
 \examples{
 # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 data(fixationreport)
-behaviouralData <- analyse.behavioural.data(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
+data(messagereport)
+
+
+# REPLACE SPACES IN MESSAGES
+messagereport <- organise.message.replace_spaces(messagereport)
+
+# TAKE A LOOK
+organise.message.descriptives(messagereport)
+
+# MARKUP
+fixationreport <- organise.message.markup(message_df=messagereport, 
+   fixreport_df = fixationreport, message="DISPLAY_START")
+fixationreport <- organise.message.markup(message_df=messagereport, 
+   fixreport_df = fixationreport, message="DISPLAY_CHANGE")
+
+# NOW DO ACCURACY AND RT MARKUP
+fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
+
+# NOW MARK UP FIXATION CONTINGENCIES
+fixationreport <-organise.message.fix_contingencies(fixationreport, 
+   list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+
+# SET UP TRUE RT
+fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+
+behaviouralData <- analyse.behavioural.data(fixationreport, 
+   aggregation_column_list = list('TRIALTYPE_TEXT'))
 }

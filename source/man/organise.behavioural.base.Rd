@@ -40,7 +40,7 @@ foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo,
                                message="SYNCTIME")
 
 # NOW DO ACCURACY AND RT MARKUP
-foo <- organise.responses.markup(foo, "CORRECT_ANSWER")
+foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
 
 # NOW MARK UP FIXATION CONTINGENCIES
 foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
@@ -59,7 +59,7 @@ foo <- organise.message.removals(fixreport_df=foo,
 organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
 
 # BY-TRIAL BEHAVIOURAL DATA
-organise.behavioural.base(fixreport_df = foo, list('PPT_ID', 'TRIALTYPE_TEXT', 'PREVALENCE'), 
+organise.behavioural.base(fixreport_df = foo, list( 'TRIALTYPE_TEXT'), 
                           response_period_start="SYNCTIME", 
                           prefix_label="BYTRIAL")
 }

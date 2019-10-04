@@ -14,7 +14,6 @@ Fixation report data from a visual search experiment.
 \examples{
 data(fixationreport)
 
-\donttest{iplotCurves(phe, times)}
 }
 \references{
 TBA.
