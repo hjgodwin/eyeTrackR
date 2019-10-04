@@ -4,8 +4,8 @@
 \alias{analyse.fix.count}
 \title{Analyse mean fixation count}
 \usage{
-analyse.fix.count(fixreport_df, aggregation_column_list, spss = FALSE,
-  prefixLabel = "")
+analyse.fix.count(fixreport_df, aggregation_column_list = c(),
+  spss = FALSE, prefixLabel = "")
 }
 \arguments{
 \item{fixreport_df}{Fixation report}

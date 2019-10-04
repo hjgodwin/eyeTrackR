@@ -4,8 +4,8 @@
 \alias{analyse.visit.count}
 \title{Analyse visit count}
 \usage{
-analyse.visit.count(fixreport_df, aggregation_column_list, spss = FALSE,
-  prefixLabel = "")
+analyse.visit.count(fixreport_df, aggregation_column_list = c(),
+  spss = FALSE, prefixLabel = "")
 }
 \arguments{
 \item{fixreport_df}{Fixation report}

@@ -4,7 +4,7 @@
 \alias{analyse.behavioural.data}
 \title{Analyse behavioural data}
 \usage{
-analyse.behavioural.data(bd_df, aggregation_column_list)
+analyse.behavioural.data(bd_df, aggregation_column_list = c())
 }
 \arguments{
 \item{bd_df}{Behavioural data frame/table}

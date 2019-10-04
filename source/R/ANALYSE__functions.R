@@ -138,7 +138,7 @@ analyse.calculate.means <- function(fixreport_df, aggregation_column_list, outpu
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
 #' fixDurs <- analyse.fix.duration(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.duration <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.fix.duration <- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_DURATION' = .Internal(mean(CURRENT_FIX_DURATION)))"
@@ -179,7 +179,7 @@ analyse.fix.duration <- function(fixreport_df, aggregation_column_list, spss=FAL
 #' # BREAK UP BY TARGET-PRESENT AND TARGET-ABSENT TRIALS - THE COLUMN TRIALTYPE_TEXT
 #' data(fixationreport)
 #' fixCounts <- analyse.fix.count(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.count <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.fix.count <- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_COUNT' = length(CURRENT_FIX_INDEX))"
@@ -220,7 +220,7 @@ analyse.fix.count <- function(fixreport_df, aggregation_column_list, spss=FALSE,
 #' data(fixationreport)
 #' fixTotaltime <- analyse.fix.totaltime(fixationreport, 
 #'      aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('MEAN_FIX_TOTAL_TIME' = sum(CURRENT_FIX_DURATION))"
@@ -261,7 +261,7 @@ analyse.fix.totaltime <- function(fixreport_df, aggregation_column_list, spss=FA
 #' data(fixationreport)
 #' fixationreport[,CURRENT_FIX_INTEREST_AREA_RUN_ID:=1,]
 #' visitCounts <- analyse.visit.count(fixationreport, aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.visit.count <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.visit.count <- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('VISIT_COUNT' = max(CURRENT_FIX_INTEREST_AREA_RUN_ID))"
@@ -302,7 +302,7 @@ analyse.visit.count <- function(fixreport_df, aggregation_column_list, spss=FALS
 #' data(fixationreport)
 #' amplitudes <- analyse.sac.amplitude(fixationreport, 
 #'     aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # REMOVE BLANK SAC AMPLITUDE VALUES
   fixreport_df <- fixreport_df[fixreport_df$NEXT_SAC_AMPLITUDE!='.',]
@@ -346,7 +346,7 @@ analyse.sac.amplitude<- function(fixreport_df, aggregation_column_list, spss=FAL
 #' data(fixationreport)
 #' firstDurations <- analyse.fix.first_duration(fixationreport, 
 #'      aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list, spss=FALSE, prefixLabel=""){
+analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list=c(), spss=FALSE, prefixLabel=""){
   
   # SET UP OUTPUT COLUMN EXPRESSION
   ocExpr <- "list('FIRST_FIX_DURATION' = CURRENT_FIX_DURATION[1])"
@@ -403,7 +403,7 @@ analyse.fix.first_duration <- function(fixreport_df, aggregation_column_list, sp
 #'
 #' behaviouralData <- analyse.behavioural.data(fixationreport, 
 #'    aggregation_column_list = list('TRIALTYPE_TEXT'))
-analyse.behavioural.data<- function(bd_df, aggregation_column_list){
+analyse.behavioural.data<- function(bd_df, aggregation_column_list=c()){
     
   # CREATE DATA TABLE
   b_DT <- data.table(bd_df)

@@ -4,7 +4,7 @@
 \alias{analyse.fix.totaltime}
 \title{Analyse total fixation time}
 \usage{
-analyse.fix.totaltime(fixreport_df, aggregation_column_list,
+analyse.fix.totaltime(fixreport_df, aggregation_column_list = c(),
   spss = FALSE, prefixLabel = "")
 }
 \arguments{

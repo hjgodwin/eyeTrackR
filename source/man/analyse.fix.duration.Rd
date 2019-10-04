@@ -4,8 +4,8 @@
 \alias{analyse.fix.duration}
 \title{Analyse mean fixation duration}
 \usage{
-analyse.fix.duration(fixreport_df, aggregation_column_list, spss = FALSE,
-  prefixLabel = "")
+analyse.fix.duration(fixreport_df, aggregation_column_list = c(),
+  spss = FALSE, prefixLabel = "")
 }
 \arguments{
 \item{fixreport_df}{Fixation report}
