@@ -4,9 +4,9 @@ Title: Functions for Organising and Analysing Eye-tracking Data
 Version: 1.0.0
 Date: 2019-10-04
 Authors@R:c(
-    person("Hayward", "J.", "Godwin", email = "hg102@soton.ac.uk",role = c("aut", "cre")),
+    person("Hayward", "Godwin", email = "hg102@soton.ac.uk",role = c("aut", "cre")),
     person("Alexander", "Muhl-Richardson", role = c("ctb")))
-Maintainer: Hayward J. Godwin <hg102@soton.ac.uk>
+Maintainer: Hayward Godwin <hg102@soton.ac.uk>
 Description: A variety of different functions for handling output from Eyelink eye-trackers, focusing on the data output from DataViewer.
 License: GPL-3
 Depends: data.table, stringr, plyr, R (>= 3.5)
