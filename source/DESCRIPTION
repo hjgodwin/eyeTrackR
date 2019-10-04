@@ -8,7 +8,7 @@ Authors@R:c(
     person("Alexander", "Muhl-Richardson", role = c("ctb")))
 Maintainer: Hayward J. Godwin <hg102@soton.ac.uk>
 Description: A variety of different functions for handling output from Eyelink eye-trackers, focusing on the data output from DataViewer.
-License: GPL
+License: GPL-3
 Depends: data.table, stringr, plyr, R (>= 3.5)
 RoxygenNote: 6.1.1
 LazyData: False
