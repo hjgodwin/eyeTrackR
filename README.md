@@ -14,9 +14,8 @@ Now with new team member Alex Muhl-Richardson, currently updating to a 2019 vers
 
 From R using the devtools package:
 
-install_github('hjgodwin/eyetrackR/source', ref='eyeTrackR1.0')
-
-Or manually: [head to this page](https://github.com/hjgodwin/eyeTrackR/wiki/Installation/).
+library(devtools)
+install_github('hjgodwin/eyetrackR/source')
 
 
 
