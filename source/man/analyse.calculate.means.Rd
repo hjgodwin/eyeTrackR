@@ -17,7 +17,7 @@ analyse.calculate.means(fixreport_df, aggregation_column_list,
 
 \item{final_output_column_expression}{Final output column expression}
 
-\item{spss}{Should the function save output for SPSS?}
+\item{spss}{Should the function output for SPSS?}
 
 \item{dvColumnName}{Column name of the dependent variable}
 

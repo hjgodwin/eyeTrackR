@@ -552,7 +552,7 @@ organise.contingencies.descriptives <- function(fixreport_df){
 #' @param fixreport_df Fixation report.
 #' @param required_message_list List of messages required for each trial.
 #'
-#' @return Updated fixation report with trials removed as a data.table. Also saves a copy of what was removed for writing up papers later on.
+#' @return Updated fixation report with trials removed as a data.table. 
 #' @export
 #'
 #' @examples
@@ -643,7 +643,7 @@ organise.message.removals <- function(fixreport_df, required_message_list){
   full_DT$LOST_TRIALS <- full_DT$TRIAL_TOTAL - full_DT$FINAL_TRIAL_COUNT
   full_DT$LOST_TRIALS_PERC <- full_DT$FINAL_TRIAL_COUNT / full_DT$TRIAL_TOTAL
   
-  write.table(full_DT, "event_trials_missing.txt", row.names=FALSE)
+  #write.table(full_DT, "event_trials_missing.txt", row.names=FALSE)
   
   print("EVENT INCLUSIONS AND EXCLUSIONS")
   print(full_DT)
@@ -751,7 +751,7 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
   
   print(b_DT)
   
-  write.table(data.frame(b_DT), paste(prefix_label, "behavioural_data.txt", sep="_"), row.names=FALSE)
+  #write.table(data.frame(b_DT), paste(prefix_label, "behavioural_data.txt", sep="_"), row.names=FALSE)
 
   return(b_DT)
 }
@@ -844,7 +844,7 @@ organise.exclusions.fix_durations <- function(fixreport_df, min=60, max=1200){
   full_DT$LOST_FIXES <- full_DT$FIX_TOTAL - full_DT$FINAL_FIX_COUNT
   full_DT$LOST_FIXES_PERC <- full_DT$FINAL_FIX_COUNT / full_DT$FIX_TOTAL
   
-  write.table(full_DT, "fix_duration_removals.txt", row.names=FALSE)
+  #write.table(full_DT, "fix_duration_removals.txt", row.names=FALSE)
   
   print("FIX DURATION EXCLUSIONS")
   print(full_DT)

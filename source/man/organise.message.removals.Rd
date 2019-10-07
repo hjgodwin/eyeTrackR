@@ -12,7 +12,7 @@ organise.message.removals(fixreport_df, required_message_list)
 \item{required_message_list}{List of messages required for each trial.}
 }
 \value{
-Updated fixation report with trials removed as a data.table. Also saves a copy of what was removed for writing up papers later on.
+Updated fixation report with trials removed as a data.table.
 }
 \description{
 Remove trials which fail to have all of the listed messages.

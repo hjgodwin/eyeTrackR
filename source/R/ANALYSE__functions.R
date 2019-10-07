@@ -5,7 +5,7 @@
 #' @param aggregation_column_list List of columns to group by
 #' @param output_column_expression Output column expression
 #' @param final_output_column_expression Final output column expression
-#' @param spss Should the function save output for SPSS?
+#' @param spss Should the function output for SPSS?
 #' @param dvColumnName Column name of the dependent variable
 #' @param prefixLabel Prefix label
 #' @param debug Should debug information be provided?
@@ -111,7 +111,7 @@ analyse.calculate.means <- function(fixreport_df, aggregation_column_list, outpu
     
     eval(wideExprParsed)
     
-    write.table(spss_df, paste(prefixLabel, "_", dvColumnName, ".txt", sep=""), row.names=FALSE)
+    #write.table(spss_df, paste(prefixLabel, "_", dvColumnName, ".txt", sep=""), row.names=FALSE)
     
     return(data.table(spss_df))
     

@@ -1,13 +1,13 @@
 Package: eyeTrackR
 Type: Package
-Title: Functions for Organising and Analysing Eye-tracking Data
+Title: Organising and Analysing Eye-Tracking Data
 Version: 1.0.0
 Date: 2019-10-04
 Authors@R:c(
     person("Hayward", "Godwin", email = "hg102@soton.ac.uk",role = c("aut", "cre")),
     person("Alexander", "Muhl-Richardson", role = c("ctb")))
 Maintainer: Hayward Godwin <hg102@soton.ac.uk>
-Description: A variety of different functions for handling output from Eyelink eye-trackers, focusing on the data output from DataViewer.
+Description: A variety of different functions for handling output from 'Eyelink' eye-trackers, focusing on the data output from 'DataViewer'.
 License: GPL-3
 Depends: data.table, stringr, plyr, R (>= 3.5)
 RoxygenNote: 6.1.1
