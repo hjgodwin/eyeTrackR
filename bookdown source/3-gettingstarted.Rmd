@@ -1,0 +1,33 @@
+# Getting Started {#gettingstarted}
+
+This guide is written in such a way that you can go, chapter by chapter, through the text. Just to say from the start, I'm going to assume from the beginning that you are familiar with the Eyelink system, and know how to output data from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). 
+
+## The Basics
+
+The functions in eyeTrackR are mostly split up into two categories: **Organise** functions and **Analyse** functions.^[Future versions may include *OrganiZe* and *AnalyZe* functions, who knows.] 
+
+**Organise** functions are there to help you clean, check, and, well, organise your data. 
+
+**Analyse** functions are there to work out means of common dependent variables and put them together in a format that can easily then be analysed by standard statistical methods (e.g., ANOVAs), as well as visualising those dependent variables.
+
+For most of my projects, I have two key sets of files:
+
+* ORGANISE__markup.R :  this marks up the dataset and cleans it, as you'll see in this chapter.
+* ANALYSE__XYZ.R : this either contains all of my analyses (if there aren't that many), OR I split this file up, so that I have one ANALYSE__XYZ.R file for each dependent variable.
+
+In this chapter, and the next, I'll walk you through the steps for putting together a set of analyses for a project.
+
+## Files you'll Need
+
+To start with, you'll need to output three different types of report from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). You'll need:
+
+* Fixation Report
+* Message Report
+* Interest Area Report
+
+When I generate these reports, I typically get DataViewer to output every single column of data it can. It has a whole bunch of different ones, but my preference is to be greedy. The simple reason for this is that DataViewer can take a long, long time to load up and output all your data, so you don't want to have to go back into it and do everything again just because you've missed a vital column. That being said, if you have a lower-spec or older computer, or are short on space, you may struggle with these files. 
+
+When saving these reports, it's best to save them as tab-delimeted text files (.txt).
+
+
+

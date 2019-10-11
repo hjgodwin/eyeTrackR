@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Organise Functions | A guide to eyeTrackR</title>
+  <meta name="description" content="This is a guide to using the eyeTrackR R package." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Organise Functions | A guide to eyeTrackR" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Organise Functions | A guide to eyeTrackR" />
+  
+  <meta name="twitter:description" content="This is a guide to using the eyeTrackR R package." />
+  
+
+<meta name="author" content="Hayward J. Godwin" />
+
+
+<meta name="date" content="2019-10-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gettingstarted.html"/>
+
+<script src="bookdown source/libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="bookdown source/libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="bookdown source/libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Guide to eyeTrackR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> EyeTrackR</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can EyeTrackR do?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.2</b> Some history</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a><ul>
+<li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-devtools"><i class="fa fa-check"></i><b>2.1</b> Installing via Devtools</a></li>
+<li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#removing-eyetrackr"><i class="fa fa-check"></i><b>2.2</b> Removing eyeTrackR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="gettingstarted.html"><a href="gettingstarted.html"><i class="fa fa-check"></i><b>3</b> Getting Started</a><ul>
+<li class="chapter" data-level="3.1" data-path="gettingstarted.html"><a href="gettingstarted.html#the-basics"><i class="fa fa-check"></i><b>3.1</b> The Basics</a></li>
+<li class="chapter" data-level="3.2" data-path="gettingstarted.html"><a href="gettingstarted.html#files-youll-need"><i class="fa fa-check"></i><b>3.2</b> Files you’ll Need</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="organise.html"><a href="organise.html"><i class="fa fa-check"></i><b>4</b> Organise Functions</a><ul>
+<li class="chapter" data-level="4.1" data-path="organise.html"><a href="organise.html#overview"><i class="fa fa-check"></i><b>4.1</b> Overview</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="organise.html"><a href="organise.html#marking-up-events"><i class="fa fa-check"></i><b>4.1.1</b> Marking up Events</a></li>
+<li class="chapter" data-level="4.1.2" data-path="organise.html"><a href="organise.html#removing-fixations-youre-not-interested-in"><i class="fa fa-check"></i><b>4.1.2</b> Removing Fixations You’re Not Interested In</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="organise.html"><a href="organise.html#organise-functions-walkthrough"><i class="fa fa-check"></i><b>4.2</b> Organise Functions Walkthrough</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="organise.html"><a href="organise.html#getting-started"><i class="fa fa-check"></i><b>4.2.1</b> Getting Started</a></li>
+<li class="chapter" data-level="4.2.2" data-path="organise.html"><a href="organise.html#descriptives"><i class="fa fa-check"></i><b>4.2.2</b> Descriptives</a></li>
+<li class="chapter" data-level="4.2.3" data-path="organise.html"><a href="organise.html#message-markup"><i class="fa fa-check"></i><b>4.2.3</b> Message Markup</a></li>
+<li class="chapter" data-level="4.2.4" data-path="organise.html"><a href="organise.html#fixation-contingencies"><i class="fa fa-check"></i><b>4.2.4</b> Fixation Contingencies</a></li>
+<li class="chapter" data-level="4.2.5" data-path="organise.html"><a href="organise.html#behavioural-data"><i class="fa fa-check"></i><b>4.2.5</b> Behavioural Data</a></li>
+<li class="chapter" data-level="4.2.6" data-path="organise.html"><a href="organise.html#final-checks"><i class="fa fa-check"></i><b>4.2.6</b> Final Checks</a></li>
+<li class="chapter" data-level="4.2.7" data-path="organise.html"><a href="organise.html#removing-trials"><i class="fa fa-check"></i><b>4.2.7</b> Removing Trials</a></li>
+<li class="chapter" data-level="4.2.8" data-path="organise.html"><a href="organise.html#time-to-save"><i class="fa fa-check"></i><b>4.2.8</b> Time to save</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A guide to eyeTrackR</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="organise" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Organise Functions</h1>
+<p>The stages and information given in this section follows the examples that come with the EyeTrackR package. Here, we are going to walk through the why and the how of organising eye-tracking data, ready for analyses.</p>
+<div id="overview" class="section level2">
+<h2><span class="header-section-number">4.1</span> Overview</h2>
+<p>There are a handful of key tasks that take place in the organise functions. They are as follows:</p>
+<ul>
+<li>Marking up events in each trial</li>
+<li>Removing outliers or other fixations that you’re not interested in</li>
+</ul>
+<p>I’ll now talk about each of these in detail before providing a walkthrough of the functions with example code and data.</p>
+<div id="marking-up-events" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Marking up Events</h3>
+<p>In a typical study, there will by multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. After some time has passed, the participant may make a response of some kind, terminating the trial. Here’s a diagram:</p>
+<p><img src="bookdown%20source/files/images/baseTrial.png" width="548" /></p>
+<p>For this example, there are three events:</p>
+<ul>
+<li>Display fixation point.</li>
+<li>Display a trial. Here, participants search for a T shape amongst L shapes.</li>
+<li>Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.</li>
+</ul>
+<p>Even if you have the most carefully-controlled study, it’s unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can’t just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don’t do this, in a best-case scenario, you’ll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.</p>
+<p>So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this.</p>
+<div id="contingencies" class="section level4">
+<h4><span class="header-section-number">4.1.1.1</span> Contingencies</h4>
+<p>Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make several fixations on the fixation cross, then make several more during the main trial before making a response. Indeed, in most experiments, you would probably hope they would do this.</p>
+<p>But that will not always be the case. Some participants, on some trials, will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations. The first point here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. We can see in the example below that different participants approached the task in different ways.</p>
+<p><img src="bookdown%20source/files/images/baseTrial.png" width="548" /></p>
+<p><strong>I WOULD PUT IN A FIGURE HERE HIGHLIGHTING THIS</strong></p>
+<p>So, what are contingencies? Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The <strong>contingency</strong> functions add a column to your fixation report, called <strong>FIXATION_CONTINGENCY</strong>. This column tells you what events occurred during the fixation in question.</p>
+<p>If a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY . If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. This is highlighted in the figure below.</p>
+<p><strong>ANOTHER FIGURE SHOWING THINGS</strong></p>
+<p>The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the <strong>FIXATION_CONTINGENCY</strong> column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures.</p>
+</div>
+</div>
+<div id="removing-fixations-youre-not-interested-in" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Removing Fixations You’re Not Interested In</h3>
+</div>
+</div>
+<div id="organise-functions-walkthrough" class="section level2">
+<h2><span class="header-section-number">4.2</span> Organise Functions Walkthrough</h2>
+<div id="getting-started" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Getting Started</h3>
+<p>To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a ‘fool-proof’ way of examining the timings and occurrences of events.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>We begin by loading the fixation report and message report - these are the ones that come pre-packaged with EyeTrackR. It’s a dummy dataset. You can of course replace them with whatever you want.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">data</span>(fixationreport)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">data</span>(messagereport)</a></code></pre></div>
+<p>Next, we begin ‘marking up’ the events, which is why I usually call the file with my organise functions in ORGANISE__Markup.R. The first step is to replace the spaces in any messages with underscores. This is needed as a safety measure because spaces in the event labels can disrupt the process of working out contingencies.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># REPLACE SPACES IN MESSAGES</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">messagereport &lt;-<span class="st"> </span><span class="kw">organise.message.replace_spaces</span>(messagereport)</a></code></pre></div>
+</div>
+<div id="descriptives" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Descriptives</h3>
+<p>Now, we cant get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># TAKE A LOOK</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">organise.message.descriptives</span>(messagereport)</a></code></pre></div>
+<p>From that, we get the following - formatted nicely here for easy reading:</p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-9">Table 4.1: </span>Message report descriptives
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+CURRENT_MSG_TEXT
+</th>
+<th style="text-align:right;">
+EVENT_COUNT
+</th>
+<th style="text-align:right;">
+TIME_MEAN
+</th>
+<th style="text-align:right;">
+TIME_MIN
+</th>
+<th style="text-align:right;">
+TIME_MAX
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DISPLAY_START
+</td>
+<td style="text-align:right;">
+15000
+</td>
+<td style="text-align:right;">
+30.4704
+</td>
+<td style="text-align:right;">
+26.0000
+</td>
+<td style="text-align:right;">
+35.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+<td style="text-align:right;">
+15000
+</td>
+<td style="text-align:right;">
+255.4810
+</td>
+<td style="text-align:right;">
+251.0000
+</td>
+<td style="text-align:right;">
+260.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUTTON_PRESS
+</td>
+<td style="text-align:right;">
+15000
+</td>
+<td style="text-align:right;">
+1137.6133
+</td>
+<td style="text-align:right;">
+404.4914
+</td>
+<td style="text-align:right;">
+1982.368
+</td>
+</tr>
+</tbody>
+</table>
+<p>The table above, which you get in the console output by running <strong>organise.message.descriptives</strong>, has some useful information in it that you can use to spot and diagnose any problems with your data. First, it lists all of the messages it finds in your message report file, in turn, and puts them in the <strong>CURRENT_MSG_TEXT</strong> column. Then, it gives you a count of how many times each message has been detected in your message report, the mean time each message occurred from the start of each trial, and then, as well as that, the maximum and minimum times each message occurred. There will always be variability in terms of when events occur in a trial, but this does enable you to make sure that, for the most part at least, things happened when they were supposed to.</p>
+<p>One thing you can do at this point is a back-of-the-envelope calculation and check to make sure all the trials are there as you would expect. Assuming you know how many participants were in your dataset, and how many trials, you should be able to check to make sure the right number of trials have started (i.e., had a <strong>DISPLAY_START</strong> message appear). If that’s not the case, then you may need to delve deeper to find why data are missing.</p>
+<p>Now that you have checked to make sure things appear as they should - here, we have XYZ partcipants in our example dataset who took part in XYZ trials, giving us XYZ trials across everyone, which is what is being reported in the table, we can continue.</p>
+</div>
+<div id="message-markup" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Message Markup</h3>
+<p>Our next step is to begin to <strong>markup</strong> the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The <strong>organise.message.markup</strong> function is the start of that process. Let’s run it first then talk about what it does to your fixation report:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># MARKUP FIXATION REPORT</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_START&quot;</span>)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_CHANGE&quot;</span>)</a></code></pre></div>
+<p>If you now take a look at <strong>fixreport</strong> - which I would recommend you do - you’ll now see some new columns have been added. One is called <strong>DISPLAY_START</strong> and the other is called <strong>DISPLAY_CHANGE</strong>. If you look closely, what this has done is:</p>
+<ul>
+<li>Work out when each <strong>DISPLAY_START</strong> and <strong>DISPLAY_CHANGE</strong> occurred in each of the trials.</li>
+<li>Take the timings of those messages and then add that information to the fixation report.</li>
+</ul>
+<p>This process also gives you some diagnostic information that helps to check for any problems. It compares the number of rows your fixation report had before you marked it up with each new message with what happens to the fixation report after you have marked it up with each new message. If the number of rows are different, that suggests something has gone wrong. Usually this is the case that you have got participants or trials that are missing from either the fixation report or the message report. If you get the following message, then you have nothing to worry about because the dataset has been matched up perfectly:</p>
+<blockquote>
+<p>Difference between input and output rows: 0</p>
+</blockquote>
+<div id="behavioural-markup" class="section level4">
+<h4><span class="header-section-number">4.2.3.1</span> Behavioural Markup</h4>
+<p>We now have two of the major events in each trial marked up into our fixation report. The only thing that is missing is the other main event in each trial: the response made by each participant!</p>
+<p>Here, there are two ways to markup the fixation report. If you use a button box, you can use the method here. If you are not using a button box, you’ll need to use the method described in <a href="organise.html#bma">Behavioural Markup (Alternative)</a>.</p>
+<p>To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use <strong>organise.responses.markup</strong>. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiemnt Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let’s run the code:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># NOW DO ACCURACY AND RT MARKUP</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.responses.markup</span>(fixationreport, <span class="st">&quot;CORRECT_RESPONSE&quot;</span>)</a></code></pre></div>
+<p>This function has added the following columns to your fixation report file:</p>
+<ul>
+<li>BUTTON_NUMBER - the button number pressed on that trial.</li>
+<li>OUTCOME - the outcome (‘CORRECT’ or ‘INCORRECT’ of the response).</li>
+<li>RESPONSE_TIME - the time from the start of the trial that the response was made.</li>
+</ul>
+<p>It’s worth noting that RESPONSE_TIME isn’t necessarily what you want to use as your Reaction Time measure, since, with this expeirment, as in many others, the display doesn’t actuall appear for people to look at until DISPLAY_CHANGE. We’ll talk more about this later.</p>
+</div>
+<div id="bma" class="section level4">
+<h4><span class="header-section-number">4.2.3.2</span> Behavioural Markup (Alternative)</h4>
+<p>TBA</p>
+</div>
+</div>
+<div id="fixation-contingencies" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Fixation Contingencies</h3>
+<p>We now know at what point in each trial each of the three major events occurred- the DISPLAY_START events, the DISPLAY_CHANGE events, and the RESPONSE_TIME events. We know what button participants pressed, and we know if they were right or wrong in each trial. The final step now is to markup the fixation <strong>contingencies</strong>. Again, these are important in helping us be sure that we’ve included what we want to include when it comes to analysing our eye-tracking data.</p>
+<p>To get going with this, we need to use the <strong>organise.message.fix_contingencies</strong> function. You need to feed this function the fixation report you’re using, as well as a list of the messages you want to mark up in terms of your contingencies. Note that you don’t need to include all the messages here, just the ones you’re interested in. Let’s run it as follows:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># NOW MARK UP FIXATION CONTINGENCIES</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">fixationreport&lt;-<span class="kw">organise.message.fix_contingencies</span>(fixationreport, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">                                              <span class="kw">list</span>(<span class="st">&quot;DISPLAY_START&quot;</span>, </a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">                                                   <span class="st">&quot;DISPLAY_CHANGE&quot;</span>, </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">                                                   <span class="st">&quot;RESPONSE_TIME&quot;</span>))</a></code></pre></div>
+<p>If you now look at your fixation report, a bunch of new columns have been added to it. They are as follows:</p>
+<ul>
+<li><p>WITHIN_PRE_DISPLAY_START - this lets you know if a given fixation started before the first message you were interested in. In this case, the first message we were interested in is DISPLAY__START, so this column is helpful in letting us focus in on fixations that occurred before even the fixation cross came up. You might be wondering how there can possibly be any time before the fixation cross which literally starts the trial, but in fact, the eye-tracker actually turns on for a <em>little while</em> before the display comes up. Any fixation labelled as TRUE under WITHIN_PRE_DISPLAY_START began before the fixation cross came up.</p></li>
+<li><p>WITHIN_DISPLAY_START - this lets you know if a given fixation was occuring when the DISPLAY_START message came up. The cells say TRUE if that is the case and FALSE if not.</p></li>
+<li><p>WITHIN_DISPLAY_CHANGE - this lets you know if a given fixation was occuring when the DISPLAY_CHANGE message came up. The cells say TRUE if that is the case and FALSE if not.</p></li>
+<li><p>WITHIN_RESPONSE_TIME - this lets you know if a given fixation was occuring when the RESPONSE_TIME message came up. The cells say TRUE if that is the case and FALSE if not.</p></li>
+<li><p>FIXATION_CONTINGENCY - this is the most important column added by the <strong>organise.message.fix_contingencies</strong> function. It pastes together all of the message names that each fixation spanned.</p></li>
+</ul>
+<p>Let’s give some more detailed examples of how to interepret the important FIXATION_CONTINGENCY column. It’ll help if we begin by looking at the final columns of the fixation report after <strong>organise.message.fix_contingencies</strong> has been run:</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:createtable">Table 4.2: </span>Fixation report final columns
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+WITHIN_PRE_DISPLAY_START
+</th>
+<th style="text-align:left;">
+WITHIN_DISPLAY_START
+</th>
+<th style="text-align:left;">
+WITHIN_DISPLAY_CHANGE
+</th>
+<th style="text-align:left;">
+WITHIN_RESPONSE_TIME
+</th>
+<th style="text-align:left;">
+FIXATION_CONTINGENCY
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+PRE_DISPLAY_START__DISPLAY_START
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_START
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_START__DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+DISPLAY_CHANGE__RESPONSE_TIME
+</td>
+</tr>
+</tbody>
+</table>
+<p>Browsing through these, you may have already worked out what FIXATION_CONTINGENCY really does. Let’s give some examples:</p>
+<ul>
+<li><p>The fixation in the first row began before DISPLAY_START and then ended during the period of time when the fixation cross was up. For that reason it gets a contingency of PRE_DISPLAY_START__DISPLAY_START.</p></li>
+<li><p>The fixation in the second row began when the fixation cross was up, and ended when the fixation cross was up, giving it a contingency of DISPLAY_START.</p></li>
+<li><p>The fixation in the third row began when the fixation cross was up, and ended when the main search array was visible. For that reason, it gets a contingency of DISPLAY_START__DISPLAY_CHANGE.</p></li>
+<li><p>The next five fixations began and ended when the search array was visible, so they get a contingency of DISPLAY_CHANGE.</p></li>
+<li><p>The final fixation began when the search array was visible, and ended when the response was made. For that reason, this fixation gets a contingency of DISPLAY_CHANGE____RESPONSE_TIME.</p></li>
+</ul>
+<p>With the fixation report marked up in this manner, you can then, at a later point, be careful in how you select your data down to focus only on the trials and/or fixations that you are definitely interested in.</p>
+</div>
+<div id="behavioural-data" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Behavioural Data</h3>
+<p>You already have the responses, outcomes and reaction times marked up for each trial at this point. But one problem is that these will require some work to convert to, say, mean accuracy rates. This is because the fixation report has one row per fixation, rather than one row per trial. Therefore, if you want the mean accuracy rate for your participants, you’ll need to crunch the data down to one row per trial before computing your means.</p>
+<p>Fortunately, EyeTrackR can do this for you! Our first step in doing this is to work out the <strong>TRUE_RT</strong> column. This is as follows:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># SET UP TRUE RT</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">fixationreport[,TRUE_RT<span class="op">:</span><span class="er">=</span>RESPONSE_TIME<span class="op">-</span>DISPLAY_START,]</a></code></pre></div>
+<p>This takes the response time from the display start time, to enable us to focus just on the time that we are interested in. Next, you just need to run <strong>analyse.behavioural.data</strong>, feed it the fixation report, and the list of columns you want to aggregate by (using the <strong>aggregation_column_list</strong> input). Here, in the example below, the output is saved to the **behaviouralData* data.table.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">behaviouralData &lt;-<span class="st"> </span><span class="kw">analyse.behavioural.data</span>(fixationreport, </a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">                                                <span class="dt">aggregation_column_list =</span> <span class="kw">list</span>(<span class="st">&#39;TRIALTYPE_TEXT&#39;</span>))</a></code></pre></div>
+<p>The <strong>behaviouralData</strong> table looks like this:</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-17">Table 4.3: </span>Summarised Behavioural Data
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+RECORDING_SESSION_LABEL
+</th>
+<th style="text-align:left;">
+TRIALTYPE_TEXT
+</th>
+<th style="text-align:right;">
+MEDIAN_RT
+</th>
+<th style="text-align:right;">
+MEAN_RT
+</th>
+<th style="text-align:right;">
+CORRECT_COUNT
+</th>
+<th style="text-align:right;">
+TOTAL_TRIALS
+</th>
+<th style="text-align:right;">
+ACCURACY
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1157.400
+</td>
+<td style="text-align:right;">
+1185.641
+</td>
+<td style="text-align:right;">
+1423
+</td>
+<td style="text-align:right;">
+2449
+</td>
+<td style="text-align:right;">
+0.5810535
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1250.787
+</td>
+<td style="text-align:right;">
+1183.069
+</td>
+<td style="text-align:right;">
+1012
+</td>
+<td style="text-align:right;">
+2473
+</td>
+<td style="text-align:right;">
+0.4092196
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1250.100
+</td>
+<td style="text-align:right;">
+1220.968
+</td>
+<td style="text-align:right;">
+1196
+</td>
+<td style="text-align:right;">
+2509
+</td>
+<td style="text-align:right;">
+0.4766839
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1285.536
+</td>
+<td style="text-align:right;">
+1252.586
+</td>
+<td style="text-align:right;">
+1136
+</td>
+<td style="text-align:right;">
+2579
+</td>
+<td style="text-align:right;">
+0.4404808
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1229.856
+</td>
+<td style="text-align:right;">
+1184.251
+</td>
+<td style="text-align:right;">
+1281
+</td>
+<td style="text-align:right;">
+2408
+</td>
+<td style="text-align:right;">
+0.5319767
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1223.563
+</td>
+<td style="text-align:right;">
+1205.574
+</td>
+<td style="text-align:right;">
+1142
+</td>
+<td style="text-align:right;">
+2502
+</td>
+<td style="text-align:right;">
+0.4564349
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1216.778
+</td>
+<td style="text-align:right;">
+1198.994
+</td>
+<td style="text-align:right;">
+1239
+</td>
+<td style="text-align:right;">
+2475
+</td>
+<td style="text-align:right;">
+0.5006061
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1427.213
+</td>
+<td style="text-align:right;">
+1304.166
+</td>
+<td style="text-align:right;">
+1280
+</td>
+<td style="text-align:right;">
+2563
+</td>
+<td style="text-align:right;">
+0.4994147
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1329.680
+</td>
+<td style="text-align:right;">
+1248.196
+</td>
+<td style="text-align:right;">
+1254
+</td>
+<td style="text-align:right;">
+2509
+</td>
+<td style="text-align:right;">
+0.4998007
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1226.644
+</td>
+<td style="text-align:right;">
+1177.300
+</td>
+<td style="text-align:right;">
+1214
+</td>
+<td style="text-align:right;">
+2442
+</td>
+<td style="text-align:right;">
+0.4971335
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1268.918
+</td>
+<td style="text-align:right;">
+1228.710
+</td>
+<td style="text-align:right;">
+1327
+</td>
+<td style="text-align:right;">
+2562
+</td>
+<td style="text-align:right;">
+0.5179547
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1252.378
+</td>
+<td style="text-align:right;">
+1209.104
+</td>
+<td style="text-align:right;">
+1124
+</td>
+<td style="text-align:right;">
+2462
+</td>
+<td style="text-align:right;">
+0.4565394
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1171.000
+</td>
+<td style="text-align:right;">
+1156.252
+</td>
+<td style="text-align:right;">
+1304
+</td>
+<td style="text-align:right;">
+2438
+</td>
+<td style="text-align:right;">
+0.5348646
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1239.448
+</td>
+<td style="text-align:right;">
+1208.071
+</td>
+<td style="text-align:right;">
+1133
+</td>
+<td style="text-align:right;">
+2450
+</td>
+<td style="text-align:right;">
+0.4624490
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1271.286
+</td>
+<td style="text-align:right;">
+1227.473
+</td>
+<td style="text-align:right;">
+1295
+</td>
+<td style="text-align:right;">
+2498
+</td>
+<td style="text-align:right;">
+0.5184147
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1291.235
+</td>
+<td style="text-align:right;">
+1256.557
+</td>
+<td style="text-align:right;">
+1283
+</td>
+<td style="text-align:right;">
+2580
+</td>
+<td style="text-align:right;">
+0.4972868
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1392.445
+</td>
+<td style="text-align:right;">
+1323.624
+</td>
+<td style="text-align:right;">
+1310
+</td>
+<td style="text-align:right;">
+2587
+</td>
+<td style="text-align:right;">
+0.5063780
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1149.848
+</td>
+<td style="text-align:right;">
+1130.382
+</td>
+<td style="text-align:right;">
+1014
+</td>
+<td style="text-align:right;">
+2392
+</td>
+<td style="text-align:right;">
+0.4239130
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1323.778
+</td>
+<td style="text-align:right;">
+1242.543
+</td>
+<td style="text-align:right;">
+1150
+</td>
+<td style="text-align:right;">
+2491
+</td>
+<td style="text-align:right;">
+0.4616620
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1343.560
+</td>
+<td style="text-align:right;">
+1259.842
+</td>
+<td style="text-align:right;">
+1357
+</td>
+<td style="text-align:right;">
+2568
+</td>
+<td style="text-align:right;">
+0.5284268
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1252.289
+</td>
+<td style="text-align:right;">
+1233.529
+</td>
+<td style="text-align:right;">
+1189
+</td>
+<td style="text-align:right;">
+2476
+</td>
+<td style="text-align:right;">
+0.4802100
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1291.085
+</td>
+<td style="text-align:right;">
+1256.649
+</td>
+<td style="text-align:right;">
+1324
+</td>
+<td style="text-align:right;">
+2563
+</td>
+<td style="text-align:right;">
+0.5165821
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1286.929
+</td>
+<td style="text-align:right;">
+1237.908
+</td>
+<td style="text-align:right;">
+1282
+</td>
+<td style="text-align:right;">
+2537
+</td>
+<td style="text-align:right;">
+0.5053212
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1272.208
+</td>
+<td style="text-align:right;">
+1230.583
+</td>
+<td style="text-align:right;">
+1277
+</td>
+<td style="text-align:right;">
+2557
+</td>
+<td style="text-align:right;">
+0.4994134
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1228.433
+</td>
+<td style="text-align:right;">
+1206.480
+</td>
+<td style="text-align:right;">
+1225
+</td>
+<td style="text-align:right;">
+2425
+</td>
+<td style="text-align:right;">
+0.5051546
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1201.048
+</td>
+<td style="text-align:right;">
+1149.940
+</td>
+<td style="text-align:right;">
+1068
+</td>
+<td style="text-align:right;">
+2476
+</td>
+<td style="text-align:right;">
+0.4313409
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1214.384
+</td>
+<td style="text-align:right;">
+1162.218
+</td>
+<td style="text-align:right;">
+1061
+</td>
+<td style="text-align:right;">
+2438
+</td>
+<td style="text-align:right;">
+0.4351928
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1287.243
+</td>
+<td style="text-align:right;">
+1235.081
+</td>
+<td style="text-align:right;">
+1273
+</td>
+<td style="text-align:right;">
+2624
+</td>
+<td style="text-align:right;">
+0.4851372
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1184.089
+</td>
+<td style="text-align:right;">
+1161.135
+</td>
+<td style="text-align:right;">
+1063
+</td>
+<td style="text-align:right;">
+2462
+</td>
+<td style="text-align:right;">
+0.4317628
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1262.098
+</td>
+<td style="text-align:right;">
+1221.638
+</td>
+<td style="text-align:right;">
+1358
+</td>
+<td style="text-align:right;">
+2489
+</td>
+<td style="text-align:right;">
+0.5456006
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1281.403
+</td>
+<td style="text-align:right;">
+1229.739
+</td>
+<td style="text-align:right;">
+1256
+</td>
+<td style="text-align:right;">
+2445
+</td>
+<td style="text-align:right;">
+0.5137014
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1124.128
+</td>
+<td style="text-align:right;">
+1132.306
+</td>
+<td style="text-align:right;">
+1060
+</td>
+<td style="text-align:right;">
+2475
+</td>
+<td style="text-align:right;">
+0.4282828
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1243.181
+</td>
+<td style="text-align:right;">
+1210.754
+</td>
+<td style="text-align:right;">
+1298
+</td>
+<td style="text-align:right;">
+2459
+</td>
+<td style="text-align:right;">
+0.5278569
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1248.391
+</td>
+<td style="text-align:right;">
+1209.368
+</td>
+<td style="text-align:right;">
+1291
+</td>
+<td style="text-align:right;">
+2529
+</td>
+<td style="text-align:right;">
+0.5104784
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1395.318
+</td>
+<td style="text-align:right;">
+1289.188
+</td>
+<td style="text-align:right;">
+1372
+</td>
+<td style="text-align:right;">
+2532
+</td>
+<td style="text-align:right;">
+0.5418641
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1240.013
+</td>
+<td style="text-align:right;">
+1205.530
+</td>
+<td style="text-align:right;">
+1255
+</td>
+<td style="text-align:right;">
+2476
+</td>
+<td style="text-align:right;">
+0.5068659
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1223.599
+</td>
+<td style="text-align:right;">
+1175.338
+</td>
+<td style="text-align:right;">
+1223
+</td>
+<td style="text-align:right;">
+2362
+</td>
+<td style="text-align:right;">
+0.5177815
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1280.064
+</td>
+<td style="text-align:right;">
+1216.492
+</td>
+<td style="text-align:right;">
+1322
+</td>
+<td style="text-align:right;">
+2547
+</td>
+<td style="text-align:right;">
+0.5190420
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1205.162
+</td>
+<td style="text-align:right;">
+1185.567
+</td>
+<td style="text-align:right;">
+1285
+</td>
+<td style="text-align:right;">
+2486
+</td>
+<td style="text-align:right;">
+0.5168946
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1324.557
+</td>
+<td style="text-align:right;">
+1274.230
+</td>
+<td style="text-align:right;">
+1331
+</td>
+<td style="text-align:right;">
+2608
+</td>
+<td style="text-align:right;">
+0.5103528
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1247.392
+</td>
+<td style="text-align:right;">
+1206.089
+</td>
+<td style="text-align:right;">
+1220
+</td>
+<td style="text-align:right;">
+2416
+</td>
+<td style="text-align:right;">
+0.5049669
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1300.559
+</td>
+<td style="text-align:right;">
+1267.571
+</td>
+<td style="text-align:right;">
+1384
+</td>
+<td style="text-align:right;">
+2574
+</td>
+<td style="text-align:right;">
+0.5376845
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1280.249
+</td>
+<td style="text-align:right;">
+1204.834
+</td>
+<td style="text-align:right;">
+1143
+</td>
+<td style="text-align:right;">
+2454
+</td>
+<td style="text-align:right;">
+0.4657702
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1340.408
+</td>
+<td style="text-align:right;">
+1260.651
+</td>
+<td style="text-align:right;">
+1228
+</td>
+<td style="text-align:right;">
+2507
+</td>
+<td style="text-align:right;">
+0.4898285
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1237.279
+</td>
+<td style="text-align:right;">
+1168.773
+</td>
+<td style="text-align:right;">
+1282
+</td>
+<td style="text-align:right;">
+2470
+</td>
+<td style="text-align:right;">
+0.5190283
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1259.285
+</td>
+<td style="text-align:right;">
+1222.358
+</td>
+<td style="text-align:right;">
+1436
+</td>
+<td style="text-align:right;">
+2565
+</td>
+<td style="text-align:right;">
+0.5598441
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1298.970
+</td>
+<td style="text-align:right;">
+1227.991
+</td>
+<td style="text-align:right;">
+1290
+</td>
+<td style="text-align:right;">
+2504
+</td>
+<td style="text-align:right;">
+0.5151757
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1268.487
+</td>
+<td style="text-align:right;">
+1240.864
+</td>
+<td style="text-align:right;">
+1316
+</td>
+<td style="text-align:right;">
+2474
+</td>
+<td style="text-align:right;">
+0.5319321
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1229.703
+</td>
+<td style="text-align:right;">
+1190.179
+</td>
+<td style="text-align:right;">
+1075
+</td>
+<td style="text-align:right;">
+2423
+</td>
+<td style="text-align:right;">
+0.4436649
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1277.152
+</td>
+<td style="text-align:right;">
+1238.156
+</td>
+<td style="text-align:right;">
+1335
+</td>
+<td style="text-align:right;">
+2566
+</td>
+<td style="text-align:right;">
+0.5202650
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1277.503
+</td>
+<td style="text-align:right;">
+1241.456
+</td>
+<td style="text-align:right;">
+1313
+</td>
+<td style="text-align:right;">
+2525
+</td>
+<td style="text-align:right;">
+0.5200000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1223.005
+</td>
+<td style="text-align:right;">
+1217.925
+</td>
+<td style="text-align:right;">
+1291
+</td>
+<td style="text-align:right;">
+2511
+</td>
+<td style="text-align:right;">
+0.5141378
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1182.850
+</td>
+<td style="text-align:right;">
+1185.837
+</td>
+<td style="text-align:right;">
+1079
+</td>
+<td style="text-align:right;">
+2383
+</td>
+<td style="text-align:right;">
+0.4527906
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1307.262
+</td>
+<td style="text-align:right;">
+1254.601
+</td>
+<td style="text-align:right;">
+1144
+</td>
+<td style="text-align:right;">
+2519
+</td>
+<td style="text-align:right;">
+0.4541485
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1229.227
+</td>
+<td style="text-align:right;">
+1205.312
+</td>
+<td style="text-align:right;">
+1162
+</td>
+<td style="text-align:right;">
+2508
+</td>
+<td style="text-align:right;">
+0.4633174
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1200.175
+</td>
+<td style="text-align:right;">
+1168.751
+</td>
+<td style="text-align:right;">
+1072
+</td>
+<td style="text-align:right;">
+2513
+</td>
+<td style="text-align:right;">
+0.4265818
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1263.412
+</td>
+<td style="text-align:right;">
+1209.283
+</td>
+<td style="text-align:right;">
+1208
+</td>
+<td style="text-align:right;">
+2526
+</td>
+<td style="text-align:right;">
+0.4782264
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1240.007
+</td>
+<td style="text-align:right;">
+1179.010
+</td>
+<td style="text-align:right;">
+1128
+</td>
+<td style="text-align:right;">
+2472
+</td>
+<td style="text-align:right;">
+0.4563107
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:left;">
+YES
+</td>
+<td style="text-align:right;">
+1226.636
+</td>
+<td style="text-align:right;">
+1201.704
+</td>
+<td style="text-align:right;">
+1093
+</td>
+<td style="text-align:right;">
+2443
+</td>
+<td style="text-align:right;">
+0.4474007
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:left;">
+NO
+</td>
+<td style="text-align:right;">
+1232.063
+</td>
+<td style="text-align:right;">
+1201.976
+</td>
+<td style="text-align:right;">
+1120
+</td>
+<td style="text-align:right;">
+2528
+</td>
+<td style="text-align:right;">
+0.4430380
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note a few useful columns in that table to help you back-calculate and double-check to make sure everything is going ok. You should look through this to be certain. Is there the right number of trials? The right number of participants? Does it look like anything is missing? Has the accuracy rate been calculated properly? Also, do the reaction times make sense?</p>
+<p>Again, the goal here is to help you be certain that there are no problems with your data and catch those problems as early as possible.</p>
+</div>
+<div id="final-checks" class="section level3">
+<h3><span class="header-section-number">4.2.6</span> Final Checks</h3>
+<p>We are almost ready to save our marked-up fixation report. It’s worth at this point to suggest running some checks on our data. Have a go at running the <strong>organise.checks.random_trial</strong> function. This is a simple one - the function does, in fact, do nothing at all to your code. All it does it pick, from a random trial and participant, the fixations from that trial and display them in the console for you. You can repeatedly run this function to inspect all sorts of trials to make sure that any code you have run on your data makes sense and has worked how you think it should have done.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># RANDOM TRIAL TO CHECK THINGS OUT</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">organise.checks.random_trial</span>(fixationreport)</a></code></pre></div>
+<blockquote>
+<p>I can’t tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.</p>
+</blockquote>
+<div id="the-final-check-of-contingencies" class="section level4">
+<h4><span class="header-section-number">4.2.6.1</span> The final check of contingencies</h4>
+<pre><code># FIX CONTINGENCIES
+organise.contingencies.descriptives(fixationreport)</code></pre>
+</div>
+</div>
+<div id="removing-trials" class="section level3">
+<h3><span class="header-section-number">4.2.7</span> Removing Trials</h3>
+<pre><code># REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
+foo &lt;- organise.message.removals(fixreport_df=fixationreport, required_message_list=list(&quot;DISPLAY_CHANGE&quot;, &quot;RESPONSE_TIME&quot;))</code></pre>
+<pre><code>organise.contingencies.descriptives(fixationreport) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!</code></pre>
+</div>
+<div id="time-to-save" class="section level3">
+<h3><span class="header-section-number">4.2.8</span> Time to save</h3>
+<pre><code># REMOVALS
+df_final_for_analysis &lt;- organise.exclusions.fix_durations(fixreport_df=fixationreport)</code></pre>
+<pre><code># THAT&#39;S IT! LET&#39;S NOW SAVE THE FINAL THING ##########################################################
+write.table(df_final_for_analysis, &quot;df_final_for_analysis.txt&quot;, row.names=FALSE)
+</code></pre>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>If you rely only on the <strong>CURRENT_FIX_MSG_X</strong> columns in the fixation report to determine when events occurs, you wil make errors and fail to detect when events occur (occasionally, and it’s very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I’ve seen people use only these columns in DataViewer, or worse, guess when events occurred.<a href="organise.html#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gettingstarted.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="bookdown source/libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="bookdown source/libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/4-organise.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection"
+});
+});
+</script>
+
+</body>
+
+</html>

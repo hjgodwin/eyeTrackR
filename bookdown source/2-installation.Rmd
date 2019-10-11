@@ -1,0 +1,27 @@
+
+# Installation {#installation}
+
+<!-- Commented out for now since this isn't true yet!!-->
+<!-- ## Installing via CRAN -->
+
+<!-- You can install eyeTrackR via **CRAN** in the same way that you would install most R packages - in RStudio, head over to the **Packages** tab, and hit **Install**. Then search for eyeTrackR. -->
+
+## Installing via Devtools
+
+From R using the **devtools** package:
+
+```{r, eval=F}
+library(devtools)
+install_github('hjgodwin/eyetrackR/source')
+```
+
+## Removing eyeTrackR
+
+If you want to remove the package either to update it or because you just want to get rid of it, run the following from R:
+
+```{r, eval=F}
+remove.packages(pkgs="eyeTrackR")
+```
+
+
+
