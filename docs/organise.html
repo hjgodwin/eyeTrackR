@@ -33,13 +33,13 @@
   
 <link rel="prev" href="gettingstarted.html"/>
 
-<script src="bookdown source/libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="bookdown source/libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="bookdown source/libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -47,7 +47,7 @@
 
 
 
-<script src="bookdown source/libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -191,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="marking-up-events" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Marking up Events</h3>
 <p>In a typical study, there will by multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. After some time has passed, the participant may make a response of some kind, terminating the trial. Here’s a diagram:</p>
-<p><img src="bookdown%20source/files/images/baseTrial.png" width="548" /></p>
+<p><img src="files/images/baseTrial.png" width="548" /></p>
 <p>For this example, there are three events:</p>
 <ul>
 <li>Display fixation point.</li>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">4.1.1.1</span> Contingencies</h4>
 <p>Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make several fixations on the fixation cross, then make several more during the main trial before making a response. Indeed, in most experiments, you would probably hope they would do this.</p>
 <p>But that will not always be the case. Some participants, on some trials, will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations. The first point here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. We can see in the example below that different participants approached the task in different ways.</p>
-<p><img src="bookdown%20source/files/images/baseTrial.png" width="548" /></p>
+<p><img src="files/images/baseTrial.png" width="548" /></p>
 <p><strong>I WOULD PUT IN A FIGURE HERE HIGHLIGHTING THIS</strong></p>
 <p>So, what are contingencies? Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The <strong>contingency</strong> functions add a column to your fixation report, called <strong>FIXATION_CONTINGENCY</strong>. This column tells you what events occurred during the fixation in question.</p>
 <p>If a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY . If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. This is highlighted in the figure below.</p>
@@ -2040,13 +2040,13 @@ write.table(df_final_for_analysis, &quot;df_final_for_analysis.txt&quot;, row.na
 
     </div>
   </div>
-<script src="bookdown source/libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="bookdown source/libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
