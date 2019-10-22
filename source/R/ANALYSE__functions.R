@@ -57,7 +57,7 @@ analyse.calculate.means <- function(fixreport_df, aggregation_column_list, outpu
                    eval(aggExprParsed)]
   
   if (debug==TRUE){
-    print(out_DT)
+    message(out_DT)
   }
   
   # PARSE THE MEAN OF THE MEANS

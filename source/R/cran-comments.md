@@ -1,5 +1,5 @@
 ## Resubmission
-Thanks for your previous comments. The package here is a resubmission. Here, I have:
+Thanks for your previous comments.  Here, I have:
   
 * Changed the title in the DESCRIPTION file to title case
 * Put single quotes around software names in the DESCRIPTION file (these are 'DataViewer' and 'Eyelink')

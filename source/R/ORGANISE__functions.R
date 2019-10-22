@@ -100,7 +100,7 @@ organise.checks.random_trial <- function(fixreport_df){
   selected$FIX_END <- selected$CURRENT_FIX_END
   selected$CURRENT_IA <- selected$CURRENT_FIX_INTEREST_AREA_LABEL
   
-  print(selected)
+  #print(selected)
   
   return(selected)
 }
@@ -141,8 +141,6 @@ organise.message.descriptives <- function(message_df){
              "TIME_MAX" = max(CURRENT_MSG_TIME)),
         list(CURRENT_MSG_TEXT)
         ]
-  
-  #print(mDT)
   
   return(summary_DT)
 }
@@ -187,7 +185,7 @@ organise.message.markup <- function(message_df, fixreport_df, message, show_work
   fix_DT <- data.table(fixreport_df)
   setkey(fix_DT, RECORDING_SESSION_LABEL, TRIAL_INDEX)
   
-  print(message)
+  message(message)
   
   selectExpr <- parse(text=paste("list('", message, "'", "=", "CURRENT_MSG_TIME)", sep=""))                    
   
@@ -201,7 +199,7 @@ organise.message.markup <- function(message_df, fixreport_df, message, show_work
   if (show_working == TRUE){
 	#print(mDT)
 	#print(fix_DT)
-    print(selected_mDT)
+    message(selected_mDT)
   }  
   
   # JOIN - A WORK IN PROGRESS
@@ -211,7 +209,7 @@ organise.message.markup <- function(message_df, fixreport_df, message, show_work
   inputrow <- nrow(fixreport_df)
   outputrow <- nrow(data.frame(joined_mDT))
   
-  print(paste("Difference between input and output rows:", inputrow-outputrow, sep=' '))
+  message(paste("Difference between input and output rows:", inputrow-outputrow, sep=' '))
   if(inputrow-outputrow!=0){warning('There was a difference between input and output rows. Check your data.')}
   
   return(data.frame(joined_mDT))  
@@ -247,7 +245,7 @@ organise.message.return_specific <- function(message_df, fixreport_df, message, 
   fix_DT <- data.table(fixreport_df)
   setkey(fix_DT, RECORDING_SESSION_LABEL, TRIAL_INDEX)
   
-  print(message)
+  message(message)
   
   selectExpr <- parse(text=paste("list('", message, "'", "=", "CURRENT_MSG_TIME)", sep=""))                    
   
@@ -257,7 +255,7 @@ organise.message.return_specific <- function(message_df, fixreport_df, message, 
   
   # PRINTS THE MESSAGES
   if (show_working == TRUE){
-    print(selected_mDT)
+    message(selected_mDT)
   }  
   
   joined_mDT <- fix_DT[selected_mDT]
@@ -326,7 +324,7 @@ organise.message.fix_contingencies <- function(fixreport_df, ordered_message_lis
     
     # CHECK IF FIXATION WITHIN EVENT LIMITS
     
-    print(ordered_message_list[i])
+    message(ordered_message_list[i])
     
     # IF WE ARE NOT AT THE END OF OUR LIST, DO THIS
     if (i<length(ordered_message_list)){
@@ -369,7 +367,7 @@ organise.message.fix_contingencies <- function(fixreport_df, ordered_message_lis
                             "sep='')",
                             sep="")
     
-    #print(comparisonExpr)
+    
     comaprisonExprParsed <- parse(text=comparisonExpr)
     eval(comaprisonExprParsed)
     
@@ -584,7 +582,7 @@ organise.contingencies.descriptives <- function(fixreport_df){
 #' # FIX CONTINGENCIES
 #' organise.contingencies.descriptives(foo)
 #' 
-#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
+#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
 #' foo <- organise.message.removals(fixreport_df=foo, 
 #'                                  required_message_list=list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
 #' # REMOVES NO TRIALS = EXCELLENT!
@@ -645,7 +643,7 @@ organise.message.removals <- function(fixreport_df, required_message_list){
   
   #write.table(full_DT, "event_trials_missing.txt", row.names=FALSE)
   
-  print("EVENT INCLUSIONS AND EXCLUSIONS")
+  #message("EVENT INCLUSIONS AND EXCLUSIONS")
   print(full_DT)
   
   # NOW RUN THE MEGA BEAST ON THE MAIN FIXATION REPORT AND RETURN IT
@@ -749,7 +747,7 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
                    eval(aggExprParsed)]
   }
   
-  print(b_DT)
+  message(b_DT)
   
   #write.table(data.frame(b_DT), paste(prefix_label, "behavioural_data.txt", sep="_"), row.names=FALSE)
 
@@ -829,7 +827,7 @@ organise.exclusions.fix_durations <- function(fixreport_df, min=60, max=1200){
                      sep="")
   whereExprParsed <- parse(text = whereExpr)
   
-  print(whereExpr)
+  message(whereExpr)
   
   # SET UP SELECT EXPRESSION
   selectExpr <- paste("list('FINAL_FIX_COUNT' = length(CURRENT_FIX_INDEX))", sep="")
@@ -846,7 +844,7 @@ organise.exclusions.fix_durations <- function(fixreport_df, min=60, max=1200){
   
   #write.table(full_DT, "fix_duration_removals.txt", row.names=FALSE)
   
-  print("FIX DURATION EXCLUSIONS")
+  message("FIX DURATION EXCLUSIONS")
   print(full_DT)
   
   # NOW RUN THE MEGA BEAST ON THE MAIN FIXATION REPORT AND RETURN IT

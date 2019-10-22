@@ -46,7 +46,7 @@ organise.checks.random_trial(foo)
 # FIX CONTINGENCIES
 organise.contingencies.descriptives(foo)
 
-# REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
+# REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
 foo <- organise.message.removals(fixreport_df=foo, 
                                  required_message_list=list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
 # REMOVES NO TRIALS = EXCELLENT!
