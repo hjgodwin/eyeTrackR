@@ -10,12 +10,12 @@ organise.message.descriptives(message_df)
 \item{message_df}{Message report.}
 }
 \value{
-Descriptive information relating to messages in the trials sent to the console for easy viewing.
+Descriptive information relating to messages in the trials which can be printed to the console.
 }
 \description{
 Descriptive statistics for messages in message report.
 }
 \examples{
 data(messagereport)
-organise.message.descriptives(messagereport)
+print(organise.message.descriptives(messagereport))
 }

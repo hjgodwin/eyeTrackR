@@ -26,5 +26,6 @@ Return trials where a specific message is found.
 # HERE, 'SYNCTIME' STARTS A TRIAL
 data(messagereport)
 data(fixationreport)
-organise.message.return_specific(messagereport, fixationreport, 'SYNCTIME')
+
+print(organise.message.return_specific(messagereport, fixationreport, 'DISPLAY_START'))
 }

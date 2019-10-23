@@ -74,16 +74,16 @@ organise.message.replace_spaces <- function(message_df){
 
 ##############################################################################################################################################################
 # PICKS AND DISPLAYS A RANDOM TRIAL FOR DETAILED CHECKS
-#' Display a randomly selected trial for detailed checks.
+#' Return a randomly selected trial for detailed checks.
 #'
 #' @param fixreport_df object Input fixation report.
 #'
-#' @return Single trial as a data.table, plus the same trial printed to the console.
+#' @return Single trial as a data.table, which can be printed to the console for your viewing.
 #' @export
 #'
 #' @examples
 #' data(fixationreport)
-#' organise.checks.random_trial(fixationreport)
+#' print(organise.checks.random_trial(fixationreport))
 organise.checks.random_trial <- function(fixreport_df){
   
   ppt_list <- unique(fixreport_df$RECORDING_SESSION_LABEL)
@@ -98,7 +98,7 @@ organise.checks.random_trial <- function(fixreport_df){
   
   selected$FIX_START <- selected$CURRENT_FIX_START
   selected$FIX_END <- selected$CURRENT_FIX_END
-  selected$CURRENT_IA <- selected$CURRENT_FIX_INTEREST_AREA_LABEL
+  #selected$CURRENT_IA <- selected$CURRENT_FIX_INTEREST_AREA_LABEL
   
   #print(selected)
   
@@ -111,12 +111,12 @@ organise.checks.random_trial <- function(fixreport_df){
 #'
 #' @param message_df Message report.
 #'
-#' @return Descriptive information relating to messages in the trials sent to the console for easy viewing.
+#' @return Descriptive information relating to messages in the trials which can be printed to the console.
 #' @export
 #'
 #' @examples
 #' data(messagereport)
-#' organise.message.descriptives(messagereport)
+#' print(organise.message.descriptives(messagereport))
 organise.message.descriptives <- function(message_df){
   
   ## WE USE THIS TO FILTER OUT MESSAGES WHICH ARE NOT USEFUL
@@ -166,15 +166,15 @@ organise.message.descriptives <- function(message_df){
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'   message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'   message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'     fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'     fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 organise.message.markup <- function(message_df, fixreport_df, message, show_working=FALSE){
   
   # SORT OUT THE MESSAGE REPORT
@@ -234,7 +234,8 @@ organise.message.markup <- function(message_df, fixreport_df, message, show_work
 #' # HERE, 'SYNCTIME' STARTS A TRIAL
 #' data(messagereport)
 #' data(fixationreport)
-#' organise.message.return_specific(messagereport, fixationreport, 'SYNCTIME')
+#' 
+#' print(organise.message.return_specific(messagereport, fixationreport, 'DISPLAY_START'))
 organise.message.return_specific <- function(message_df, fixreport_df, message, show_working=FALSE){
   
   # SORT OUT THE MESSAGE REPORT
@@ -278,24 +279,26 @@ organise.message.return_specific <- function(message_df, fixreport_df, message, 
 #' data(fixationreport)
 #' data(messagereport)
 #' 
+#' 
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'    message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'    message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
-#'
-#'# NOW MARK UP FIXATION CONTINGENCIES
-#' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
+#' 
+#' # NOW MARK UP FIXATION CONTINGENCIES
+#' fixationreport<-organise.message.fix_contingencies(fixationreport, 
+#'                                           list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
 organise.message.fix_contingencies <- function(fixreport_df, ordered_message_list){
   
   # DO THE MAIN THING
@@ -367,7 +370,6 @@ organise.message.fix_contingencies <- function(fixreport_df, ordered_message_lis
                             "sep='')",
                             sep="")
     
-    
     comaprisonExprParsed <- parse(text=comparisonExpr)
     eval(comaprisonExprParsed)
     
@@ -407,18 +409,18 @@ organise.message.fix_contingencies <- function(fixreport_df, ordered_message_lis
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'    message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'    message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 organise.responses.markup <- function(fixreport_df, correct_answer_column){
   
   # ORGANISE THE FIX REPORT
@@ -502,33 +504,41 @@ organise.responses.markup <- function(fixreport_df, correct_answer_column){
 #' @export
 #'
 #' @examples
+#' 
 #' data(fixationreport)
 #' data(messagereport)
+#' 
 #' 
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'                                message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'                                message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
-#' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
-#'
+#' fixationreport<-organise.message.fix_contingencies(fixationreport, 
+#'                                           list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+#' # SET UP TRUE RT
+#' fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+#' 
+#' behaviouralData <- analyse.behavioural.data(fixationreport,
+#'                                             aggregation_column_list = list('TRIALTYPE_TEXT'))
+#' 
 #' # RANDOM TRIAL TO CHECK THINGS OUT
-#' organise.checks.random_trial(foo)
-#'
+#' print(organise.checks.random_trial(fixationreport))
+#' 
 #' # FIX CONTINGENCIES
-#' organise.contingencies.descriptives(foo)
+#' print(organise.contingencies.descriptives(fixationreport))
 organise.contingencies.descriptives <- function(fixreport_df){
   
   # SORT OUT THE MESSAGE REPORT
@@ -550,46 +560,57 @@ organise.contingencies.descriptives <- function(fixreport_df){
 #' @param fixreport_df Fixation report.
 #' @param required_message_list List of messages required for each trial.
 #'
-#' @return Updated fixation report with trials removed as a data.table. 
+#' @return A data.table detailing how many trials were removed from each session, plus a data.table with the cleaned fixation report.
 #' @export
 #'
 #' @examples
+#' 
 #' data(fixationreport)
 #' data(messagereport)
+#' 
 #' 
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'                                message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'                                message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#'                                           fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
-#' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
+#' fixationreport<-organise.message.fix_contingencies(fixationreport, 
+#'                                           list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+#' # SET UP TRUE RT
+#' fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+#' 
+#' behaviouralData <- analyse.behavioural.data(fixationreport,
+#'                                             aggregation_column_list = list('TRIALTYPE_TEXT'))
 #' 
 #' # RANDOM TRIAL TO CHECK THINGS OUT
-#' organise.checks.random_trial(foo)
+#' print(organise.checks.random_trial(fixationreport))
 #' 
 #' # FIX CONTINGENCIES
-#' organise.contingencies.descriptives(foo)
+#' print(organise.contingencies.descriptives(fixationreport))
+# REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
+#' messageRemovals <- organise.message.removals(fixreport_df=fixationreport, 
+#'     required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
 #' 
-#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
-#' foo <- organise.message.removals(fixreport_df=foo, 
-#'                                  required_message_list=list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
-#' # REMOVES NO TRIALS = EXCELLENT!
+#' # LOOK AT MESSAGE REMOVALS
+#' print(messageRemovals[[1]])
 #' 
-#' organise.contingencies.descriptives(foo) 
-#' # THIS LISTS NO UNCLASSIFIED FIXATIONS WHICH IS GOOD BECAUSE IT MEANS WE ACCOUNT FOR 
-#' # EVERYTHING THAT TOOK PLACE IN OUR TRIALS.
+#' # GRAB THE FIXATION REPORT WITH TRIALS REMOVED
+#' fixMessagesRemoved <- messageRemovals[[2]]
+#' 
+#' # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+#' print(organise.contingencies.descriptives(fixMessagesRemoved))
 organise.message.removals <- function(fixreport_df, required_message_list){
   
   # SET UP KEYS
@@ -644,13 +665,13 @@ organise.message.removals <- function(fixreport_df, required_message_list){
   #write.table(full_DT, "event_trials_missing.txt", row.names=FALSE)
   
   #message("EVENT INCLUSIONS AND EXCLUSIONS")
-  print(full_DT)
+  #print(full_DT)
   
   # NOW RUN THE MEGA BEAST ON THE MAIN FIXATION REPORT AND RETURN IT
   final_DT <- fix_DT[eval(bigWhereExprParsed),]
   
-  return(data.frame(final_DT))
-}
+  return(list(full_DT,data.frame(final_DT)))
+} 
 
 # SAVES RT AND ACCURACY SPLIT BY SPECIFIED COLUMNS #############################################################################################################################################################
 #' Save RT and Accuracy split by specified columns.
@@ -658,52 +679,64 @@ organise.message.removals <- function(fixreport_df, required_message_list){
 #' @param fixreport_df Fixation report.
 #' @param grouping_column_list List of columns to split by.
 #' @param response_period_start Message that starts the RT timer.
-#' @param prefix_label Prefix output with a label.
 #'
-#' @return Summarised behavioural information as a data.table. This is also saved to disk.
+#' @return Summarised behavioural information as a data.table. 
 #' @export
 #'
 #' @examples
+#' 
 #' data(fixationreport)
 #' data(messagereport)
 #' 
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'                                message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'                                message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#' fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#' fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
-#' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
+#' fixationreport<-organise.message.fix_contingencies(fixationreport, 
+#' list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+#' 
+#' # SET UP TRUE RT
+#' fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+#' 
+#' behaviouralData <- analyse.behavioural.data(fixationreport,
+#'      aggregation_column_list = list('TRIALTYPE_TEXT'))
 #' 
 #' # RANDOM TRIAL TO CHECK THINGS OUT
-#' organise.checks.random_trial(foo)
+#' print(organise.checks.random_trial(fixationreport))
 #' 
 #' # FIX CONTINGENCIES
-#' organise.contingencies.descriptives(foo)
+#' print(organise.contingencies.descriptives(fixationreport))
 #' 
-#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
-#' foo <- organise.message.removals(fixreport_df=foo, 
-#'                                  required_message_list=list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
-#' # REMOVES NO TRIALS = EXCELLENT!
+#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
+#' messageRemovals <- organise.message.removals(fixreport_df=fixationreport, 
+#'     required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
 #' 
-#' organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+#' # LOOK AT MESSAGE REMOVALS
+#' print(messageRemovals[[1]])
 #' 
-#' # BY-TRIAL BEHAVIOURAL DATA
-#' organise.behavioural.base(fixreport_df = foo, list( 'TRIALTYPE_TEXT'), 
-#'                           response_period_start="SYNCTIME", 
-#'                           prefix_label="BYTRIAL")
-organise.behavioural.base <- function(fixreport_df, grouping_column_list, response_period_start="", prefix_label="") {
+#' # GRAB THE FIXATION REPORT WITH TRIALS REMOVED
+#' fixMessagesRemoved <- messageRemovals[[2]]
+#' 
+#' # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+#' print(organise.contingencies.descriptives(fixMessagesRemoved))
+#'
+#'# GET A BEHAVIOURAL DATASET FOR ANALYSES AND SAVING ETC.
+#'behavDT<- organise.behavioural.base(fixreport_df = fixMessagesRemoved, 
+#'    list( 'TRIALTYPE_TEXT'), response_period_start="DISPLAY_START")
+organise.behavioural.base <- function(fixreport_df, grouping_column_list, response_period_start="") {
   
   # ORGANISE THE FIX REPORT
   fix_DT <- data.table(fixreport_df)
@@ -746,10 +779,6 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
                    eval(rtExprParsed),
                    eval(aggExprParsed)]
   }
-  
-  message(b_DT)
-  
-  #write.table(data.frame(b_DT), paste(prefix_label, "behavioural_data.txt", sep="_"), row.names=FALSE)
 
   return(b_DT)
 }
@@ -764,54 +793,70 @@ organise.behavioural.base <- function(fixreport_df, grouping_column_list, respon
 #' @param min Minimum duration of fixations.
 #' @param max Maximum duration of fixations.
 #'
-#' @return Fixation report with outliers removed. Also saves information on how many fixations were removed.
+#' @return A data.table detailing how many trials were removed from each session, plus a data.table with the cleaned fixation report.
 #' @export
 #'
 #' @examples
+#' 
 #' data(fixationreport)
 #' data(messagereport)
 #' 
 #' # REPLACE SPACES IN MESSAGES
 #' messagereport <- organise.message.replace_spaces(messagereport)
 #' 
-#' # TAKE A LOOK AT THE MESSAGES WE HAVE
-#' organise.message.descriptives(messagereport)
+#' # TAKE A LOOK
+#' print(organise.message.descriptives(messagereport))
 #' 
-#' # MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-#' # THERE IS A TRIAL END BVUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-#'                                message="LEADIN")
-#' foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-#'                                message="SYNCTIME")
+#' # MARKUP
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#' fixreport_df = fixationreport, message="DISPLAY_START")
+#' 
+#' fixationreport <- organise.message.markup(message_df=messagereport, 
+#' fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 #' 
 #' # NOW DO ACCURACY AND RT MARKUP
-#' foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+#' fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 #' 
 #' # NOW MARK UP FIXATION CONTINGENCIES
-#' foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
+#' fixationreport<-organise.message.fix_contingencies(fixationreport, 
+#' list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+#' 
+#' # SET UP TRUE RT
+#' fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+#' 
+#' behaviouralData <- analyse.behavioural.data(fixationreport,
+#'       aggregation_column_list = list('TRIALTYPE_TEXT'))
 #' 
 #' # RANDOM TRIAL TO CHECK THINGS OUT
-#' organise.checks.random_trial(foo)
+#' print(organise.checks.random_trial(fixationreport))
 #' 
 #' # FIX CONTINGENCIES
-#' organise.contingencies.descriptives(foo)
+#' print(organise.contingencies.descriptives(fixationreport))
 #' 
-#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
-#' foo <- organise.message.removals(fixreport_df=foo, 
-#'                                  required_message_list=list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
-#' # REMOVES NO TRIALS = EXCELLENT!
+#' # REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPONSE
+#' messageRemovals <- organise.message.removals(fixreport_df=fixationreport, 
+#'     required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
 #' 
-#' organise.contingencies.descriptives(foo) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+#' # LOOK AT MESSAGE REMOVALS
+#' print(messageRemovals[[1]])
 #' 
-#' # BY-TRIAL BEHAVIOURAL DATA
-#' organise.behavioural.base(fixreport_df = foo, list('TRIALTYPE_TEXT'), 
-#'                           response_period_start="SYNCTIME", 
-#'                           prefix_label="BYTRIAL")
-#'                           
-#' # NEXT REMOVE PRE-SYNCTIME FIXATIONS
-#' fooy <- foo[foo$FIXATION_CONTINGENCY!='PRE_LEADIN__LEADIN',]
-#' fooy <- fooy[fooy$FIXATION_CONTINGENCY!='LEADIN',]
-#' fooy <- organise.exclusions.fix_durations(fixreport_df=fooy)
+#' # GRAB THE FIXATION REPORT WITH TRIALS REMOVED
+#' fixMessagesRemoved <- messageRemovals[[2]]
+#' 
+#' # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+#' print(organise.contingencies.descriptives(fixMessagesRemoved))
+#'
+#'# GET A BEHAVIOURAL DATASET FOR ANALYSES AND SAVING ETC.
+#'behavDT<- organise.behavioural.base(fixreport_df = fixMessagesRemoved, 
+#'    list( 'TRIALTYPE_TEXT'), response_period_start="DISPLAY_START")
+#' 
+#' # REMOVALS BASED ON FIXATION DURATIONS
+#' durationRemovals <- organise.exclusions.fix_durations(fixreport_df=fixMessagesRemoved)
+#' 
+#' durationsRemoved <- durationRemovals[[1]]
+#' 
+#' # FINAL DATASET WHICH CAN BE ANALYSED 
+#' finalDT <- durationRemovals [[2]]
 organise.exclusions.fix_durations <- function(fixreport_df, min=60, max=1200){
   
   # SET UP KEYS
@@ -844,12 +889,12 @@ organise.exclusions.fix_durations <- function(fixreport_df, min=60, max=1200){
   
   #write.table(full_DT, "fix_duration_removals.txt", row.names=FALSE)
   
-  message("FIX DURATION EXCLUSIONS")
-  print(full_DT)
+  #message("FIX DURATION EXCLUSIONS")
+  #print(full_DT)
   
   # NOW RUN THE MEGA BEAST ON THE MAIN FIXATION REPORT AND RETURN IT
   final_DT <- fix_DT[eval(whereExprParsed),]
   
-  return(data.frame(final_DT))
+  return(list(full_DT, data.frame(final_DT)))
   
-}
+} 

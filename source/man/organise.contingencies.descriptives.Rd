@@ -16,31 +16,39 @@ Output to console.
 Descriptive statistics of fixation contingencies.
 }
 \examples{
+
 data(fixationreport)
 data(messagereport)
+
 
 # REPLACE SPACES IN MESSAGES
 messagereport <- organise.message.replace_spaces(messagereport)
 
-# TAKE A LOOK AT THE MESSAGES WE HAVE
-organise.message.descriptives(messagereport)
+# TAKE A LOOK
+print(organise.message.descriptives(messagereport))
 
-# MARKUP - SYNCTIME IS THE START OF THE TRIAL AND LEADIN IS A FIXATION CROSS BEFOREHAND
-# THERE IS A TRIAL END BUT WE DON'T WORRY ABOUT THAT SINCE WE USE THE RESPONSE MESSAGE INSTEAD
-foo <- organise.message.markup(message_df=messagereport, fixreport_df = fixationreport, 
-                               message="LEADIN")
-foo <- organise.message.markup(message_df=messagereport, fixreport_df = foo, 
-                               message="SYNCTIME")
+# MARKUP
+fixationreport <- organise.message.markup(message_df=messagereport, 
+                                          fixreport_df = fixationreport, message="DISPLAY_START")
+
+fixationreport <- organise.message.markup(message_df=messagereport, 
+                                          fixreport_df = fixationreport, message="DISPLAY_CHANGE")
 
 # NOW DO ACCURACY AND RT MARKUP
-foo <- organise.responses.markup(foo, "CORRECT_RESPONSE")
+fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
 
 # NOW MARK UP FIXATION CONTINGENCIES
-foo<-organise.message.fix_contingencies(foo, list("LEADIN", "SYNCTIME", "RESPONSE_TIME"))
+fixationreport<-organise.message.fix_contingencies(fixationreport, 
+                                          list("DISPLAY_START", "DISPLAY_CHANGE", "RESPONSE_TIME"))
+# SET UP TRUE RT
+fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+
+behaviouralData <- analyse.behavioural.data(fixationreport,
+                                            aggregation_column_list = list('TRIALTYPE_TEXT'))
 
 # RANDOM TRIAL TO CHECK THINGS OUT
-organise.checks.random_trial(foo)
+print(organise.checks.random_trial(fixationreport))
 
 # FIX CONTINGENCIES
-organise.contingencies.descriptives(foo)
+print(organise.contingencies.descriptives(fixationreport))
 }

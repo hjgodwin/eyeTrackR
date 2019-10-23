@@ -2,7 +2,7 @@
 % Please edit documentation in R/ORGANISE__functions.R
 \name{organise.checks.random_trial}
 \alias{organise.checks.random_trial}
-\title{Display a randomly selected trial for detailed checks.}
+\title{Return a randomly selected trial for detailed checks.}
 \usage{
 organise.checks.random_trial(fixreport_df)
 }
@@ -10,12 +10,12 @@ organise.checks.random_trial(fixreport_df)
 \item{fixreport_df}{object Input fixation report.}
 }
 \value{
-Single trial as a data.table, plus the same trial printed to the console.
+Single trial as a data.table, which can be printed to the console for your viewing.
 }
 \description{
-Display a randomly selected trial for detailed checks.
+Return a randomly selected trial for detailed checks.
 }
 \examples{
 data(fixationreport)
-organise.checks.random_trial(fixationreport)
+print(organise.checks.random_trial(fixationreport))
 }
