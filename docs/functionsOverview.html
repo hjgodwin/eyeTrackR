@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Functions Overview | A guide to eyeTrackR</title>
+  <meta name="description" content="This is a guide to using the eyeTrackR R package." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Functions Overview | A guide to eyeTrackR" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Functions Overview | A guide to eyeTrackR" />
+  
+  <meta name="twitter:description" content="This is a guide to using the eyeTrackR R package." />
+  
+
+<meta name="author" content="Hayward J. Godwin" />
+
+
+<meta name="date" content="2019-10-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="installation.html"/>
+<link rel="next" href="organiseWakthrough.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Guide to eyeTrackR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> EyeTrackR</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can EyeTrackR do?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.2</b> Some history</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation and Preparation</a><ul>
+<li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-devtools"><i class="fa fa-check"></i><b>2.1</b> Installing via Devtools</a></li>
+<li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#files-youll-need"><i class="fa fa-check"></i><b>2.2</b> Files you’ll Need</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#removing-eyetrackr"><i class="fa fa-check"></i><b>2.3</b> Removing eyeTrackR</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="functionsOverview.html"><a href="functionsOverview.html"><i class="fa fa-check"></i><b>3</b> Functions Overview</a><ul>
+<li class="chapter" data-level="3.1" data-path="functionsOverview.html"><a href="functionsOverview.html#the-basics"><i class="fa fa-check"></i><b>3.1</b> The Basics</a></li>
+<li class="chapter" data-level="3.2" data-path="functionsOverview.html"><a href="functionsOverview.html#organise-functions"><i class="fa fa-check"></i><b>3.2</b> Organise Functions</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="functionsOverview.html"><a href="functionsOverview.html#marking-up-events"><i class="fa fa-check"></i><b>3.2.1</b> Marking up Events</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="functionsOverview.html"><a href="functionsOverview.html#analyse-functions"><i class="fa fa-check"></i><b>3.3</b> Analyse Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html"><i class="fa fa-check"></i><b>4</b> Organise Functions Walkthrough</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#getting-started"><i class="fa fa-check"></i><b>4.0.1</b> Getting Started</a></li>
+<li class="chapter" data-level="4.0.2" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#descriptives"><i class="fa fa-check"></i><b>4.0.2</b> Descriptives</a></li>
+<li class="chapter" data-level="4.0.3" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#message-markup"><i class="fa fa-check"></i><b>4.0.3</b> Message Markup</a></li>
+<li class="chapter" data-level="4.0.4" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#fixation-contingencies"><i class="fa fa-check"></i><b>4.0.4</b> Fixation Contingencies</a></li>
+<li class="chapter" data-level="4.0.5" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#behavioural-data"><i class="fa fa-check"></i><b>4.0.5</b> Behavioural Data</a></li>
+<li class="chapter" data-level="4.0.6" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#final-checks"><i class="fa fa-check"></i><b>4.0.6</b> Final Checks</a></li>
+<li class="chapter" data-level="4.0.7" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#removing-trials"><i class="fa fa-check"></i><b>4.0.7</b> Removing Trials</a></li>
+<li class="chapter" data-level="4.0.8" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#time-to-save"><i class="fa fa-check"></i><b>4.0.8</b> Time to save</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A guide to eyeTrackR</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="functionsOverview" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Functions Overview</h1>
+<div id="the-basics" class="section level2">
+<h2><span class="header-section-number">3.1</span> The Basics</h2>
+<p>The functions in eyeTrackR are mostly split up into two categories: <strong>Organise</strong> functions and <strong>Analyse</strong> functions.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><strong>Organise</strong> functions are there to help you clean, check, and, well, organise your data.</p>
+<p><strong>Analyse</strong> functions are there to work out means of common dependent variables and put them together in a format that can easily then be analysed by standard statistical methods (e.g., ANOVAs), as well as visualising those dependent variables.</p>
+<p>For most of my projects, I have two key sets of files:</p>
+<ul>
+<li>ORGANISE__markup.R : this marks up the dataset and cleans it, as you’ll see in this chapter.</li>
+<li>ANALYSE__XYZ.R : this either contains all of my analyses (if there aren’t that many), OR I split this file up, so that I have one ANALYSE__XYZ.R file for each dependent variable.</li>
+</ul>
+<p>Here, I’ll begin by giving you an overview of how and why the organise and analyse functions are necessary, and what they do. The remaining chapters involve walkthroughs describing how to use these functions in practice.</p>
+</div>
+<div id="organise-functions" class="section level2">
+<h2><span class="header-section-number">3.2</span> Organise Functions</h2>
+<p>There are a handful of key tasks that take place in the organise functions. They are as follows:</p>
+<ul>
+<li>Marking up events in each trial.</li>
+<li>Removing outliers or other fixations that you’re not interested in.</li>
+</ul>
+<p>I’ll now talk about each of these in detail before providing a walkthrough of the functions with example code and data.</p>
+<div id="marking-up-events" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Marking up Events</h3>
+<p>In a typical study, there will be multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. Then, the participant is given a task of some kind. In the example below, they are given a visual search task wherein they press one button one a response box if they see a T shape, and a different button if not T shapes are present. Their response then terminates the trial. Here’s a diagram:</p>
+<p><img src="files/images/baseTrial.png" width="548" /></p>
+<p>For this example, there are three events:</p>
+<ul>
+<li>Display fixation point.</li>
+<li>Display a trial. Again, participants here search for a T shape amongst L shapes.</li>
+<li>Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.</li>
+</ul>
+<p>Even if you have the most carefully-controlled study, it’s unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can’t just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don’t do this, in a best-case scenario, you’ll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.</p>
+<p>So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses.</p>
+<div id="contingencies" class="section level4">
+<h4><span class="header-section-number">3.2.1.1</span> Contingencies</h4>
+<p>Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this.</p>
+<p><img src="files/images/baseTrialFixes.png" width="556" /></p>
+<p>In this case, you have a set of different fixation contingencies occuring. You have:
+- Fixation that overlaps the fixation point display and the search display.
+- Two fixations that occur during the search display.
+- One fixation that overlaps the search display event and the button press event.</p>
+<p>It helps to be selective about which of these you want to include in your analyses. The simple reason for this is the fact that, for example, the final fixation, which comprises not just a fixation at a location on an object but also a button press, will be longer, on average, than your fixations where a button press occurs. People have a tendency to hold their fixation while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, here’s a density plot from <a href="https://link.springer.com/article/10.3758/s13414-014-0762-8">a paper of mine</a> - in the red you have the fixations that didn’t overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses:</p>
+<p><img src="files/images/fixDurationsEyeTrackR.png" width="1118" /></p>
+<p>However, you may have already realised that the situation described above is not the only way that things can happen during a search trial. Some participants, on some trials, will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations (the red circle in the example below). This is shown below:</p>
+<p><img src="files/images/baseTrialSingleFix.png" width="678" /></p>
+<p>The first point here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether they were actually searching in that trial at all. Often trials like this will be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something ‘weird’ or unexpected happened.</p>
+<p>UPDATE BELOW WITH REPEATS OF THE DIAGRAMS ABOVE OF SOME KIND, PERHAPS WITH A TABLE</p>
+<p>So this is where the contingencies used by eyeTrackR are helpful. Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The <strong>contingency</strong> functions add a column to your fixation report, called <strong>FIXATION_CONTINGENCY</strong>. This column tells you what events occurred during the fixation in question.</p>
+<p>If a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY. If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. This is highlighted in the figure below.</p>
+<p>The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the <strong>FIXATION_CONTINGENCY</strong> column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures.</p>
+</div>
+</div>
+</div>
+<div id="analyse-functions" class="section level2">
+<h2><span class="header-section-number">3.3</span> Analyse Functions</h2>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Future versions may include <em>OrganiZe</em> and <em>AnalyZe</em> functions, who knows.<a href="functionsOverview.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="installation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="organiseWakthrough.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/3-functionOverview.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection"
+});
+});
+</script>
+
+</body>
+
+</html>

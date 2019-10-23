@@ -1,0 +1,90 @@
+
+# Functions Overview {#functionsOverview}
+
+## The Basics
+
+The functions in eyeTrackR are mostly split up into two categories: **Organise** functions and **Analyse** functions.^[Future versions may include *OrganiZe* and *AnalyZe* functions, who knows.] 
+
+**Organise** functions are there to help you clean, check, and, well, organise your data. 
+
+**Analyse** functions are there to work out means of common dependent variables and put them together in a format that can easily then be analysed by standard statistical methods (e.g., ANOVAs), as well as visualising those dependent variables.
+
+For most of my projects, I have two key sets of files:
+
+* ORGANISE__markup.R :  this marks up the dataset and cleans it, as you'll see in this chapter.
+* ANALYSE__XYZ.R : this either contains all of my analyses (if there aren't that many), OR I split this file up, so that I have one ANALYSE__XYZ.R file for each dependent variable.
+
+Here, I'll begin by giving you an overview of how and why the organise and analyse functions are necessary, and what they do. The remaining chapters involve walkthroughs describing how to use these functions in practice.
+
+```{r, echo=F}
+suppressMessages(library(eyeTrackR))
+suppressMessages(library(kableExtra))
+```
+
+## Organise Functions
+
+There are a handful of key tasks that take place in the organise functions. They are as follows:
+
+* Marking up events in each trial.
+* Removing outliers or other fixations that you're not interested in.
+
+I'll now talk about each of these in detail before providing a walkthrough of the functions with example code and data.
+
+### Marking up Events
+
+In a typical study, there will be multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. Then, the participant is given a task of some kind. In the example below, they are given a visual search task wherein they press one button one a response box if they see a T shape, and a different button if not T shapes are present. Their response then terminates the trial. Here's a diagram:
+
+```{r, echo=F}
+knitr::include_graphics("files/images/baseTrial.png")
+```
+
+For this example, there are three events:
+
+* Display fixation point.
+* Display a trial. Again, participants here search for a T shape amongst L shapes.
+* Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
+
+Even if you have the most carefully-controlled study, it's unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can't just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don't do this, in a best-case scenario, you'll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.
+
+So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses.
+
+#### Contingencies
+
+Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this.
+
+```{r, echo=F}
+knitr::include_graphics("files/images/baseTrialFixes.png")
+```
+
+In this case, you have a set of different fixation contingencies occuring. You have:
+- Fixation that overlaps the fixation point display and the search display.
+- Two fixations that occur during the search display.
+- One fixation that overlaps the search display event and the button press event.
+
+It helps to be selective about which of these you want to include in your analyses. The simple reason for this is the fact that, for example, the final fixation, which comprises not just a fixation at a location on an object but also a button press, will be longer, on average, than your fixations where a button press occurs. People have a tendency to hold their fixation while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, here's a density plot from [a paper of mine](https://link.springer.com/article/10.3758/s13414-014-0762-8) - in the red you have the fixations that didn't overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses:
+
+```{r, echo=F}
+knitr::include_graphics("files/images/fixDurationsEyeTrackR.png")
+```
+
+However, you may have already realised that the situation described above is not the only way that things can happen during a search trial. Some participants, on some trials, will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations (the red circle in the example below). This is shown below:
+
+```{r, echo=F}
+knitr::include_graphics("files/images/baseTrialSingleFix.png")
+```
+
+The first point here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether they were actually searching in that trial at all. Often trials like this will be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something 'weird' or unexpected happened. 
+
+UPDATE BELOW WITH REPEATS OF THE DIAGRAMS ABOVE OF SOME KIND, PERHAPS WITH A TABLE
+
+So this is where the contingencies used by eyeTrackR are helpful. Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The **contingency** functions add a column to your fixation report, called **FIXATION_CONTINGENCY**. This column tells you what events occurred during the fixation in question.
+
+If a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY. If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. This is highlighted in the figure below. 
+
+The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the **FIXATION_CONTINGENCY** column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures.
+
+## Analyse Functions
+
+
+
+
