@@ -5,7 +5,7 @@
 
 The functions in eyeTrackR are mostly split up into two categories: **Organise** functions and **Analyse** functions.^[Future versions may include *OrganiZe* and *AnalyZe* functions, who knows.] 
 
-**Organise** functions are there to help you clean, check, and, well, organise your data. 
+**Organise** functions are there to help you clean and organise your data. 
 
 **Analyse** functions are there to work out means of common dependent variables and put them together in a format that can easily then be analysed by standard statistical methods (e.g., ANOVAs), as well as visualising those dependent variables.
 
@@ -38,53 +38,97 @@ In a typical study, there will be multiple events in a single trial. For example
 knitr::include_graphics("files/images/baseTrial.png")
 ```
 
-For this example, there are three events:
+Here, we assume that when there is an event or display change of some kind, you send a 'message' to the eye-tracker. These messages are recorded within a fraction of a second of being sent, meaning that they have a high level of temporal accuracy. Let's add another bit of information to the diagram to signify the messages being recorded in the data. These are the bottom row of arrows with text written in green:
 
-* Display fixation point.
-* Display a trial. Again, participants here search for a T shape amongst L shapes.
-* Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
+```{r, echo=F}
+knitr::include_graphics("files/images/baseTrialMessages.png")
+```
+
+
+For this example, there are three events, and each is recorded with a message in the data:
+
+* Message saying 'DISPLAY_START': Display fixation point.
+* Message saying 'DISPLAY_CHANGE': Display a trial. Again, participants here search for a T shape amongst L shapes.
+* Nessage saying 'BUTTON_PRESS': Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
 
 Even if you have the most carefully-controlled study, it's unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can't just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don't do this, in a best-case scenario, you'll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.
 
-So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses.
+So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses. The first aspect of this control and organising process is to talk about contingencies.
 
 #### Contingencies
 
-Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this.
+Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this^[Or at least, without an eye-tracker, you would assume people do this and behave themselves as you expect.].
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrialFixes.png")
 ```
 
-In this case, you have a set of different fixation contingencies occuring. You have:
-- Fixation that overlaps the fixation point display and the search display.
-- Two fixations that occur during the search display.
-- One fixation that overlaps the search display event and the button press event.
+In the above example, you have a set of different fixation contingencies occuring. You have:
+* Fixation that overlaps the fixation point display and the search display.
+* Two fixations that occur during the search display.
+* One fixation that overlaps the search display event and the button press event.
 
-It helps to be selective about which of these you want to include in your analyses. The simple reason for this is the fact that, for example, the final fixation, which comprises not just a fixation at a location on an object but also a button press, will be longer, on average, than your fixations where a button press occurs. People have a tendency to hold their fixation while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, here's a density plot from [a paper of mine](https://link.springer.com/article/10.3758/s13414-014-0762-8) - in the red you have the fixations that didn't overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses:
+Let's add these in to the image, representing the fixations with a coloured bar represnting the time periods that they overlap with: 
+
+```{r, echo=F}
+knitr::include_graphics("files/images/baseTrialFixesGantt.png")
+```
+
+It helps to be selective about which of these you want to include in your analyses. The simple reason for this is the fact that, for example, the final fixation, which comprises not just a fixation at a location on an object but also a button press, will be longer, on average, than your fixations where a button press occurs. People have a tendency to hold their fixation while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. 
+
+To give an example, there's a density plot below using the data from a paper of mine [@Godwin2015]. In the red you have the fixations that didn't overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn't overlap with a response and 215ms for those that did overlap with a response^[I trimmed this down to fixations with a duration of less than 800ms, since there weren't many higher than this. There were also a lot more of the fixations that didn't overlap with a response (about 127,000) than those that did overlap with a response (just under 15,000). This is not surprising given that there is only one response per trial.].
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/fixDurationsEyeTrackR.png")
 ```
 
-However, you may have already realised that the situation described above is not the only way that things can happen during a search trial. Some participants, on some trials, will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations (the red circle in the example below). This is shown below:
+To make things more complex, the situation described above is not the only way that events can unfold during a search trial. On some trials, participants will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations, as shown by the red circle in the example below: 
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrialSingleFix.png")
 ```
 
-The first point here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether they were actually searching in that trial at all. Often trials like this will be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something 'weird' or unexpected happened. 
+The first point to consider here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether participants were actually searching in that trial at all. Trials like this will often be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something 'weird' or unexpected happened. 
 
-UPDATE BELOW WITH REPEATS OF THE DIAGRAMS ABOVE OF SOME KIND, PERHAPS WITH A TABLE
+Having set out just some of the ways that the contigencies can be mapped out, we can now put together a table of contingencies across all of the trials in our example experiment. These contingencies map out the different events that fixations coincide with. A full mapping is shown in the table below.
 
-So this is where the contingencies used by eyeTrackR are helpful. Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The **contingency** functions add a column to your fixation report, called **FIXATION_CONTINGENCY**. This column tells you what events occurred during the fixation in question.
+```{r, echo=F}
 
-If a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY. If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. This is highlighted in the figure below. 
+fixTable <- data.table(DISPLAY_START =c('X','X','X','' ,'',''),
+                       DISPLAY_CHANGE=c('', 'X','X','X','X',''),
+                       BUTTON_PRESS  =c('', '', 'X','','X','X'),
+                       FIXATION_CONTINGENCY=c('DISPLAY_START','DISPLAY_START__DISPLAY_CHANGE',
+                                              'DISPLAY_START__DISPLAY_CHANGE__BUTTON_PRESS',
+                                              'DISPLAY_CHANGE','DISPLAY_CHANGE__BUTTON_PRESS',
+                                              'BUTTON_PRESS'))
 
-The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the **FIXATION_CONTINGENCY** column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures.
+kable(
+  fixTable, booktabs = TRUE, 
+  caption = 'Fixation contingencies in our example experiment.',
+  
+)%>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 9)
+
+```
+
+So this is where the contingencies used by eyeTrackR are helpful. Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The **contingency** functions add a column to your fixation report, called **FIXATION_CONTINGENCY**. This column tells you what events occurred during the fixation in question. Again, we'll talk more about this in the walkthroughs in the next chapter, but the goal here is to familiarise you with the logic behind all of this.
+
+Let's take some examples in terms of the fixation contingencies. As the table above shows, if a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX_CROSS__MAIN_DISPLAY. If it only lasted through the fixation cross time period, it would have a contingency of FIX_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN_DISPLAY. 
+
+The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the **FIXATION_CONTINGENCY** column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures. You can also omit and ignore events that you're not interested in, or events that are there for checking purposes.
 
 ## Analyse Functions
 
+The analyse functions in eyeTrackR are there to provide some basic means both for analyses and for visualisations for commonly-analysed measures in eye-tracking. They include:
 
+* Fixation count - mean number of fixations 
+* Fix duration - mean fixation duration 
+* Total time - mean total fixation time 
+* Saccade amplitude - mean saccade amplitude 
+* Visit count - mean number of visits to interest areas
+
+For all of the above, you are given a data.table which includes not only the by-trial and by-participant means, but also the by-partiicpant means, as well as a table that is ready for plotting (i.e., includes means as well as SDs). All of the above allow you to group your data and aggregate by as many columns as you like.
+
+There are more detailed examples of how this works in practice in the later walkthrough chapters.
 
 

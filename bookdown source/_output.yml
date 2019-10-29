@@ -10,6 +10,7 @@ bookdown::gitbook:
     edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
     download: ["pdf", "epub"]
     collapse: subsection
+    bibliography: book.bib
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

@@ -6,8 +6,9 @@ suppressMessages(library(kableExtra))
 
 # Organise Functions Walkthrough {#organiseWakthrough}
 
+The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer. 
 
-### Getting Started
+## Getting Started
 
 To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a 'fool-proof' way of examining the timings and occurrences of events.^[If you rely only on the **CURRENT_FIX_MSG_X** columns in the fixation report to determine when events occurs, you wil make errors and fail to detect when events occur (occasionally, and it's very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I've seen people use only these columns in DataViewer, or worse, guess when events occurred.]
 
@@ -27,13 +28,13 @@ messagereport <- organise.message.replace_spaces(messagereport)
 
 ```
 
-### Descriptives
+## Descriptives
 
 Now, we cant get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.
 
 ```{r, eval=F}
 # TAKE A LOOK
-organise.message.descriptives(messagereport)
+print(organise.message.descriptives(messagereport))
 
 ```
 
@@ -48,13 +49,15 @@ knitr::kable(
 
 ```
 
-The table above, which you get in the console output by running **organise.message.descriptives**, has some useful information in it that you can use to spot and diagnose any problems with your data. First, it lists all of the messages it finds in your message report file, in turn, and puts them in the **CURRENT_MSG_TEXT** column. Then, it gives you a count of how many times each message has been detected in your message report, the mean time each message occurred from the start of each trial, and then, as well as that, the maximum and minimum times each message occurred. There will always be variability in terms of when events occur in a trial, but this does enable you to make sure that, for the most part at least, things happened when they were supposed to.
+The table above, which you get in the console output by running **organise.message.descriptives**, has some useful information in it that you can use to spot and diagnose any problems with your data. 
+
+First, it lists all of the messages it finds in your message report file, in turn, and puts them in the **CURRENT_MSG_TEXT** column. Then, it gives you a count of how many times each message has been detected in your message report, the mean time each message occurred from the start of each trial, and then, as well as that, the maximum and minimum times each message occurred. There will always be variability in terms of when events occur in a trial, but this does enable you to make sure that, for the most part at least, things happened when they were supposed to.
 
 One thing you can do at this point is a back-of-the-envelope calculation and check to make sure all the trials are there as you would expect. Assuming you know how many participants were in your dataset, and how many trials, you should be able to check to make sure the right number of trials have started (i.e., had a **DISPLAY_START** message appear). If that's not the case, then you may need to delve deeper to find why data are missing.
 
 Now that you have checked to make sure things appear as they should - here, we have XYZ partcipants in our example dataset who took part in XYZ trials, giving us XYZ trials across everyone, which is what is being reported in the table, we can continue. 
 
-### Message Markup
+## Message Markup
 
 Our next step is to begin to **markup** the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The **organise.message.markup** function is the start of that process. Let's run it first then talk about what it does to your fixation report:
 
@@ -72,7 +75,7 @@ fixationreport <- organise.message.markup(message_df= messagereport,
 
 
 ```{r, echo=F, message=F, results='hide'}
-# MARKUP FIXATION REPORT
+# MARK UP FIXATION REPORT
 fixationreport <- organise.message.markup(message_df=messagereport, 
                                      fixreport_df = fixationreport, 
                                      message="DISPLAY_START")
@@ -82,7 +85,7 @@ fixationreport <- organise.message.markup(message_df=messagereport,
                                      message="DISPLAY_CHANGE")
 ```
 
-If you now take a look at **fixreport** - which I would recommend you do - you'll now see some new columns have been added. One is called **DISPLAY_START** and the other is called **DISPLAY_CHANGE**. If you look closely, what this has done is:
+If you now take a look at **fixationreport** - which I would recommend you do - you'll now see some new columns have been added. One is called **DISPLAY_START** and the other is called **DISPLAY_CHANGE**. If you look closely, what this has done is^[In SQL parlance, it's a simple join, of course.]:
 
 * Work out when each **DISPLAY_START** and **DISPLAY_CHANGE** occurred in each of the trials.
 * Take the timings of those messages and then add that information to the fixation report.
@@ -91,7 +94,7 @@ This process also gives you some diagnostic information that helps to check for 
 
 > Difference between input and output rows: 0
 
-#### Behavioural Markup
+### Behavioural Markup
 
 We now have two of the major events in each trial marked up into our fixation report. The only thing that is missing is the other main event in each trial: the response made by each participant!
 
@@ -115,13 +118,13 @@ This function has added the following columns to your fixation report file:
 * OUTCOME - the outcome ('CORRECT' or 'INCORRECT' of the response).
 * RESPONSE_TIME - the time from the start of the trial that the response was made.
 
-It's worth noting that RESPONSE_TIME isn't necessarily what you want to use as your Reaction Time measure, since, with this expeirment, as in many others, the display doesn't actuall appear for people to look at until DISPLAY_CHANGE. We'll talk more about this later.
+It's worth noting that RESPONSE_TIME isn't necessarily what you want to use as your Reaction Time measure, since, with this expeirment, as in many others, the display doesn't actually appear for people to look at until DISPLAY_CHANGE. We'll talk more about this later.
 
-#### Behavioural Markup (Alternative) {#bma}
+### Behavioural Markup (Alternative) {#bma}
 
 TBA
 
-### Fixation Contingencies
+## Fixation Contingencies
 
 We now know at what point in each trial each of the three major events occurred- the DISPLAY_START events, the DISPLAY_CHANGE events, and the RESPONSE_TIME events. We know what button participants pressed, and we know if they were right or wrong in each trial. The final step now is to markup the fixation **contingencies**. Again, these are important in helping us be sure that we've included what we want to include when it comes to analysing our eye-tracking data.
 
@@ -171,18 +174,20 @@ Browsing through these, you may have already worked out what FIXATION_CONTINGENC
 
 With the fixation report marked up in this manner, you can then, at a later point, be careful in how you select your data down to focus only on the trials and/or fixations that you are definitely interested in.
 
-### Behavioural Data
+## Behavioural Data
 
 You already have the responses, outcomes and reaction times marked up for each trial at this point. But one problem is that these will require some work to convert to, say, mean accuracy rates. This is because the fixation report has one row per fixation, rather than one row per trial. Therefore, if you want the mean accuracy rate for your participants, you'll need to crunch the data down to one row per trial before computing your means.
 
-Fortunately, EyeTrackR can do this for you!  Our first step in doing this is to work out the **TRUE_RT** column. This is as follows:
+Fortunately, eyeTrackR can do this for you!  Our first step in doing this is to work out the **TRUE_RT** column. This is as follows:
 
 ```{r}
 # SET UP TRUE RT
-fixationreport[,TRUE_RT:=RESPONSE_TIME-DISPLAY_START,]
+fixationreport[,TRUE_RT := RESPONSE_TIME-DISPLAY_START,]
 ```
 
-This takes the response time from the display start time, to enable us to focus just on the time that we are interested in. Next, you just need to run **analyse.behavioural.data**, feed it the fixation report, and the list of columns you want to aggregate by (using the **aggregation_column_list** input). Here, in the example below, the output is saved to the **behaviouralData* data.table.
+This subtracts the response time from the display start time, to enable us to focus just on the time that we are interested in. 
+
+Next, you just need to run **analyse.behavioural.data**, feed it the fixation report, and the list of columns you want to aggregate by (using the **aggregation_column_list** input). Here, in the example below, the output is saved to the behaviouralData data.table.
 
 ```{r, eval=F}
 behaviouralData <- analyse.behavioural.data(fixationreport, 
@@ -205,43 +210,123 @@ Note a few useful columns in that table to help you back-calculate and double-ch
 
 Again, the goal here is to help you be certain that there are no problems with your data and catch those problems as early as possible.
 
-### Final Checks
+## Final Checks
 
 We are almost ready to save our marked-up fixation report. It's worth at this point to suggest running some checks on our data. Have a go at running the **organise.checks.random_trial** function. This is a simple one - the function does, in fact, do nothing at all to your code. All it does it pick, from a random trial and participant, the fixations from that trial and display them in the console for you. You can repeatedly run this function to inspect all sorts of trials to make sure that any code you have run on your data makes sense and has worked how you think it should have done. 
 
 ```{r, eval=F}
 # RANDOM TRIAL TO CHECK THINGS OUT
-organise.checks.random_trial(fixationreport)
+print(organise.checks.random_trial(fixationreport))
 ```
 
-> I can't tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.
+I can't tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.
 
-#### The final check of contingencies
+## The final check of contingencies
 
-```
+Next, we can get descirptive and summary statistics of the contingencies. Here's what we have for our current fixationreport:
+
+``` {r, eval=F}
 # FIX CONTINGENCIES
-organise.contingencies.descriptives(fixationreport)
+print(organise.contingencies.descriptives(fixationreport))
 ```
 
-### Removing Trials
+That will give a table that looks like this:
+
+```{r, eval=T, echo=F}
+knitr::kable(
+  organise.contingencies.descriptives(fixationreport), booktabs = TRUE, 
+  caption = 'Descriptives for Fixation Contingencies'
+)%>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 10)
 
 ```
-# REMOVE MISSING EVENTS - HERE, TRIALS WHICH LACKED A RESPOSNE
-foo <- organise.message.removals(fixreport_df=fixationreport, required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
+
+It tells you how many instances of each fixation contingency have been found. It also tells you how many fixations haven't been set to a contingency. If you see a row that says 'UNCLASSIFIED', this is the count of fixations that have not had a contingency assigned to them.
+
+## Removing Trials
+
+Our final steps focus on cleaning the dataset. We do this in two ways:
+* We remove trials that missed important events, such as display changes or responses
+* We remove fixations that were outliers, i.e., those that were too long or too short
+
+Ideally, the first step of this process should remove zero trials for the simple reason that, in most experiments, we should have the same series of events in each trial. Again, this serves as a health check of our dataset to ensure that everything has worked as it should. 
+
+### Removing Trials with Missing Events
+
+Let's begin with the first of our steps in terms of cleaning - removing trials that missed important events. Here, we want to make sure we remove all the trials that lacked the DISPLAY_CHANGE or RESPONSE_TIME messages.
+
+``` {r, eval=F}
+# REMOVE TRIALS THAT LACKED A DISPLAY CHANGE AND/OR A RESPONSE TIME
+messageRemovals <- organise.message.removals(fixreport_df=fixationreport, 
+    required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
+
+# LOOK AT MESSAGE REMOVALS
+print(messageRemovals[[1]])
+
+# GRAB THE FIXATION REPORT WITH TRIALS REMOVED
+fixMessagesRemoved <- messageRemovals[[2]]
+
+# THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+print(organise.contingencies.descriptives(fixMessagesRemoved))
 ```
 
-```
-organise.contingencies.descriptives(fixationreport) # THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!
+In the above code, *messageRemovals* is a list of data.tables. The first item in the list, accessed using *messageRemovals[[1]]*, gives you details information regarding how many trials, and what percentage of trials was removed for each participant, and why. The second item in the list, accessed using *messageRemovals[[2]]* is the fixation report data.table which has had all the trials where the specified events of DISPLAY_CHANGE and RESPONSE_TIME didn't occur removed.
+
+As you can see from *messageRemovals[[1]]*, no trials have been removed because everything happened as it should. Here is what that looks like:
+
+```{r, eval=T, echo=F}
+
+messageRemovals <- organise.message.removals(fixreport_df=fixationreport, 
+    required_message_list=list("DISPLAY_CHANGE", "RESPONSE_TIME"))
+
+# GRAB THE FIXATION REPORT WITH TRIALS REMOVED
+fixMessagesRemoved <- messageRemovals[[2]]
+
+knitr::kable(
+  messageRemovals[[1]], booktabs = TRUE, 
+  caption = 'Message Removals Summary Table'
+)%>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 8)
+
 ```
 
-### Time to save
+### Removing Outlier Fixations
+
+Our final step of the cleaning process is to remove fixations that were too long or too short. The convention I use, and the default set by eyeTrackR, is to remove fixations that were less than 80ms or greater than 1200ms in duration^[I know I know, outlier limits can be so arbitrary but I'm actually working on a review of the data pipelines in search studies in this regard with a view to getting a better handle on this. Please bear with me.].
+
+The approach here is very similar to that above. We use *organise.exclusions.fix_durations*, and feed it a fixation report. Here we are giving it the fixation report after cleaning trials that lacked certain messages. Here's the code:
+
+
+```{r}
+# REMOVALS BASED ON FIXATION DURATIONS
+durationRemovals <- organise.exclusions.fix_durations(fixreport_df=fixMessagesRemoved)
+
+# SUMMARY STATS OF HOW MANY FIXATIONS REMOVED PER PARTICIPANT
+durationsRemoved <- durationRemovals[[1]]
+
+# FINAL DATASET WHICH CAN BE ANALYSED 
+finalDT <- durationRemovals [[2]]
+```
+
+In the above example you can take a look at *durationsRemoved* to get a handle on how many fixations were removed from your fixation report, at a participant level. This can be useful in spotting problems with certain participants or datasets. Let's take a quick look:
+
+``` {r, echo=F}
+
+knitr::kable(
+  durationsRemoved, booktabs = TRUE, 
+  caption = 'Fixation Removals Summary Table'
+)%>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 8)
 
 ```
-# REMOVALS
-df_final_for_analysis <- organise.exclusions.fix_durations(fixreport_df=fixationreport)
-```
 
-```
+Finally, though, *finalDT* is the marked up and cleaned dataset that is ready for analysis.
+
+## Time to Save
+
+The last step is to save the data.table for later analyses. Here's an example:
+
+``` {r, eval=F}
 # THAT'S IT! LET'S NOW SAVE THE FINAL THING ##########################################################
 write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
 

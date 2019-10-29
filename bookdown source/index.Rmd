@@ -6,6 +6,7 @@ site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
+bibliography: 'book.bib'
 link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "This is a guide to using the eyeTrackR R package."

@@ -1,10 +1,9 @@
 
 # Installation and Preparation {#installation}
 
-<!-- Commented out for now since this isn't true yet!!-->
-<!-- ## Installing via CRAN -->
+## Installing via CRAN
 
-<!-- You can install eyeTrackR via **CRAN** in the same way that you would install most R packages - in RStudio, head over to the **Packages** tab, and hit **Install**. Then search for eyeTrackR. -->
+You can install eyeTrackR via **CRAN** in the same way that you would install most R packages - in RStudio, head over to the **Packages** tab, and hit **Install**. Then search for eyeTrackR.
 
 ## Installing via Devtools
 
