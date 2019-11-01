@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7.2" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#removing-outlier-fixations"><i class="fa fa-check"></i><b>4.7.2</b> Removing Outlier Fixations</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#time-to-save"><i class="fa fa-check"></i><b>4.8</b> Time to Save</a></li>
-<li class="chapter" data-level="4.9" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#putting-it-together"><i class="fa fa-check"></i><b>4.9</b> Putting it together</a></li>
+<li class="chapter" data-level="4.9" data-path="organiseWakthrough.html"><a href="organiseWakthrough.html#putting-it-together"><i class="fa fa-check"></i><b>4.9</b> Putting it Together</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="analyseWakthrough.html"><a href="analyseWakthrough.html"><i class="fa fa-check"></i><b>5</b> Analyse Functions Walkthrough</a><ul>
 <li class="chapter" data-level="5.1" data-path="analyseWakthrough.html"><a href="analyseWakthrough.html#getting-started-1"><i class="fa fa-check"></i><b>5.1</b> Getting Started</a></li>
@@ -3346,13 +3346,13 @@ LOST_FIXES_PERC
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">write.table</span>(df_final_for_analysis, <span class="st">&quot;df_final_for_analysis.txt&quot;</span>, <span class="dt">row.names=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="putting-it-together" class="section level2">
-<h2><span class="header-section-number">4.9</span> Putting it together</h2>
+<h2><span class="header-section-number">4.9</span> Putting it Together</h2>
 <p>I’ll close with one last example from a different, and, in fact, real, experiment <span class="citation">(Godwin, Benson, and Drieghe <a href="#ref-Godwin2013">2013</a>)</span>. I’m going to include this to provide an example of why the organise functions can be so useful.</p>
 <p>Let’s turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn’t have been anyone’s first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to get to grips with, and much more.</p>
 <p>I initially was interested in looking at how getting distracted from a visual search interrupts people - specifically, I was keen to know if, after stopping a search and getting distracted by a secondary task, people would pick up where they left off, or start their searches again from scratch. But I was getting ahead of myself, and so we settled on what was effectively a control condition where there was no secondary task, and just a blank-screened interruption (much like visual world paradigm research, for a review see: <span class="citation">(Ferreira, Apel, and Henderson <a href="#ref-FERREIRA2008405">2008</a>)</span>).</p>
 <p>The basic trial sequence was as follows:</p>
-<p>X figure goes here X</p>
-<p>People started searching, and then, after a random delay of between 1200 and 1400 ms (or no delay on control trials), the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p><img src="files/images/displayInterruption.png" width="824" /></p>
+<p>People started searching, and then, after a random delay of between 1200 and 1400 ms, the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
 <p>Ultimately, what I ended up putting together was the need to do the following:
 - Filter out trials with an incorrect response
 - Remove trials where the interruption was ‘seen’ by participants - in other words, when the display disappeared during a fixation
