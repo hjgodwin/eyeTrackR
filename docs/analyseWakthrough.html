@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Installation and Preparation | A guide to eyeTrackR</title>
+  <title>Chapter 5 Analyse Functions Walkthrough | A guide to eyeTrackR</title>
   <meta name="description" content="This is a guide to using the eyeTrackR R package." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Installation and Preparation | A guide to eyeTrackR" />
+  <meta property="og:title" content="Chapter 5 Analyse Functions Walkthrough | A guide to eyeTrackR" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Installation and Preparation | A guide to eyeTrackR" />
+  <meta name="twitter:title" content="Chapter 5 Analyse Functions Walkthrough | A guide to eyeTrackR" />
   
   <meta name="twitter:description" content="This is a guide to using the eyeTrackR R package." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="functionsOverview.html"/>
+<link rel="prev" href="organiseWakthrough.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -187,49 +187,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="installation" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Installation and Preparation</h1>
-<div id="installing-via-cran" class="section level2">
-<h2><span class="header-section-number">2.1</span> Installing via CRAN</h2>
-<p>You can install eyeTrackR via <strong>CRAN</strong> in the same way that you would install most R packages - in RStudio, head over to the <strong>Packages</strong> tab, and hit <strong>Install</strong>. Then search for eyeTrackR.</p>
-</div>
-<div id="installing-via-devtools" class="section level2">
-<h2><span class="header-section-number">2.2</span> Installing via Devtools</h2>
-<p>From R using the <strong>devtools</strong> package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&#39;hjgodwin/eyetrackR/source&#39;</span>)</a></code></pre></div>
-</div>
-<div id="files-youll-need" class="section level2">
-<h2><span class="header-section-number">2.3</span> Files you’ll Need</h2>
-<p>To start with, you’ll need to output three different types of report from <a href="https://www.sr-research.com/data-viewer/">SR Research DataViewer</a>. You’ll need:</p>
-<ul>
-<li>Fixation Report</li>
-<li>Message Report</li>
-<li>Interest Area Report</li>
-</ul>
-<p>When I generate these reports, I typically get DataViewer to output every single column of data it can. It has a whole bunch of different ones, but my preference is to be greedy. The simple reason for this is that DataViewer can take a long, long time to load up and output all your data, so you don’t want to have to go back into it and do everything again just because you’ve missed a vital column. That being said, if you have a lower-spec or older computer, or are short on space, you may struggle with these files.</p>
-<p>When saving these reports, it’s best to save them as tab-delimeted text files (.txt).</p>
-</div>
-<div id="r-skills-youll-need" class="section level2">
-<h2><span class="header-section-number">2.4</span> R Skills you’ll Need</h2>
-<p>Before using eyeTrackR and the output it provides, you may well want to get familiar with the excellent data.table package. I use that extensively in this guide, so you may want to learn about that first, or in addition to, going through this.</p>
-<p>There’s a very helpful introduction to using data.table available <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">here.</a></p>
-</div>
-<div id="removing-eyetrackr" class="section level2">
-<h2><span class="header-section-number">2.5</span> Removing eyeTrackR</h2>
-<p>Please don’t!!</p>
-<p>Ok, if you want to, either to update it or because you just want to get rid of it, run the following from R:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">remove.packages</span>(<span class="dt">pkgs=</span><span class="st">&quot;eyeTrackR&quot;</span>)</a></code></pre></div>
+<div id="analyseWakthrough" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Analyse Functions Walkthrough</h1>
+<p>The walkthrough here assumes you’re familiar with the basics of eye-tracking and output from DataViewer, and also assumes you’ve gone through the previous section on the organise functions as well.</p>
+<div id="getting-started-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Getting Started</h2>
 
+<div id="refs" class="references">
+<div>
+<p>Ferreira, Fernanda, Jens Apel, and John M. Henderson. 2008. “Taking a New Look at Looking at Nothing.” <em>Trends in Cognitive Sciences</em> 12 (11): 405–10. <a href="https://doi.org/https://doi.org/10.1016/j.tics.2008.07.007">https://doi.org/https://doi.org/10.1016/j.tics.2008.07.007</a>.</p>
+</div>
+<div>
+<p>Godwin, H J, V Benson, and D Drieghe. 2013. “Using interrupted visual displays to explore the capacity, time course, and format of fixation plans during visual search.” <em>Journal of Experimental Psychology. Human Perception and Performance</em> 39 (6): 1700–1712. <a href="https://doi.org/10.1037/a0032287">https://doi.org/10.1037/a0032287</a>.</p>
+</div>
+<div>
+<p>Godwin, H J, T Menneer, C A Riggs, K R Cave, and N Donnelly. 2015. “Perceptual Failures in the Selection and Identification of Low-Prevalence Targets in Relative Prevalence Visual Search.” <em>Attention, Perception &amp; Psychophysics</em> 77 (1): 150–9. <a href="https://doi.org/10.3758/s13414-014-0762-8">https://doi.org/10.3758/s13414-014-0762-8</a>.</p>
 </div>
 </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="functionsOverview.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="organiseWakthrough.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -259,7 +254,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/2-installation.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/5-analyseWalkthrough.Rmd",
 "text": "Edit"
 },
 "history": {
