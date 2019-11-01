@@ -1,0 +1,12 @@
+
+```{r, echo=F}
+suppressMessages(library(eyeTrackR))
+suppressMessages(library(kableExtra))
+```
+
+# Analyse Functions Walkthrough {#analyseWakthrough}
+
+The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer, and also assumes you've gone through the previous section on the organise functions as well.
+
+## Getting Started
+

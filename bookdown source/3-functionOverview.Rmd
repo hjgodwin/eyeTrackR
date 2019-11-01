@@ -32,7 +32,7 @@ I'll now talk about each of these in detail before providing a walkthrough of th
 
 ### Marking up Events
 
-In a typical study, there will be multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. Then, the participant is given a task of some kind. In the example below, they are given a visual search task wherein they press one button one a response box if they see a T shape, and a different button if not T shapes are present. Their response then terminates the trial. Here's a diagram:
+In a typical study, there will be multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. Then, the participant is given a task of some kind. In the example below, they are given a visual search task wherein they press one button on a response box if they see a T shape, and a different button if no T shapes are present. Their response then terminates the trial. Here's a diagram:
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrial.png")
@@ -49,7 +49,7 @@ For this example, there are three events, and each is recorded with a message in
 
 * Message saying 'DISPLAY_START': Display fixation point.
 * Message saying 'DISPLAY_CHANGE': Display a trial. Again, participants here search for a T shape amongst L shapes.
-* Nessage saying 'BUTTON_PRESS': Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
+* Message saying 'BUTTON_PRESS': Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
 
 Even if you have the most carefully-controlled study, it's unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can't just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don't do this, in a best-case scenario, you'll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.
 
@@ -68,15 +68,13 @@ In the above example, you have a set of different fixation contingencies occurin
 * Two fixations that occur during the search display.
 * One fixation that overlaps the search display event and the button press event.
 
-Let's add these in to the image, representing the fixations with a coloured bar represnting the time periods that they overlap with: 
+Let's add these in to the image, representing the fixations with a coloured bar representing the time periods that they overlap with: 
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrialFixesGantt.png")
 ```
 
-It helps to be selective about which of these you want to include in your analyses. The simple reason for this is the fact that, for example, the final fixation, which comprises not just a fixation at a location on an object but also a button press, will be longer, on average, than your fixations where a button press occurs. People have a tendency to hold their fixation while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. 
-
-To give an example, there's a density plot below using the data from a paper of mine [@Godwin2015]. In the red you have the fixations that didn't overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn't overlap with a response and 215ms for those that did overlap with a response^[I trimmed this down to fixations with a duration of less than 800ms, since there weren't many higher than this. There were also a lot more of the fixations that didn't overlap with a response (about 127,000) than those that did overlap with a response (just under 15,000). This is not surprising given that there is only one response per trial.].
+It helps to be selective about which of these you want to include in your analyses. There are many reasons for this, but one of the most important of them is the fact that people have a tendency to hold their fixations while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, there's a density plot below using the data from a paper of mine [@Godwin2015]. In the red you have the fixations that didn't overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn't overlap with a response and 215ms for those that did overlap with a response^[I trimmed this down to fixations with a duration of less than 800ms, since there weren't many higher than this. There were also a lot more of the fixations that didn't overlap with a response (about 127,000) than those that did overlap with a response (just under 15,000). This is not surprising given that there is only one response per trial.].
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/fixDurationsEyeTrackR.png")
@@ -127,7 +125,7 @@ The analyse functions in eyeTrackR are there to provide some basic means both fo
 * Saccade amplitude - mean saccade amplitude 
 * Visit count - mean number of visits to interest areas
 
-For all of the above, you are given a data.table which includes not only the by-trial and by-participant means, but also the by-partiicpant means, as well as a table that is ready for plotting (i.e., includes means as well as SDs). All of the above allow you to group your data and aggregate by as many columns as you like.
+For all of the above, you are given a data.table which includes not only the by-trial and by-participant means, but also a table that is ready for plotting (i.e., includes means as well as SDs). All of the above allow you to group your data and aggregate by as many columns as you like.
 
 There are more detailed examples of how this works in practice in the later walkthrough chapters.
 

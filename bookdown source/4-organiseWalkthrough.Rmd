@@ -10,7 +10,7 @@ The walkthrough here assumes you're familiar with the basics of eye-tracking and
 
 ## Getting Started
 
-To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a 'fool-proof' way of examining the timings and occurrences of events.^[If you rely only on the **CURRENT_FIX_MSG_X** columns in the fixation report to determine when events occurs, you wil make errors and fail to detect when events occur (occasionally, and it's very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I've seen people use only these columns in DataViewer, or worse, guess when events occurred.]
+To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a 'fool-proof' way of examining the timings and occurrences of events.^[If you rely only on the **CURRENT_FIX_MSG_X** columns in the fixation report to determine when event occurs, you wil make errors and fail to detect when events occur (occasionally, and it's very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I've seen people use only these columns in DataViewer, or worse, guess when events occurred.]
 
 We begin by loading the fixation report and message report - these are the ones that come pre-packaged with EyeTrackR. It's a dummy dataset. You can of course replace them with whatever you want.
 
@@ -30,7 +30,7 @@ messagereport <- organise.message.replace_spaces(messagereport)
 
 ## Descriptives
 
-Now, we cant get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.
+Now, we can get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.
 
 ```{r, eval=F}
 # TAKE A LOOK
@@ -55,7 +55,7 @@ First, it lists all of the messages it finds in your message report file, in tur
 
 One thing you can do at this point is a back-of-the-envelope calculation and check to make sure all the trials are there as you would expect. Assuming you know how many participants were in your dataset, and how many trials, you should be able to check to make sure the right number of trials have started (i.e., had a **DISPLAY_START** message appear). If that's not the case, then you may need to delve deeper to find why data are missing.
 
-Now that you have checked to make sure things appear as they should - here, we have XYZ partcipants in our example dataset who took part in XYZ trials, giving us XYZ trials across everyone, which is what is being reported in the table, we can continue. 
+Now that you have checked to make sure things appear as they should - here, we have XYZ participants in our example dataset who took part in XYZ trials, giving us XYZ trials across everyone, which is what is being reported in the table, we can continue. 
 
 ## Message Markup
 
@@ -118,7 +118,7 @@ This function has added the following columns to your fixation report file:
 * OUTCOME - the outcome ('CORRECT' or 'INCORRECT' of the response).
 * RESPONSE_TIME - the time from the start of the trial that the response was made.
 
-It's worth noting that RESPONSE_TIME isn't necessarily what you want to use as your Reaction Time measure, since, with this expeirment, as in many others, the display doesn't actually appear for people to look at until DISPLAY_CHANGE. We'll talk more about this later.
+It's worth noting that RESPONSE_TIME isn't necessarily what you want to use as your Reaction Time measure, since, with this experiment, as in many others, the display doesn't actually appear for people to look at until DISPLAY_CHANGE. We'll talk more about this later.
 
 ### Behavioural Markup (Alternative) {#bma}
 
@@ -185,7 +185,7 @@ Fortunately, eyeTrackR can do this for you!  Our first step in doing this is to 
 fixationreport[,TRUE_RT := RESPONSE_TIME-DISPLAY_START,]
 ```
 
-This subtracts the response time from the display start time, to enable us to focus just on the time that we are interested in. 
+This subtracts the display start time from the response time, to enable us to focus just on the time that we are interested in. 
 
 Next, you just need to run **analyse.behavioural.data**, feed it the fixation report, and the list of columns you want to aggregate by (using the **aggregation_column_list** input). Here, in the example below, the output is saved to the behaviouralData data.table.
 
@@ -220,8 +220,6 @@ print(organise.checks.random_trial(fixationreport))
 ```
 
 I can't tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.
-
-## The final check of contingencies
 
 Next, we can get descirptive and summary statistics of the contingencies. Here's what we have for our current fixationreport:
 
@@ -292,7 +290,7 @@ knitr::kable(
 
 ### Removing Outlier Fixations
 
-Our final step of the cleaning process is to remove fixations that were too long or too short. The convention I use, and the default set by eyeTrackR, is to remove fixations that were less than 80ms or greater than 1200ms in duration^[I know I know, outlier limits can be so arbitrary but I'm actually working on a review of the data pipelines in search studies in this regard with a view to getting a better handle on this. Please bear with me.].
+Our final step of the cleaning process is to remove fixations that were too long or too short. The convention I use, and the default set by eyeTrackR, is to remove fixations that were less than 60ms or greater than 1200ms in duration^[I know I know, outlier limits can be so arbitrary but I'm actually working on a review of the data pipelines in search studies in this regard with a view to getting a better handle on this. Please bear with me.].
 
 The approach here is very similar to that above. We use *organise.exclusions.fix_durations*, and feed it a fixation report. Here we are giving it the fixation report after cleaning trials that lacked certain messages. Here's the code:
 
@@ -331,3 +329,29 @@ The last step is to save the data.table for later analyses. Here's an example:
 write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
 
 ```
+
+## Putting it together
+
+I'll close with one last example from a different, and, in fact, real, experiment [@Godwin2013]. I'm going to include this to provide an example of why the organise functions can be so useful.
+
+Let's turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn't have been anyone's first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to get to grips with, and much more.
+
+I initially was interested in looking at how getting distracted from a visual search interrupts people - specifically, I was keen to know if, after stopping a search and getting distracted by a secondary task, people would pick up where they left off, or start their searches again from scratch. But I was getting ahead of myself, and so we settled on what was effectively a control condition where there was no secondary task, and just a blank-screened interruption (much like visual world paradigm research, for a review see: [@FERREIRA2008405]).
+
+The basic trial sequence was as follows:
+
+X figure goes here X
+
+People started searching, and then, after a random delay of between 1200 and 1400 ms (or no delay on control trials), the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.^[I tried to tidy it up and make it usable, but didn't get far, though it exists as [Inpsyte Data Analysis](https://github.com/hjgodwin/Inpsyte-Data-Analysis). It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also becuase I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.]
+
+Ultimately, what I ended up putting together was the need to do the following:
+- Filter out trials with an incorrect response
+- Remove trials where the interruption was 'seen' by participants - in other words, when the display disappeared during a fixation
+- Filter out trials where the interruption didn't occur even though it was supposed to. In these trials, participants responded before the interruption could occur
+- Filter out fixations that were < 60ms in duration
+- Filter out any fixations that spanned different display types
+
+This was all necessary to ensure that we analysed a pure and unconatimated set of fixations taht occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.
+
+Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly preared and ready for your analyses. 
+
