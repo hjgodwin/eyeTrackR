@@ -26,6 +26,12 @@ When I generate these reports, I typically get DataViewer to output every single
 
 When saving these reports, it's best to save them as tab-delimeted text files (.txt).
 
+## R Skills you'll Need
+
+Before using eyeTrackR and the output it provides, you may well want to get familiar with the excellent data.table package. I use that extensively in this guide, so you may want to learn about that first, or in addition to, going through this.
+
+There's a very helpful introduction to using data.table available [here.](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+
 ## Removing eyeTrackR
 
 Please don't!!
