@@ -61,7 +61,6 @@ Now that you have checked to make sure things appear as they should - here, we h
 
 Our next step is to begin to **markup** the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The **organise.message.markup** function is the start of that process. Let's run it first then talk about what it does to your fixation report:
 
-
 ```{r, echo=T, eval=F}
 # MARKUP FIXATION REPORT
 fixationreport <- organise.message.markup(message_df= messagereport, 
@@ -72,7 +71,6 @@ fixationreport <- organise.message.markup(message_df= messagereport,
                                      fixreport_df = fixationreport, 
                                      message="DISPLAY_CHANGE")
 ```
-
 
 ```{r, echo=F, message=F, results='hide'}
 # MARK UP FIXATION REPORT
@@ -122,7 +120,34 @@ It's worth noting that RESPONSE_TIME isn't necessarily what you want to use as y
 
 ### Behavioural Markup (Alternative) {#bma}
 
-TBA
+If your participants didn't use a standard button box, then you need to use a slightly different approach. This is the case if participants responded using a keyboard or a mouse. There are other ways to achieve this, but here is what I would recommend to go for since the approach suggested below fits in with the expected inputs and outputs of other functions that form part of eyeTrackR.
+
+To begin with, what we need to have is a message sent to the message report detailing two things: the time of the response, and the response itself. Suppose that participants here are asked to press the Z key for one response to indicate that they have found a target and the M key for a second response to indicate that they think no targets are present. I would recommend that you set up your experiment software so that when the participants press the Z key, it sends a message at the same time saying 'RESPONSE_PRESENT' and so that when participants press the M key, it sends a message at the same time saying 'RESPONSE_ABSENT'. This can be acheived in Experiment Builder by creating two keyboard triggers, one for Z and one for M, and setting them up to send the appropriate RESPONSE_PRESENT or RESPONSE_ABSENT message the moment the keyboard is pressed. That way, you'll get messages sent at the right time (the moment the keyboard is pressed) and with the right information.
+
+Now, if you do this, you'll get either a RESPONSE_PRESENT or RESPONSE_ABSENT message appearing in each trial. You'll also have the responses logged directly into the message report. To work with this approach, rather than using organise.responses.markup as in the above example that focused on button boxes, you need instead to mark up trials as follows:
+
+```{r, eval=F}
+fixationreport <- organise.message.markup(message_df=messagereport, 
+                                          fixreport_df = fixationreport, message="KEYBOARD_PRESENT")
+fixationreport <- organise.message.markup(message_df=messagereport, 
+                                          fixreport_df = fixationreport, message="KEYBOARD_ABSENT")
+```
+
+By doing so, you'll end up with two new columns in fixationreport. One will say KEYBOARD_PRESENT, and the other will say KEYBOARD_ABSENT. These will represent the time at which participants pressed either the Z key or the M key.
+
+The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to 'PRESENT' when the KEYBOARD_PRESENT column is not set to NA. The KEYBOARD_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same fo the KEYBOARD_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to 'CORRECT' on trials where the RESPONSE column matches the PRESENCE column. Here, we're assuming that PRESENCE says either 'PRESENT' or 'ABSENT', represnting the two trial types. Finally, it sets the RESPONSE_TIME column which organise.responses.markup would normally have set up.
+
+```{r, eval=F}
+fixationreport[is.na(KEYBOARD_PRESENT)==F,RESPONSE:='PRESENT',]
+fixationreport[is.na(KEYBOARD_ABSENT)==F,RESPONSE:='ABSENT',]
+
+fixationreport[PRESENCE==RESPONSE,OUTCOME:='CORRECT',]
+fixationreport[PRESENCE!=RESPONSE,OUTCOME:='INCORRECT',]
+
+foo[is.na(KEYBOARD_ABSENT)==F,RESPONSE_TIME:=KEYBOARD_ABSENT,]
+foo[is.na(KEYBOARD_PRESENT)==F,RESPONSE_TIME:=KEYBOARD_PRESENT,]
+
+```
 
 ## Fixation Contingencies
 
