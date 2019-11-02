@@ -14,9 +14,8 @@ description: "This is a guide to using the eyeTrackR R package."
 
 # eyeTrackR {#index}
 
-EyeTrackR consists of a set of R functions, bundled into a package, that are geared towards analysing eye-tracking datasets. For now, it can handle output from [SR Research's Eyelink eye trackers](https://www.sr-research.com/) and the software that comes with them. 
+EyeTrackR consists of a set of R functions, bundled into a package, that are geared towards analysing eye-tracking datasets. For now, it can handle output from [SR Research's Eyelink eye trackers](https://www.sr-research.com/). T
 
-This guide is written in such a way that you can go, chapter by chapter, through the text. Just to say from the start, I'm going to assume from the beginning that you are familiar with the Eyelink system, and know how to output data from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). 
 
 ## What can eyeTrackR do?
 
