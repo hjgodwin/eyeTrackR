@@ -61,6 +61,7 @@ Now that you have checked to make sure things appear as they should - here, we h
 
 Our next step is to begin to **markup** the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The **organise.message.markup** function is the start of that process. Let's run it first then talk about what it does to your fixation report:
 
+
 ```{r, echo=T, eval=F}
 # MARKUP FIXATION REPORT
 fixationreport <- organise.message.markup(message_df= messagereport, 
@@ -71,6 +72,7 @@ fixationreport <- organise.message.markup(message_df= messagereport,
                                      fixreport_df = fixationreport, 
                                      message="DISPLAY_CHANGE")
 ```
+
 
 ```{r, echo=F, message=F, results='hide'}
 # MARK UP FIXATION REPORT
@@ -148,6 +150,7 @@ foo[is.na(KEYBOARD_ABSENT)==F,RESPONSE_TIME:=KEYBOARD_ABSENT,]
 foo[is.na(KEYBOARD_PRESENT)==F,RESPONSE_TIME:=KEYBOARD_PRESENT,]
 
 ```
+
 
 ## Fixation Contingencies
 
@@ -355,7 +358,7 @@ write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
 
 ```
 
-## Putting it together
+## Putting it Together
 
 I'll close with one last example from a different, and, in fact, real, experiment [@Godwin2013]. I'm going to include this to provide an example of why the organise functions can be so useful.
 
@@ -365,9 +368,13 @@ I initially was interested in looking at how getting distracted from a visual se
 
 The basic trial sequence was as follows:
 
-X figure goes here X
 
-People started searching, and then, after a random delay of between 1200 and 1400 ms (or no delay on control trials), the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.^[I tried to tidy it up and make it usable, but didn't get far, though it exists as [Inpsyte Data Analysis](https://github.com/hjgodwin/Inpsyte-Data-Analysis). It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also becuase I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.]
+```{r, echo=F}
+knitr::include_graphics("files/images/displayInterruption.png")
+```
+
+
+People started searching, and then, after a random delay of between 1200 and 1400 ms, the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.^[I tried to tidy it up and make it usable, but didn't get far, though it exists as [Inpsyte Data Analysis](https://github.com/hjgodwin/Inpsyte-Data-Analysis). It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also becuase I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.]
 
 Ultimately, what I ended up putting together was the need to do the following:
 - Filter out trials with an incorrect response
@@ -379,4 +386,3 @@ Ultimately, what I ended up putting together was the need to do the following:
 This was all necessary to ensure that we analysed a pure and unconatimated set of fixations taht occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.
 
 Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly preared and ready for your analyses. 
-
