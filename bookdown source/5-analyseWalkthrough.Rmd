@@ -100,5 +100,11 @@ By default, the analyse functions, as you may have seen, group your data in term
 
 ## List of Analyse Functions
 
+Here is a list of the analyse functions currently available:
 
+* Fixation count - mean number of fixations 
+* Fix duration - mean fixation duration 
+* Total time - mean total fixation time 
+* Saccade amplitude - mean saccade amplitude 
+* Visit count - mean number of visits to interest areas
 
