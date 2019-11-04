@@ -12,14 +12,35 @@ github-repo: rstudio/bookdown-demo
 description: "This is a guide to using the eyeTrackR R package."
 ---
 
+
+```{r, echo=F}
+suppressMessages(library(eyeTrackR))
+suppressMessages(library(kableExtra))
+```
+
 # eyeTrackR {#index}
 
 EyeTrackR consists of a set of R functions, bundled into a package, that are geared towards analysing eye-tracking datasets. For now, it can handle output from [SR Research's Eyelink eye trackers](https://www.sr-research.com/). T
 
+This guide is written in such a way that you can go, chapter by chapter, through the text. Just to say from the start, I'm going to assume from the beginning that you are familiar with the Eyelink system, and know how to output data from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). he software that you use for data collection can be Experiment Builder, but can also be others, including E-prime, Matlab, and others besides - they can all save output to DataViewer, output which can be examined using eyeTrackR.
 
 ## What can eyeTrackR do?
 
 EyeTrackR has a wide array of functions available but the core goals for it are speed and accuracy. For speed, it uses the popular [data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) R package. For accuracy...well, in some senses that is up to you. Many things can go wrong with complex datasets that are hundreds of thousands of rows in length (indeed, the errors may be sufficiently subtle that it's hard to detect them). The solution to dealing with that, which is adopted by eyeTrackR, is to implement a number of ways of checking, double-checking and triple-checking your data to make sure that as little as possible slips through the cracks. Many of these checks have been inspired by errors I've caught in my own code, but have also been inspired by requests from editors and reviewers when writing papers.
+
+## Is eyeTrackR for you?
+
+I hope so! I mean, at least, I hope it is useful to you. But every software package or tool is only as useful as it's intended purposes, so I've listed below some different experimental paradigms and whether you might find eyeTrackR useful.
+
+```{r, echo=F}
+kable(
+  data.table(Paradigm=c('Visual Search', 'Scene Perception', 'Visual World', 'Oculomotor Control (e.g.,   antisaccade tasks)', 'Pupillometry', 
+                      'Reading - single line', 'Reading - mutli-line'),
+             Recommendation =c('eyeTrackR is for you','eyeTrackR is for you','eyeTrackR is for you', 'eyeTrackR is for you','eyeTrackR is for you, though you will be spending most of your time working on the sample reports rather than the fixation reports.', 'You will want to use the [popEYE](https://github.com/sascha2schroeder/popEye/) R package by Sascha Schroeder for this.', 'You will want to use [popEYE](https://github.com/sascha2schroeder/popEye/) for this as well, but I have used eyeTrackR to examine multi-line text experiments as well.'))
+  , booktabs = TRUE, 
+  caption = 'Paradigms and recommendations')
+
+```
 
 ## Some History
 

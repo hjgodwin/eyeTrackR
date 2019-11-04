@@ -16,10 +16,6 @@ For most of my projects, I have two key sets of files:
 
 Here, I'll begin by giving you an overview of how and why the organise and analyse functions are necessary, and what they do. The remaining chapters involve walkthroughs describing how to use these functions in practice.
 
-```{r, echo=F}
-suppressMessages(library(eyeTrackR))
-suppressMessages(library(kableExtra))
-```
 
 ## Organise Functions
 

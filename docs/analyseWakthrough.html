@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-02" />
+<meta name="date" content="2019-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,9 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> eyeTrackR</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can eyeTrackR do?</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.2</b> Some History</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#xx-contributors"><i class="fa fa-check"></i><b>1.3</b> XX Contributors</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#xx-more-ways-to-talk"><i class="fa fa-check"></i><b>1.4</b> XX More Ways to Talk</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#is-eyetrackr-for-you"><i class="fa fa-check"></i><b>1.2</b> Is eyeTrackR for you?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.3</b> Some History</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#xx-contributors"><i class="fa fa-check"></i><b>1.4</b> XX Contributors</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#xx-more-ways-to-talk"><i class="fa fa-check"></i><b>1.5</b> XX More Ways to Talk</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation and Preparation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-cran"><i class="fa fa-check"></i><b>2.1</b> Installing via CRAN</a></li>
@@ -224,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s inspect each on in turn now. First, fixCounts$byTrial - this should be pretty self-explanatory:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-37">Table 5.1: </span>fixCounts$byTrial - first handful of rows only
+<span id="tab:unnamed-chunk-38">Table 5.1: </span>fixCounts$byTrial - first handful of rows only
 </caption>
 <tbody>
 <tr>
@@ -234,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Next is fixCounts$byppt - again, this is the same thing except now it’s averaged by participant and by the aggregation_column_list columns only:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-38">Table 5.2: </span>fixCounts$byppt - first handful of rows only
+<span id="tab:unnamed-chunk-39">Table 5.2: </span>fixCounts$byppt - first handful of rows only
 </caption>
 <thead>
 <tr>
@@ -321,7 +322,7 @@ NO
 <p>Finally is fixCounts$graphs, which provide means and SEs ready for putting into graphs:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-39">Table 5.3: </span>Fixation report final columns
+<span id="tab:unnamed-chunk-40">Table 5.3: </span>Fixation report final columns
 </caption>
 <thead>
 <tr>
@@ -362,22 +363,16 @@ NO
 </tbody>
 </table>
 <p>Let’s get an example graph put together. My preference is to use ggplot2 in combination with the cowplot package for ready-made APA formatting:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
-<pre><code>## RStudio Community is a great place to get help:
-## https://community.rstudio.com/c/tidyverse.</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">library</span>(cowplot)</a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     ggsave</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 </div>
 <div id="understanding-the-analyse-approach" class="section level2">
 <h2><span class="header-section-number">5.3</span> Understanding the Analyse Approach</h2>
