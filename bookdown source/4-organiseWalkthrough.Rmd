@@ -2,11 +2,14 @@
 ```{r, echo=F}
 suppressMessages(library(eyeTrackR))
 suppressMessages(library(kableExtra))
+
 ```
 
 # Organise Functions Walkthrough {#organiseWakthrough}
 
-The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer. 
+The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer.
+
+To make things easier, we have collected all of the R code in this section into one file for you to download and look at, which is available in the [walkthrough.R]('files/R/walkthrough.R') file.
 
 ## Getting Started
 
@@ -100,11 +103,11 @@ We now have two of the major events in each trial marked up into our fixation re
 
 Here, there are two ways to markup the fixation report. If you use a button box, you can use the method here. If you are not using a button box, you'll need to use the method described in [Behavioural Markup (Alternative)](#bma).
 
-To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use **organise.responses.markup**. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiemnt Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let's run the code:
+To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use **organise.responses.markup**. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiment Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let's run the code:
 
 ```{r, eval=F}
 # NOW DO ACCURACY AND RT MARKUP
-fixationreport <- organise.responses.markup(fixationreport, "CORRECT_RESPONSE")
+fixationreport <- data.table(organise.responses.markup(fixationreport, "CORRECT_RESPONSE"))
 ```
 
 ```{r, echo=F, message=F, results='hide'}
@@ -137,17 +140,22 @@ fixationreport <- organise.message.markup(message_df=messagereport,
 
 By doing so, you'll end up with two new columns in fixationreport. One will say KEYBOARD_PRESENT, and the other will say KEYBOARD_ABSENT. These will represent the time at which participants pressed either the Z key or the M key.
 
-The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to 'PRESENT' when the KEYBOARD_PRESENT column is not set to NA. The KEYBOARD_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same fo the KEYBOARD_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to 'CORRECT' on trials where the RESPONSE column matches the PRESENCE column. Here, we're assuming that PRESENCE says either 'PRESENT' or 'ABSENT', represnting the two trial types. Finally, it sets the RESPONSE_TIME column which organise.responses.markup would normally have set up.
+The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to 'PRESENT' when the KEYBOARD_PRESENT column is not set to NA. The KEYBOARD_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same for the KEYBOARD_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to 'CORRECT' on trials where the RESPONSE column matches the PRESENCE column. Here, we're assuming that PRESENCE says either 'PRESENT' or 'ABSENT', representing the two trial types. Finally, it sets the RESPONSE_TIME column which organise.responses.markup would normally have set up.
 
 ```{r, eval=F}
+
+# HERE WE ASSUME THAT fixationreport IS A data.table
+# WE ALSO ASSUME THAT PRESENCE LISTS 'PRESENT' OR 'ABSENT' DEPENDING ON THE
+# TRIAL TYPE
+
 fixationreport[is.na(KEYBOARD_PRESENT)==F,RESPONSE:='PRESENT',]
 fixationreport[is.na(KEYBOARD_ABSENT)==F,RESPONSE:='ABSENT',]
 
 fixationreport[PRESENCE==RESPONSE,OUTCOME:='CORRECT',]
 fixationreport[PRESENCE!=RESPONSE,OUTCOME:='INCORRECT',]
 
-foo[is.na(KEYBOARD_ABSENT)==F,RESPONSE_TIME:=KEYBOARD_ABSENT,]
-foo[is.na(KEYBOARD_PRESENT)==F,RESPONSE_TIME:=KEYBOARD_PRESENT,]
+fixationreport[is.na(KEYBOARD_ABSENT)==F,RESPONSE_TIME:=KEYBOARD_ABSENT,]
+fixationreport[is.na(KEYBOARD_PRESENT)==F,RESPONSE_TIME:=KEYBOARD_PRESENT,]
 
 ```
 
@@ -249,7 +257,7 @@ print(organise.checks.random_trial(fixationreport))
 
 I can't tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.
 
-Next, we can get descirptive and summary statistics of the contingencies. Here's what we have for our current fixationreport:
+Next, we can get descriptive and summary statistics of the contingencies. Here's what we have for our current fixationreport:
 
 ``` {r, eval=F}
 # FIX CONTINGENCIES
@@ -354,7 +362,7 @@ The last step is to save the data.table for later analyses. Here's an example:
 
 ``` {r, eval=F}
 # THAT'S IT! LET'S NOW SAVE THE FINAL THING ##########################################################
-write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
+write.table(finalDT, "finalDT.txt", row.names=FALSE)
 
 ```
 
@@ -362,7 +370,7 @@ write.table(df_final_for_analysis, "df_final_for_analysis.txt", row.names=FALSE)
 
 I'll close with one last example from a different, and, in fact, real, experiment [@Godwin2013]. I'm going to include this to provide an example of why the organise functions can be so useful.
 
-Let's turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn't have been anyone's first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to get to grips with, and much more.
+Let's turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn't have been anyone's first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to work out, and much more.
 
 I initially was interested in looking at how getting distracted from a visual search interrupts people - specifically, I was keen to know if, after stopping a search and getting distracted by a secondary task, people would pick up where they left off, or start their searches again from scratch. But I was getting ahead of myself, and so we settled on what was effectively a control condition where there was no secondary task, and just a blank-screened interruption (much like visual world paradigm research, for a review see: [@FERREIRA2008405]).
 
@@ -374,7 +382,7 @@ knitr::include_graphics("files/images/displayInterruption.png")
 ```
 
 
-People started searching, and then, after a random delay of between 1200 and 1400 ms, the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.^[I tried to tidy it up and make it usable, but didn't get far, though it exists as [Inpsyte Data Analysis](https://github.com/hjgodwin/Inpsyte-Data-Analysis). It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also becuase I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.]
+People started searching, and then, after a random delay of between 1200 and 1400 ms, the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.^[I tried to tidy it up and make it usable, but didn't get far, though it exists as [Inpsyte Data Analysis](https://github.com/hjgodwin/Inpsyte-Data-Analysis). It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also because I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.]
 
 Ultimately, what I ended up putting together was the need to do the following:
 - Filter out trials with an incorrect response
@@ -383,6 +391,6 @@ Ultimately, what I ended up putting together was the need to do the following:
 - Filter out fixations that were < 60ms in duration
 - Filter out any fixations that spanned different display types
 
-This was all necessary to ensure that we analysed a pure and unconatimated set of fixations taht occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.
+This was all necessary to ensure that we analysed a pure and uncontaminated set of fixations that occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.
 
-Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly preared and ready for your analyses. 
+Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly prepared and ready for your analyses. 

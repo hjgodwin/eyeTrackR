@@ -53,7 +53,7 @@ So, the solution is to examine when each event occurred for that participant and
 
 #### Contingencies
 
-Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this^[Or at least, without an eye-tracker, you would assume people do this and behave themselves as you expect.].
+Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this^[Or at least, without an eye-tracker, you would assume people do this and behave themselves as you expect.].
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrialFixes.png")
@@ -64,7 +64,7 @@ In the above example, you have a set of different fixation contingencies occurin
 * Two fixations that occur during the search display.
 * One fixation that overlaps the search display event and the button press event.
 
-Let's add these in to the image, representing the fixations with a coloured bar representing the time periods that they overlap with: 
+Let's add these in to the image, with a coloured bar representing the time periods that the fixations overlap with: 
 
 ```{r, echo=F}
 knitr::include_graphics("files/images/baseTrialFixesGantt.png")
