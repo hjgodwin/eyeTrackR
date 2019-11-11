@@ -9,7 +9,7 @@ suppressMessages(library(kableExtra))
 
 The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer.
 
-To make things easier, we have collected all of the R code in this section into one file for you to download and look at, which is available in the [walkthrough.R]('files/R/walkthrough.R') file.
+To make things easier, we have collected all of the R code in this section into one file for you to download and look at, which is available in the [walkthrough.R](https://github.com/hjgodwin/eyeTrackR/blob/master/Walkthroughs/walkthrough.R) file.
 
 ## Getting Started
 
