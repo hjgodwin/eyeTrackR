@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="eyeTrackR/bookdown_source" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 2 Installation and Preparation | A Guide to eyeTrackR" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-04" />
+<meta name="date" content="2019-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,6 +48,15 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151983820-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151983820-1');
+</script>
 
 
 <style type="text/css">
@@ -132,15 +141,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> eyeTrackR</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can eyeTrackR do?</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#is-eyetrackr-for-you"><i class="fa fa-check"></i><b>1.2</b> Is eyeTrackR for you?</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.3</b> Some History</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#xx-contributors"><i class="fa fa-check"></i><b>1.4</b> XX Contributors</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#xx-more-ways-to-talk"><i class="fa fa-check"></i><b>1.5</b> XX More Ways to Talk</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#citing-eyetrackr"><i class="fa fa-check"></i><b>1.3</b> Citing eyeTrackR</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.4</b> Some History</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>1.5</b> Contributors</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#get-in-touch"><i class="fa fa-check"></i><b>1.6</b> Get in Touch</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation and Preparation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-cran"><i class="fa fa-check"></i><b>2.1</b> Installing via CRAN</a></li>
 <li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#installing-via-devtools"><i class="fa fa-check"></i><b>2.2</b> Installing via Devtools</a></li>
-<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#files-youll-need"><i class="fa fa-check"></i><b>2.3</b> Files you’ll Need</a></li>
-<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#r-skills-youll-need"><i class="fa fa-check"></i><b>2.4</b> R Skills you’ll Need</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#required-files"><i class="fa fa-check"></i><b>2.3</b> Required Files</a></li>
+<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#required-r-skills"><i class="fa fa-check"></i><b>2.4</b> Required R Skills</a></li>
 <li class="chapter" data-level="2.5" data-path="installation.html"><a href="installation.html#removing-eyetrackr"><i class="fa fa-check"></i><b>2.5</b> Removing eyeTrackR</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="functionsOverview.html"><a href="functionsOverview.html"><i class="fa fa-check"></i><b>3</b> Functions Overview</a><ul>
@@ -198,16 +208,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Installation and Preparation</h1>
 <div id="installing-via-cran" class="section level2">
 <h2><span class="header-section-number">2.1</span> Installing via CRAN</h2>
-<p>You can install eyeTrackR via <strong>CRAN</strong> in the same way that you would install most R packages - in RStudio, head over to the <strong>Packages</strong> tab, and hit <strong>Install</strong>. Then search for eyeTrackR.</p>
+<p>You can install eyeTrackR via <strong>CRAN</strong> in the same way that you would install most R packages:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;eyeTrackR&quot;</span>)</a></code></pre></div>
+<p>Alternatively, in RStudio, head over to the <strong>Packages</strong> tab, click <strong>Install</strong> and search for eyeTrackR.</p>
 </div>
 <div id="installing-via-devtools" class="section level2">
 <h2><span class="header-section-number">2.2</span> Installing via Devtools</h2>
 <p>From R using the <strong>devtools</strong> package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&#39;hjgodwin/eyetrackR/source&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&#39;hjgodwin/eyetrackR/source&#39;</span>)</a></code></pre></div>
 </div>
-<div id="files-youll-need" class="section level2">
-<h2><span class="header-section-number">2.3</span> Files you’ll Need</h2>
+<div id="required-files" class="section level2">
+<h2><span class="header-section-number">2.3</span> Required Files</h2>
 <p>To start with, you’ll need to output three different types of report from <a href="https://www.sr-research.com/data-viewer/">SR Research DataViewer</a>. You’ll need:</p>
 <ul>
 <li>Fixation Report</li>
@@ -215,10 +227,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Interest Area Report</li>
 </ul>
 <p>When I generate these reports, I typically get DataViewer to output every single column of data it can. It has a whole bunch of different ones, but my preference is to be greedy. The simple reason for this is that DataViewer can take a long, long time to load up and output all your data, so you don’t want to have to go back into it and do everything again just because you’ve missed a vital column. That being said, if you have a lower-spec or older computer, or are short on space, you may struggle with these files.</p>
-<p>When saving these reports, it’s best to save them as tab-delimeted text files (.txt).</p>
+<p>When saving these reports, it’s best to save them as tab-delimited text files (.txt).</p>
 </div>
-<div id="r-skills-youll-need" class="section level2">
-<h2><span class="header-section-number">2.4</span> R Skills you’ll Need</h2>
+<div id="required-r-skills" class="section level2">
+<h2><span class="header-section-number">2.4</span> Required R Skills</h2>
 <p>Before using eyeTrackR and the output it provides, you may well want to get familiar with the excellent data.table package. I use that extensively in this guide, so you may want to learn about that first, or in addition to, going through this.</p>
 <p>There’s a very helpful introduction to using data.table available <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">here.</a></p>
 </div>
@@ -226,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.5</span> Removing eyeTrackR</h2>
 <p>Please don’t!!</p>
 <p>Ok, if you want to, either to update it or because you just want to get rid of it, run the following from R:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">remove.packages</span>(<span class="dt">pkgs=</span><span class="st">&quot;eyeTrackR&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">remove.packages</span>(<span class="dt">pkgs=</span><span class="st">&quot;eyeTrackR&quot;</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -283,20 +295,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

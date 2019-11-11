@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="eyeTrackR/bookdown_source" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 4 Organise Functions Walkthrough | A Guide to eyeTrackR" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-04" />
+<meta name="date" content="2019-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,6 +48,15 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151983820-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151983820-1');
+</script>
 
 
 <style type="text/css">
@@ -132,15 +141,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> eyeTrackR</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can eyeTrackR do?</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#is-eyetrackr-for-you"><i class="fa fa-check"></i><b>1.2</b> Is eyeTrackR for you?</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.3</b> Some History</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#xx-contributors"><i class="fa fa-check"></i><b>1.4</b> XX Contributors</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#xx-more-ways-to-talk"><i class="fa fa-check"></i><b>1.5</b> XX More Ways to Talk</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#citing-eyetrackr"><i class="fa fa-check"></i><b>1.3</b> Citing eyeTrackR</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.4</b> Some History</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>1.5</b> Contributors</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#get-in-touch"><i class="fa fa-check"></i><b>1.6</b> Get in Touch</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation and Preparation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-cran"><i class="fa fa-check"></i><b>2.1</b> Installing via CRAN</a></li>
 <li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#installing-via-devtools"><i class="fa fa-check"></i><b>2.2</b> Installing via Devtools</a></li>
-<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#files-youll-need"><i class="fa fa-check"></i><b>2.3</b> Files you’ll Need</a></li>
-<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#r-skills-youll-need"><i class="fa fa-check"></i><b>2.4</b> R Skills you’ll Need</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#required-files"><i class="fa fa-check"></i><b>2.3</b> Required Files</a></li>
+<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#required-r-skills"><i class="fa fa-check"></i><b>2.4</b> Required R Skills</a></li>
 <li class="chapter" data-level="2.5" data-path="installation.html"><a href="installation.html#removing-eyetrackr"><i class="fa fa-check"></i><b>2.5</b> Removing eyeTrackR</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="functionsOverview.html"><a href="functionsOverview.html"><i class="fa fa-check"></i><b>3</b> Functions Overview</a><ul>
@@ -197,25 +207,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="organiseWakthrough" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Organise Functions Walkthrough</h1>
 <p>The walkthrough here assumes you’re familiar with the basics of eye-tracking and output from DataViewer.</p>
+<p>To make things easier, we have collected all of the R code in this section into one file for you to download and look at, which is available in the <a href="https://github.com/hjgodwin/eyeTrackR/blob/master/Walkthroughs/walkthrough.R">walkthrough.R</a> file.</p>
 <div id="getting-started" class="section level2">
 <h2><span class="header-section-number">4.1</span> Getting Started</h2>
 <p>To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a ‘fool-proof’ way of examining the timings and occurrences of events.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>We begin by loading the fixation report and message report - these are the ones that come pre-packaged with EyeTrackR. It’s a dummy dataset. You can of course replace them with whatever you want.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">data</span>(fixationreport)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">data</span>(messagereport)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">data</span>(fixationreport)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">data</span>(messagereport)</a></code></pre></div>
 <p>Next, we begin ‘marking up’ the events, which is why I usually call the file with my organise functions in ORGANISE__Markup.R. The first step is to replace the spaces in any messages with underscores. This is needed as a safety measure because spaces in the event labels can disrupt the process of working out contingencies.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># REPLACE SPACES IN MESSAGES</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">messagereport &lt;-<span class="st"> </span><span class="kw">organise.message.replace_spaces</span>(messagereport)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># REPLACE SPACES IN MESSAGES</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">messagereport &lt;-<span class="st"> </span><span class="kw">organise.message.replace_spaces</span>(messagereport)</a></code></pre></div>
 </div>
 <div id="descriptives" class="section level2">
 <h2><span class="header-section-number">4.2</span> Descriptives</h2>
 <p>Now, we can get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># TAKE A LOOK</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.message.descriptives</span>(messagereport))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># TAKE A LOOK</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.message.descriptives</span>(messagereport))</a></code></pre></div>
 <p>From that, we get the following - formatted nicely here for easy reading:</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-16">Table 4.1: </span>Message report descriptives
+<span id="tab:unnamed-chunk-21">Table 4.1: </span>Message report descriptives
 </caption>
 <thead>
 <tr>
@@ -298,14 +309,14 @@ BUTTON_PRESS
 <div id="message-markup" class="section level2">
 <h2><span class="header-section-number">4.3</span> Message Markup</h2>
 <p>Our next step is to begin to <strong>markup</strong> the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The <strong>organise.message.markup</strong> function is the start of that process. Let’s run it first then talk about what it does to your fixation report:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># MARKUP FIXATION REPORT</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_START&quot;</span>)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_CHANGE&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># MARKUP FIXATION REPORT</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_START&quot;</span>)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span> messagereport, </a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">                                     <span class="dt">fixreport_df =</span> fixationreport, </a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">                                     <span class="dt">message=</span><span class="st">&quot;DISPLAY_CHANGE&quot;</span>)</a></code></pre></div>
 <p>If you now take a look at <strong>fixationreport</strong> - which I would recommend you do - you’ll now see some new columns have been added. One is called <strong>DISPLAY_START</strong> and the other is called <strong>DISPLAY_CHANGE</strong>. If you look closely, what this has done is<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
 <ul>
 <li>Work out when each <strong>DISPLAY_START</strong> and <strong>DISPLAY_CHANGE</strong> occurred in each of the trials.</li>
@@ -319,9 +330,9 @@ BUTTON_PRESS
 <h3><span class="header-section-number">4.3.1</span> Behavioural Markup</h3>
 <p>We now have two of the major events in each trial marked up into our fixation report. The only thing that is missing is the other main event in each trial: the response made by each participant!</p>
 <p>Here, there are two ways to markup the fixation report. If you use a button box, you can use the method here. If you are not using a button box, you’ll need to use the method described in <a href="organiseWakthrough.html#bma">Behavioural Markup (Alternative)</a>.</p>
-<p>To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use <strong>organise.responses.markup</strong>. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiemnt Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let’s run the code:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># NOW DO ACCURACY AND RT MARKUP</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.responses.markup</span>(fixationreport, <span class="st">&quot;CORRECT_RESPONSE&quot;</span>)</a></code></pre></div>
+<p>To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use <strong>organise.responses.markup</strong>. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiment Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let’s run the code:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># NOW DO ACCURACY AND RT MARKUP</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">fixationreport &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="kw">organise.responses.markup</span>(fixationreport, <span class="st">&quot;CORRECT_RESPONSE&quot;</span>))</a></code></pre></div>
 <p>This function has added the following columns to your fixation report file:</p>
 <ul>
 <li>BUTTON_NUMBER - the button number pressed on that trial.</li>
@@ -335,31 +346,35 @@ BUTTON_PRESS
 <p>If your participants didn’t use a standard button box, then you need to use a slightly different approach. This is the case if participants responded using a keyboard or a mouse. There are other ways to achieve this, but here is what I would recommend to go for since the approach suggested below fits in with the expected inputs and outputs of other functions that form part of eyeTrackR.</p>
 <p>To begin with, what we need to have is a message sent to the message report detailing two things: the time of the response, and the response itself. Suppose that participants here are asked to press the Z key for one response to indicate that they have found a target and the M key for a second response to indicate that they think no targets are present. I would recommend that you set up your experiment software so that when the participants press the Z key, it sends a message at the same time saying ‘RESPONSE_PRESENT’ and so that when participants press the M key, it sends a message at the same time saying ‘RESPONSE_ABSENT’. This can be acheived in Experiment Builder by creating two keyboard triggers, one for Z and one for M, and setting them up to send the appropriate RESPONSE_PRESENT or RESPONSE_ABSENT message the moment the keyboard is pressed. That way, you’ll get messages sent at the right time (the moment the keyboard is pressed) and with the right information.</p>
 <p>Now, if you do this, you’ll get either a RESPONSE_PRESENT or RESPONSE_ABSENT message appearing in each trial. You’ll also have the responses logged directly into the message report. To work with this approach, rather than using organise.responses.markup as in the above example that focused on button boxes, you need instead to mark up trials as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span>messagereport, </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">                                          <span class="dt">fixreport_df =</span> fixationreport, <span class="dt">message=</span><span class="st">&quot;KEYBOARD_PRESENT&quot;</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span>messagereport, </a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">                                          <span class="dt">fixreport_df =</span> fixationreport, <span class="dt">message=</span><span class="st">&quot;KEYBOARD_ABSENT&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span>messagereport, </a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">                                          <span class="dt">fixreport_df =</span> fixationreport, <span class="dt">message=</span><span class="st">&quot;KEYBOARD_PRESENT&quot;</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">fixationreport &lt;-<span class="st"> </span><span class="kw">organise.message.markup</span>(<span class="dt">message_df=</span>messagereport, </a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">                                          <span class="dt">fixreport_df =</span> fixationreport, <span class="dt">message=</span><span class="st">&quot;KEYBOARD_ABSENT&quot;</span>)</a></code></pre></div>
 <p>By doing so, you’ll end up with two new columns in fixationreport. One will say KEYBOARD_PRESENT, and the other will say KEYBOARD_ABSENT. These will represent the time at which participants pressed either the Z key or the M key.</p>
-<p>The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to ‘PRESENT’ when the KEYBOARD_PRESENT column is not set to NA. The KEYBOARD_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same fo the KEYBOARD_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to ‘CORRECT’ on trials where the RESPONSE column matches the PRESENCE column. Here, we’re assuming that PRESENCE says either ‘PRESENT’ or ‘ABSENT’, represnting the two trial types. Finally, it sets the RESPONSE_TIME column which organise.responses.markup would normally have set up.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">fixationreport[<span class="kw">is.na</span>(KEYBOARD_PRESENT)<span class="op">==</span>F,RESPONSE<span class="op">:</span><span class="er">=</span><span class="st">&#39;PRESENT&#39;</span>,]</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">fixationreport[<span class="kw">is.na</span>(KEYBOARD_ABSENT)<span class="op">==</span>F,RESPONSE<span class="op">:</span><span class="er">=</span><span class="st">&#39;ABSENT&#39;</span>,]</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">fixationreport[PRESENCE<span class="op">==</span>RESPONSE,OUTCOME<span class="op">:</span><span class="er">=</span><span class="st">&#39;CORRECT&#39;</span>,]</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">fixationreport[PRESENCE<span class="op">!=</span>RESPONSE,OUTCOME<span class="op">:</span><span class="er">=</span><span class="st">&#39;INCORRECT&#39;</span>,]</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">foo[<span class="kw">is.na</span>(KEYBOARD_ABSENT)<span class="op">==</span>F,RESPONSE_TIME<span class="op">:</span><span class="er">=</span>KEYBOARD_ABSENT,]</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">foo[<span class="kw">is.na</span>(KEYBOARD_PRESENT)<span class="op">==</span>F,RESPONSE_TIME<span class="op">:</span><span class="er">=</span>KEYBOARD_PRESENT,]</a></code></pre></div>
+<p>The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to ‘PRESENT’ when the KEYBOARD_PRESENT column is not set to NA. The KEYBOARD_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same for the KEYBOARD_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to ‘CORRECT’ on trials where the RESPONSE column matches the PRESENCE column. Here, we’re assuming that PRESENCE says either ‘PRESENT’ or ‘ABSENT’, representing the two trial types. Finally, it sets the RESPONSE_TIME column which organise.responses.markup would normally have set up.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># HERE WE ASSUME THAT fixationreport IS A data.table</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># WE ALSO ASSUME THAT PRESENCE LISTS &#39;PRESENT&#39; OR &#39;ABSENT&#39; DEPENDING ON THE</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co"># TRIAL TYPE</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">fixationreport[<span class="kw">is.na</span>(KEYBOARD_PRESENT)<span class="op">==</span>F,RESPONSE<span class="op">:</span><span class="er">=</span><span class="st">&#39;PRESENT&#39;</span>,]</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">fixationreport[<span class="kw">is.na</span>(KEYBOARD_ABSENT)<span class="op">==</span>F,RESPONSE<span class="op">:</span><span class="er">=</span><span class="st">&#39;ABSENT&#39;</span>,]</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">fixationreport[PRESENCE<span class="op">==</span>RESPONSE,OUTCOME<span class="op">:</span><span class="er">=</span><span class="st">&#39;CORRECT&#39;</span>,]</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">fixationreport[PRESENCE<span class="op">!=</span>RESPONSE,OUTCOME<span class="op">:</span><span class="er">=</span><span class="st">&#39;INCORRECT&#39;</span>,]</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">fixationreport[<span class="kw">is.na</span>(KEYBOARD_ABSENT)<span class="op">==</span>F,RESPONSE_TIME<span class="op">:</span><span class="er">=</span>KEYBOARD_ABSENT,]</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">fixationreport[<span class="kw">is.na</span>(KEYBOARD_PRESENT)<span class="op">==</span>F,RESPONSE_TIME<span class="op">:</span><span class="er">=</span>KEYBOARD_PRESENT,]</a></code></pre></div>
 </div>
 </div>
 <div id="fixation-contingencies" class="section level2">
 <h2><span class="header-section-number">4.4</span> Fixation Contingencies</h2>
 <p>We now know at what point in each trial each of the three major events occurred- the DISPLAY_START events, the DISPLAY_CHANGE events, and the RESPONSE_TIME events. We know what button participants pressed, and we know if they were right or wrong in each trial. The final step now is to markup the fixation <strong>contingencies</strong>. Again, these are important in helping us be sure that we’ve included what we want to include when it comes to analysing our eye-tracking data.</p>
 <p>To get going with this, we need to use the <strong>organise.message.fix_contingencies</strong> function. You need to feed this function the fixation report you’re using, as well as a list of the messages you want to mark up in terms of your contingencies. Note that you don’t need to include all the messages here, just the ones you’re interested in. Let’s run it as follows:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># NOW MARK UP FIXATION CONTINGENCIES</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">fixationreport&lt;-<span class="kw">organise.message.fix_contingencies</span>(fixationreport, </a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">                                              <span class="kw">list</span>(<span class="st">&quot;DISPLAY_START&quot;</span>, </a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">                                                   <span class="st">&quot;DISPLAY_CHANGE&quot;</span>, </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">                                                   <span class="st">&quot;RESPONSE_TIME&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># NOW MARK UP FIXATION CONTINGENCIES</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">fixationreport&lt;-<span class="kw">organise.message.fix_contingencies</span>(fixationreport, </a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">                                              <span class="kw">list</span>(<span class="st">&quot;DISPLAY_START&quot;</span>, </a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">                                                   <span class="st">&quot;DISPLAY_CHANGE&quot;</span>, </a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">                                                   <span class="st">&quot;RESPONSE_TIME&quot;</span>))</a></code></pre></div>
 <pre><code>## DISPLAY_START</code></pre>
 <pre><code>## DISPLAY_CHANGE</code></pre>
 <pre><code>## RESPONSE_TIME</code></pre>
@@ -565,16 +580,16 @@ DISPLAY_CHANGE__RESPONSE_TIME
 <h2><span class="header-section-number">4.5</span> Behavioural Data</h2>
 <p>You already have the responses, outcomes and reaction times marked up for each trial at this point. But one problem is that these will require some work to convert to, say, mean accuracy rates. This is because the fixation report has one row per fixation, rather than one row per trial. Therefore, if you want the mean accuracy rate for your participants, you’ll need to crunch the data down to one row per trial before computing your means.</p>
 <p>Fortunately, eyeTrackR can do this for you! Our first step in doing this is to work out the <strong>TRUE_RT</strong> column. This is as follows:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># SET UP TRUE RT</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">fixationreport[,TRUE_RT <span class="op">:</span><span class="er">=</span><span class="st"> </span>RESPONSE_TIME<span class="op">-</span>DISPLAY_START,]</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># SET UP TRUE RT</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">fixationreport[,TRUE_RT <span class="op">:</span><span class="er">=</span><span class="st"> </span>RESPONSE_TIME<span class="op">-</span>DISPLAY_START,]</a></code></pre></div>
 <p>This subtracts the display start time from the response time, to enable us to focus just on the time that we are interested in.</p>
 <p>Next, you just need to run <strong>analyse.behavioural.data</strong>, feed it the fixation report, and the list of columns you want to aggregate by (using the <strong>aggregation_column_list</strong> input). Here, in the example below, the output is saved to the behaviouralData data.table.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">behaviouralData &lt;-<span class="st"> </span><span class="kw">analyse.behavioural.data</span>(fixationreport, </a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">                                                <span class="dt">aggregation_column_list =</span> <span class="kw">list</span>(<span class="st">&#39;TRIALTYPE_TEXT&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">behaviouralData &lt;-<span class="st"> </span><span class="kw">analyse.behavioural.data</span>(fixationreport, </a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">                                                <span class="dt">aggregation_column_list =</span> <span class="kw">list</span>(<span class="st">&#39;TRIALTYPE_TEXT&#39;</span>))</a></code></pre></div>
 <p>The <strong>behaviouralData</strong> table looks like this:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-26">Table 4.3: </span>Summarised Behavioural Data
+<span id="tab:unnamed-chunk-31">Table 4.3: </span>Summarised Behavioural Data
 </caption>
 <thead>
 <tr>
@@ -1990,16 +2005,16 @@ NO
 <div id="final-checks" class="section level2">
 <h2><span class="header-section-number">4.6</span> Final Checks</h2>
 <p>We are almost ready to save our marked-up fixation report. It’s worth at this point to suggest running some checks on our data. Have a go at running the <strong>organise.checks.random_trial</strong> function. This is a simple one - the function does, in fact, do nothing at all to your code. All it does it pick, from a random trial and participant, the fixations from that trial and display them in the console for you. You can repeatedly run this function to inspect all sorts of trials to make sure that any code you have run on your data makes sense and has worked how you think it should have done.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># RANDOM TRIAL TO CHECK THINGS OUT</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.checks.random_trial</span>(fixationreport))</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># RANDOM TRIAL TO CHECK THINGS OUT</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.checks.random_trial</span>(fixationreport))</a></code></pre></div>
 <p>I can’t tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.</p>
-<p>Next, we can get descirptive and summary statistics of the contingencies. Here’s what we have for our current fixationreport:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># FIX CONTINGENCIES</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.contingencies.descriptives</span>(fixationreport))</a></code></pre></div>
+<p>Next, we can get descriptive and summary statistics of the contingencies. Here’s what we have for our current fixationreport:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># FIX CONTINGENCIES</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">organise.contingencies.descriptives</span>(fixationreport))</a></code></pre></div>
 <p>That will give a table that looks like this:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-29">Table 4.4: </span>Descriptives for Fixation Contingencies
+<span id="tab:unnamed-chunk-34">Table 4.4: </span>Descriptives for Fixation Contingencies
 </caption>
 <thead>
 <tr>
@@ -2073,23 +2088,23 @@ RESPONSE_TIME
 <div id="removing-trials-with-missing-events" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Removing Trials with Missing Events</h3>
 <p>Let’s begin with the first of our steps in terms of cleaning - removing trials that missed important events. Here, we want to make sure we remove all the trials that lacked the DISPLAY_CHANGE or RESPONSE_TIME messages.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># REMOVE TRIALS THAT LACKED A DISPLAY CHANGE AND/OR A RESPONSE TIME</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">messageRemovals &lt;-<span class="st"> </span><span class="kw">organise.message.removals</span>(<span class="dt">fixreport_df=</span>fixationreport, </a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">    <span class="dt">required_message_list=</span><span class="kw">list</span>(<span class="st">&quot;DISPLAY_CHANGE&quot;</span>, <span class="st">&quot;RESPONSE_TIME&quot;</span>))</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co"># LOOK AT MESSAGE REMOVALS</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="kw">print</span>(messageRemovals[[<span class="dv">1</span>]])</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co"># GRAB THE FIXATION REPORT WITH TRIALS REMOVED</span></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9">fixMessagesRemoved &lt;-<span class="st"> </span>messageRemovals[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co"># THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="kw">print</span>(<span class="kw">organise.contingencies.descriptives</span>(fixMessagesRemoved))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># REMOVE TRIALS THAT LACKED A DISPLAY CHANGE AND/OR A RESPONSE TIME</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">messageRemovals &lt;-<span class="st"> </span><span class="kw">organise.message.removals</span>(<span class="dt">fixreport_df=</span>fixationreport, </a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">    <span class="dt">required_message_list=</span><span class="kw">list</span>(<span class="st">&quot;DISPLAY_CHANGE&quot;</span>, <span class="st">&quot;RESPONSE_TIME&quot;</span>))</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co"># LOOK AT MESSAGE REMOVALS</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="kw">print</span>(messageRemovals[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co"># GRAB THE FIXATION REPORT WITH TRIALS REMOVED</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">fixMessagesRemoved &lt;-<span class="st"> </span>messageRemovals[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co"># THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="kw">print</span>(<span class="kw">organise.contingencies.descriptives</span>(fixMessagesRemoved))</a></code></pre></div>
 <p>In the above code, <em>messageRemovals</em> is a list of data.tables. The first item in the list, accessed using <em>messageRemovals[[1]]</em>, gives you details information regarding how many trials, and what percentage of trials was removed for each participant, and why. The second item in the list, accessed using <em>messageRemovals[[2]]</em> is the fixation report data.table which has had all the trials where the specified events of DISPLAY_CHANGE and RESPONSE_TIME didn’t occur removed.</p>
 <p>As you can see from <em>messageRemovals[[1]]</em>, no trials have been removed because everything happened as it should. Here is what that looks like:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 8px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-31">Table 4.5: </span>Message Removals Summary Table
+<span id="tab:unnamed-chunk-36">Table 4.5: </span>Message Removals Summary Table
 </caption>
 <thead>
 <tr>
@@ -2814,18 +2829,18 @@ LOST_TRIALS_PERC
 <h3><span class="header-section-number">4.7.2</span> Removing Outlier Fixations</h3>
 <p>Our final step of the cleaning process is to remove fixations that were too long or too short. The convention I use, and the default set by eyeTrackR, is to remove fixations that were less than 60ms or greater than 1200ms in duration<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
 <p>The approach here is very similar to that above. We use <em>organise.exclusions.fix_durations</em>, and feed it a fixation report. Here we are giving it the fixation report after cleaning trials that lacked certain messages. Here’s the code:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># REMOVALS BASED ON FIXATION DURATIONS</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">durationRemovals &lt;-<span class="st"> </span><span class="kw">organise.exclusions.fix_durations</span>(<span class="dt">fixreport_df=</span>fixMessagesRemoved)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># REMOVALS BASED ON FIXATION DURATIONS</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">durationRemovals &lt;-<span class="st"> </span><span class="kw">organise.exclusions.fix_durations</span>(<span class="dt">fixreport_df=</span>fixMessagesRemoved)</a></code></pre></div>
 <pre><code>## CURRENT_FIX_DURATION&lt;1200 &amp; CURRENT_FIX_DURATION&gt;60</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># SUMMARY STATS OF HOW MANY FIXATIONS REMOVED PER PARTICIPANT</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">durationsRemoved &lt;-<span class="st"> </span>durationRemovals[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co"># FINAL DATASET WHICH CAN BE ANALYSED </span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5">finalDT &lt;-<span class="st"> </span>durationRemovals [[<span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># SUMMARY STATS OF HOW MANY FIXATIONS REMOVED PER PARTICIPANT</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">durationsRemoved &lt;-<span class="st"> </span>durationRemovals[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co"># FINAL DATASET WHICH CAN BE ANALYSED </span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">finalDT &lt;-<span class="st"> </span>durationRemovals [[<span class="dv">2</span>]]</a></code></pre></div>
 <p>In the above example you can take a look at <em>durationsRemoved</em> to get a handle on how many fixations were removed from your fixation report, at a participant level. This can be useful in spotting problems with certain participants or datasets. Let’s take a quick look:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 8px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-33">Table 4.6: </span>Fixation Removals Summary Table
+<span id="tab:unnamed-chunk-38">Table 4.6: </span>Fixation Removals Summary Table
 </caption>
 <thead>
 <tr>
@@ -3365,13 +3380,13 @@ LOST_FIXES_PERC
 <div id="time-to-save" class="section level2">
 <h2><span class="header-section-number">4.8</span> Time to Save</h2>
 <p>The last step is to save the data.table for later analyses. Here’s an example:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># THAT&#39;S IT! LET&#39;S NOW SAVE THE FINAL THING ##########################################################</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">write.table</span>(df_final_for_analysis, <span class="st">&quot;df_final_for_analysis.txt&quot;</span>, <span class="dt">row.names=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># THAT&#39;S IT! LET&#39;S NOW SAVE THE FINAL THING ##########################################################</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">write.table</span>(finalDT, <span class="st">&quot;finalDT.txt&quot;</span>, <span class="dt">row.names=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="putting-it-together" class="section level2">
 <h2><span class="header-section-number">4.9</span> Putting it Together</h2>
 <p>I’ll close with one last example from a different, and, in fact, real, experiment <span class="citation">(Godwin, Benson, and Drieghe <a href="#ref-Godwin2013">2013</a>)</span>. I’m going to include this to provide an example of why the organise functions can be so useful.</p>
-<p>Let’s turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn’t have been anyone’s first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to get to grips with, and much more.</p>
+<p>Let’s turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn’t have been anyone’s first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to work out, and much more.</p>
 <p>I initially was interested in looking at how getting distracted from a visual search interrupts people - specifically, I was keen to know if, after stopping a search and getting distracted by a secondary task, people would pick up where they left off, or start their searches again from scratch. But I was getting ahead of myself, and so we settled on what was effectively a control condition where there was no secondary task, and just a blank-screened interruption (much like visual world paradigm research, for a review see: <span class="citation">(Ferreira, Apel, and Henderson <a href="#ref-FERREIRA2008405">2008</a>)</span>).</p>
 <p>The basic trial sequence was as follows:</p>
 <p><img src="files/images/displayInterruption.png" /><!-- --></p>
@@ -3382,8 +3397,8 @@ LOST_FIXES_PERC
 - Filter out trials where the interruption didn’t occur even though it was supposed to. In these trials, participants responded before the interruption could occur
 - Filter out fixations that were &lt; 60ms in duration
 - Filter out any fixations that spanned different display types</p>
-<p>This was all necessary to ensure that we analysed a pure and unconatimated set of fixations taht occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.</p>
-<p>Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly preared and ready for your analyses.</p>
+<p>This was all necessary to ensure that we analysed a pure and uncontaminated set of fixations that occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.</p>
+<p>Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly prepared and ready for your analyses.</p>
 
 </div>
 </div>
@@ -3402,7 +3417,7 @@ LOST_FIXES_PERC
 <li id="fn4"><p>If you rely only on the <strong>CURRENT_FIX_MSG_X</strong> columns in the fixation report to determine when event occurs, you wil make errors and fail to detect when events occur (occasionally, and it’s very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I’ve seen people use only these columns in DataViewer, or worse, guess when events occurred.<a href="organiseWakthrough.html#fnref4" class="footnote-back">↩</a></p></li>
 <li id="fn5"><p>In SQL parlance, it’s a simple join, of course.<a href="organiseWakthrough.html#fnref5" class="footnote-back">↩</a></p></li>
 <li id="fn6"><p>I know I know, outlier limits can be so arbitrary but I’m actually working on a review of the data pipelines in search studies in this regard with a view to getting a better handle on this. Please bear with me.<a href="organiseWakthrough.html#fnref6" class="footnote-back">↩</a></p></li>
-<li id="fn7"><p>I tried to tidy it up and make it usable, but didn’t get far, though it exists as <a href="https://github.com/hjgodwin/Inpsyte-Data-Analysis">Inpsyte Data Analysis</a>. It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn’t know R all that well at the time, and also becuase I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.<a href="organiseWakthrough.html#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>I tried to tidy it up and make it usable, but didn’t get far, though it exists as <a href="https://github.com/hjgodwin/Inpsyte-Data-Analysis">Inpsyte Data Analysis</a>. It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn’t know R all that well at the time, and also because I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.<a href="organiseWakthrough.html#fnref7" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -3458,20 +3473,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="eyeTrackR/bookdown_source" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Functions Overview | A Guide to eyeTrackR" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-04" />
+<meta name="date" content="2019-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,6 +48,15 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151983820-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151983820-1');
+</script>
 
 
 <style type="text/css">
@@ -132,15 +141,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> eyeTrackR</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-can-eyetrackr-do"><i class="fa fa-check"></i><b>1.1</b> What can eyeTrackR do?</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#is-eyetrackr-for-you"><i class="fa fa-check"></i><b>1.2</b> Is eyeTrackR for you?</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.3</b> Some History</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#xx-contributors"><i class="fa fa-check"></i><b>1.4</b> XX Contributors</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#xx-more-ways-to-talk"><i class="fa fa-check"></i><b>1.5</b> XX More Ways to Talk</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#citing-eyetrackr"><i class="fa fa-check"></i><b>1.3</b> Citing eyeTrackR</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#some-history"><i class="fa fa-check"></i><b>1.4</b> Some History</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>1.5</b> Contributors</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#get-in-touch"><i class="fa fa-check"></i><b>1.6</b> Get in Touch</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation and Preparation</a><ul>
 <li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#installing-via-cran"><i class="fa fa-check"></i><b>2.1</b> Installing via CRAN</a></li>
 <li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#installing-via-devtools"><i class="fa fa-check"></i><b>2.2</b> Installing via Devtools</a></li>
-<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#files-youll-need"><i class="fa fa-check"></i><b>2.3</b> Files you’ll Need</a></li>
-<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#r-skills-youll-need"><i class="fa fa-check"></i><b>2.4</b> R Skills you’ll Need</a></li>
+<li class="chapter" data-level="2.3" data-path="installation.html"><a href="installation.html#required-files"><i class="fa fa-check"></i><b>2.3</b> Required Files</a></li>
+<li class="chapter" data-level="2.4" data-path="installation.html"><a href="installation.html#required-r-skills"><i class="fa fa-check"></i><b>2.4</b> Required R Skills</a></li>
 <li class="chapter" data-level="2.5" data-path="installation.html"><a href="installation.html#removing-eyetrackr"><i class="fa fa-check"></i><b>2.5</b> Removing eyeTrackR</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="functionsOverview.html"><a href="functionsOverview.html"><i class="fa fa-check"></i><b>3</b> Functions Overview</a><ul>
@@ -232,13 +242,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses. The first aspect of this control and organising process is to talk about contingencies.</p>
 <div id="contingencies" class="section level4">
 <h4><span class="header-section-number">3.2.1.1</span> Contingencies</h4>
-<p>Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may make fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<p>Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
 <p><img src="files/images/baseTrialFixes.png" width="556" /></p>
 <p>In the above example, you have a set of different fixation contingencies occuring. You have:
 * Fixation that overlaps the fixation point display and the search display.
 * Two fixations that occur during the search display.
 * One fixation that overlaps the search display event and the button press event.</p>
-<p>Let’s add these in to the image, representing the fixations with a coloured bar representing the time periods that they overlap with:</p>
+<p>Let’s add these in to the image, with a coloured bar representing the time periods that the fixations overlap with:</p>
 <p><img src="files/images/baseTrialFixesGantt.png" width="657" /></p>
 <p>It helps to be selective about which of these you want to include in your analyses. There are many reasons for this, but one of the most important of them is the fact that people have a tendency to hold their fixations while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, there’s a density plot below using the data from a paper of mine <span class="citation">(Godwin et al. <a href="#ref-Godwin2015">2015</a>)</span>. In the red you have the fixations that didn’t overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn’t overlap with a response and 215ms for those that did overlap with a response<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <p><img src="files/images/fixDurationsEyeTrackR.png" width="1118" /></p>
@@ -248,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Having set out just some of the ways that the contigencies can be mapped out, we can now put together a table of contingencies across all of the trials in our example experiment. These contingencies map out the different events that fixations coincide with. A full mapping is shown in the table below.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-11">Table 3.1: </span>Fixation contingencies in our example experiment.
+<span id="tab:unnamed-chunk-16">Table 3.1: </span>Fixation contingencies in our example experiment.
 </caption>
 <thead>
 <tr>
@@ -433,20 +443,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
