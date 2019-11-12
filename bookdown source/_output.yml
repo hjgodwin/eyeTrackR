@@ -11,6 +11,7 @@ bookdown::gitbook:
     download: ["pdf", "epub"]
     collapse: subsection
     bibliography: book.bib
+    scroll_highlight: yes
   includes:
     in_header: googleAnalytics.html
 bookdown::pdf_book:

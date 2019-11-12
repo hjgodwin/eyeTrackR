@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-11" />
+<meta name="date" content="2019-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -250,10 +250,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 * One fixation that overlaps the search display event and the button press event.</p>
 <p>Let’s add these in to the image, with a coloured bar representing the time periods that the fixations overlap with:</p>
 <p><img src="files/images/baseTrialFixesGantt.png" width="657" /></p>
-<p>It helps to be selective about which of these you want to include in your analyses. There are many reasons for this, but one of the most important of them is the fact that people have a tendency to hold their fixations while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, there’s a density plot below using the data from a paper of mine <span class="citation">(Godwin et al. <a href="#ref-Godwin2015">2015</a>)</span>. In the red you have the fixations that didn’t overlap with the button press response, and in the blue, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn’t overlap with a response and 215ms for those that did overlap with a response<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
-<p><img src="files/images/fixDurationsEyeTrackR.png" width="1118" /></p>
+<p>It helps to be selective about which of these you want to include in your analyses. There are many reasons for this, but one of the most important of them is the fact that people have a tendency to hold their fixations while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, there’s a density plot below using the data from a paper of mine <span class="citation">(Godwin et al. <a href="#ref-Godwin2015">2015</a>)</span>. In the yellow you have the fixations that didn’t overlap with the button press response, and in the red, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn’t overlap with a response and 215ms for those that did overlap with a response<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<p><img src="files/images/fixDurationsEyeTrackR.png" width="1429" /></p>
 <p>To make things more complex, the situation described above is not the only way that events can unfold during a search trial. On some trials, participants will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations, as shown by the red circle in the example below:</p>
-<p><img src="files/images/baseTrialSingleFix.png" width="678" /></p>
+<p><img src="files/images/baseTrialSingleFix.png" width="613" /></p>
 <p>The first point to consider here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether participants were actually searching in that trial at all. Trials like this will often be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something ‘weird’ or unexpected happened.</p>
 <p>Having set out just some of the ways that the contigencies can be mapped out, we can now put together a table of contingencies across all of the trials in our example experiment. These contingencies map out the different events that fixations coincide with. A full mapping is shown in the table below.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 9px; margin-left: auto; margin-right: auto;">
@@ -433,12 +433,13 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": ["eyeTrackR-guide.pdf", "eyeTrackR-guide.epub"],
 "toc": {
 "collapse": "subsection"
 },
 "collapse": "subsection",
-"bibliography": "book.bib"
+"bibliography": "book.bib",
+"scroll_highlight": true
 });
 });
 </script>
