@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a guide to using the eyeTrackR R package." />
-  <meta name="github-repo" content="eyeTrackR/bookdown_source" />
+  <meta name="github-repo" content="hjgodwin/eyeTrackR/bookdown_source/" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 5 Analyse Functions Walkthrough | A Guide to eyeTrackR" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-12" />
+<meta name="date" content="2019-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="organiseWakthrough.html"/>
-
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -184,6 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="analyseWakthrough.html"><a href="analyseWakthrough.html#participants"><i class="fa fa-check"></i><b>5.4</b> Participants</a></li>
 <li class="chapter" data-level="5.5" data-path="analyseWakthrough.html"><a href="analyseWakthrough.html#list-of-analyse-functions"><i class="fa fa-check"></i><b>5.5</b> List of Analyse Functions</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -378,14 +379,18 @@ NO
 </table>
 <p>Let’s get an example graph put together. My preference is to use ggplot2 in combination with the cowplot package for ready-made APA formatting:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">library</span>(cowplot)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
-<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">library</span>(cowplot)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     ggsave</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
 <p><img src="eyeTrackR-guide_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
 <div id="understanding-the-analyse-approach" class="section level2">
@@ -409,38 +414,9 @@ NO
 <li>Visit count - mean number of visits to interest areas</li>
 </ul>
 
-<div id="refs" class="references">
-<div>
-<p>Ferreira, Fernanda, Jens Apel, and John M. Henderson. 2008. “Taking a New Look at Looking at Nothing.” <em>Trends in Cognitive Sciences</em> 12 (11): 405–10. <a href="https://doi.org/https://doi.org/10.1016/j.tics.2008.07.007">https://doi.org/https://doi.org/10.1016/j.tics.2008.07.007</a>.</p>
-</div>
-<div>
-<p>Godwin, H J, V Benson, and D Drieghe. 2013. “Using interrupted visual displays to explore the capacity, time course, and format of fixation plans during visual search.” <em>Journal of Experimental Psychology. Human Perception and Performance</em> 39 (6): 1700–1712. <a href="https://doi.org/10.1037/a0032287">https://doi.org/10.1037/a0032287</a>.</p>
-</div>
-<div>
-<p>Godwin, H J, T Menneer, C A Riggs, K R Cave, and N Donnelly. 2015. “Perceptual Failures in the Selection and Identification of Low-Prevalence Targets in Relative Prevalence Visual Search.” <em>Attention, Perception &amp; Psychophysics</em> 77 (1): 150–9. <a href="https://doi.org/10.3758/s13414-014-0762-8">https://doi.org/10.3758/s13414-014-0762-8</a>.</p>
-</div>
-<div>
-<p>Godwin, H J, E D Reichle, and T Menneer. 2014. “Coarse-to-fine eye movement behavior during visual search.” <em>Psychonomic Bulletin &amp; Review</em> 21 (5): 1244–9. <a href="https://doi.org/10.3758/s13423-014-0613-6">https://doi.org/10.3758/s13423-014-0613-6</a>.</p>
-</div>
-<div>
-<p>Over, E A B, I T C Hooge, B N S Vlaskamp, and C J Erkelens. 2007. “Coarse-to-fine eye movement strategy in visual search.” <em>Vision Research</em> 47 (17): 2272–80. <a href="https://doi.org/10.1016/j.visres.2007.05.002">https://doi.org/10.1016/j.visres.2007.05.002</a>.</p>
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<h3>References</h3>
+<h3> References</h3>
 <div id="refs" class="references">
 <div id="ref-Godwin2014a">
 <p>Godwin, H J, E D Reichle, and T Menneer. 2014. “Coarse-to-fine eye movement behavior during visual search.” <em>Psychonomic Bulletin &amp; Review</em> 21 (5): 1244–9. <a href="https://doi.org/10.3758/s13423-014-0613-6">https://doi.org/10.3758/s13423-014-0613-6</a>.</p>
@@ -454,8 +430,8 @@ NO
           </div>
         </div>
       </div>
-<a href="organiseWakthrough.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="organiseWakthrough.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -484,19 +460,16 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/5-analyseWalkthrough.Rmd",
-"text": "Edit"
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
 },
-"download": ["eyeTrackR-guide.pdf", "eyeTrackR-guide.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 },
-"collapse": "subsection",
+"collapse": "section",
 "bibliography": "book.bib",
 "scroll_highlight": true
 });

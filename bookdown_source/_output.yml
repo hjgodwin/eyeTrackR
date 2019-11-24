@@ -1,0 +1,21 @@
+bookdown::gitbook:
+  output_dir: "../docs"
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">Guide to eyeTrackR</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit: null
+    download: null
+    collapse: section
+    bibliography: book.bib
+    scroll_highlight: yes
+  includes:
+    in_header: googleAnalytics.html
+bookdown::pdf_book:
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default

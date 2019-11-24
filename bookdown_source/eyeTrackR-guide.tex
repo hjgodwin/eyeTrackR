@@ -1,0 +1,1254 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={A Guide to eyeTrackR},
+            pdfauthor={Hayward J. Godwin},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{A Guide to eyeTrackR}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Hayward J. Godwin}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{2019-11-24}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{index}{%
+\chapter{eyeTrackR}\label{index}}
+
+Welcome! So, eyeTrackR is an R package of functions geared towards analysing eye-tracking datasets. For now, it can handle output from \href{https://www.sr-research.com/}{SR Research's Eyelink eye trackers}.
+
+This guide is written to allow you to read through the text in chapter order, and assumes familiarity with the Eyelink system and how to output data from \href{https://www.sr-research.com/data-viewer/}{SR Research DataViewer}. The software that you use for data collection can be Experiment Builder, but could also be including E-prime, Matlab, OpenSesame and others.
+
+\hypertarget{what-can-eyetrackr-do}{%
+\section{What can eyeTrackR do?}\label{what-can-eyetrackr-do}}
+
+EyeTrackR has a wide array of functions available but the core goals for it are speed and accuracy. For speed, it uses the popular \href{https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html}{data.table} R package. For accuracy\ldots{} well, in some senses that is up to you. Many things can go wrong with complex datasets that are hundreds of thousands of rows in length (indeed, the errors may be sufficiently subtle that it's hard to detect them). The solution to dealing with that, adopted by eyeTrackR, is to implement a number of ways of checking, double-checking and triple-checking your data to make sure that as little as possible slips through the cracks. Many of these checks have been inspired by errors I've caught in my own code, but have also been inspired by requests from editors and reviewers when writing papers.
+
+\hypertarget{is-eyetrackr-for-you}{%
+\section{Is eyeTrackR for you?}\label{is-eyetrackr-for-you}}
+
+I hope so! I mean, at least, I hope it is useful to you. Every software package or tool is only as useful as it's intended purposes, so I've listed below some different experimental paradigms and whether you might find eyeTrackR useful.
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-3}Paradigms and recommendations}
+\centering
+\begin{tabular}{ll}
+\toprule
+Paradigm & Recommendation\\
+\midrule
+Visual Search & eyeTrackR is for you\\
+Scene Perception & eyeTrackR is for you\\
+Visual World & eyeTrackR is for you\\
+Oculomotor Control (e.g.,   antisaccade tasks) & eyeTrackR is for you\\
+Pupillometry & eyeTrackR is for you, though you will be spending most of your time working on the sample reports rather than the fixation reports.\\
+\addlinespace
+Reading - single line & You will want to use the [popEYE](https://github.com/sascha2schroeder/popEye/) R package by Sascha Schroeder for this.\\
+Reading - mutli-line & You will want to use [popEYE](https://github.com/sascha2schroeder/popEye/) for this as well, but I have used eyeTrackR to examine multi-line text experiments as well.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{citing-eyetrackr}{%
+\section{Citing eyeTrackR}\label{citing-eyetrackr}}
+
+If you have used eyeTrackR and would like to cite it, please use the following citation:
+
+Godwin, H. J. \& Muhl-Rihardson, A. (2019). eyeTrackR: Organising and Analysing Eye-Tracking Data. R package version 1.0.0.
+
+\hypertarget{some-history}{%
+\section{Some History}\label{some-history}}
+
+I started working on what would become this R package back in 2011 and 2012. Around that time, I was a post-doc, surviving on scraps from different research projects. In order to survive, and because I enjoy coding, I ended up helping out various other people with their R code and eye-tracking datasets. I kept using the same basic scripts repeatedly, as you do, then the scripts became functions, and eventually the functions became eyeTrackR.
+
+The first version was released around that time - the first commit on github for the package was April 2nd, 2012. I used it extensively since that time, and, because I wasn't sure what it would involve, I never really got around to formalising it and uploading it to CRAN.
+
+In more recent times, I've developed my working practices, and, in the spirit of open science, I wanted to share eyeTrackR in a state that others could use. It seems to me that consistency of data processing, filtering and cleaning methods - all of which are offered by eyeTrackR - could be beneficial to a wider audience. I've seen so many times, and in so many papers, people making mistakes where they've missed things that eyeTrackR can check for them very easily. I'm hoping that it can help to avoid those mistakes in the future. Indeed, I'm sure I've made plenty myself\ldots{}
+
+\hypertarget{contributors}{%
+\section{Contributors}\label{contributors}}
+
+I'd like to thank the kind individuals who have taken their time out to contribute to the development and testing of eyeTrackR and/or the development and testing of this guide. At present, the local team of testers and feedback providers are listed below.
+
+\includegraphics[width=0.5\linewidth]{files/images/hayward}
+
+\href{https://twitter.com/haywardgodwin}{Hayward Godwin}, who is currently a Lecturer at the University of Southampton.
+
+\includegraphics[width=4.15in]{files/images/alex}
+
+\href{https://twitter.com/alexmuhl_r}{Alexander Muhl-Richardson}, who is currently a post-doc at Cambridge. Alex has contributed code to eyeTrackR and also made edits to this guide.
+
+\includegraphics[width=0.5\linewidth]{files/images/andreea}
+
+Andreea Butnaru, who is currently a PhD student at the University of Southampton. Andreea has made edits and suggestions to this guide.
+
+\includegraphics[width=0.5\linewidth]{files/images/philippa}
+
+\href{https://twitter.com/phillybroadbent}{Philippa Broadbent}, who is currently a PhD student at the University of Southampton. Philippa has made edits and suggestions to this guide.
+
+If you would like to contribute, please do get in touch - more information on this in the next section!
+
+\hypertarget{get-in-touch}{%
+\section{Get in Touch}\label{get-in-touch}}
+
+Probably the best way to talk to the eyeTrackR team is via the \href{https://join.slack.com/t/eyetrackr/shared_invite/enQtODQyNDQzMzkxNTc1LWM4MmUyMTJmYTA4ZjgzNWNjNGQxNzcxYWY1NWNhYzM2ODg1OWNiNDg4MzIxYWZmZjkwZWFjMTU0MmU4NDE5Y2Y}{eyeTrack R Slack channel}. If you've not heard of Slack, it's a bit like the web forums of antiquity but with a lot more functionality.
+
+\hypertarget{installation}{%
+\chapter{Installation and Preparation}\label{installation}}
+
+\hypertarget{installing-via-cran}{%
+\section{Installing via CRAN}\label{installing-via-cran}}
+
+You can install eyeTrackR via \textbf{CRAN} in the same way that you would install most R packages:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"eyeTrackR"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Alternatively, in RStudio, head over to the \textbf{Packages} tab, click \textbf{Install} and search for eyeTrackR.
+
+\hypertarget{installing-via-devtools}{%
+\section{Installing via Devtools}\label{installing-via-devtools}}
+
+From R using the \textbf{devtools} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(devtools)}
+\KeywordTok{install_github}\NormalTok{(}\StringTok{'hjgodwin/eyetrackR/source'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{required-files}{%
+\section{Required Files}\label{required-files}}
+
+To start with, you'll need to output three different types of report from \href{https://www.sr-research.com/data-viewer/}{SR Research DataViewer}. You'll need:
+
+\begin{itemize}
+\tightlist
+\item
+  Fixation Report
+\item
+  Message Report
+\item
+  Interest Area Report
+\end{itemize}
+
+When I generate these reports, I typically get DataViewer to output every single column of data it can. It has a whole bunch of different ones, but my preference is to be greedy. The simple reason for this is that DataViewer can take a long, long time to load up and output all your data, so you don't want to have to go back into it and do everything again just because you've missed a vital column. That being said, if you have a lower-spec or older computer, or are short on space, you may struggle with these files.
+
+When saving these reports, it's best to save them as tab-delimited text files (.txt).
+
+\hypertarget{required-r-skills}{%
+\section{Required R Skills}\label{required-r-skills}}
+
+Before using eyeTrackR and the output it provides, you may well want to get familiar with the excellent data.table package. I use that extensively in this guide, so you may want to learn about that first, or in addition to, going through this.
+
+There's a very helpful introduction to using data.table available \href{https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html}{here.}
+
+\hypertarget{removing-eyetrackr}{%
+\section{Removing eyeTrackR}\label{removing-eyetrackr}}
+
+Please don't!!
+
+Ok, if you want to, either to update it or because you just want to get rid of it, run the following from R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{remove.packages}\NormalTok{(}\DataTypeTok{pkgs=}\StringTok{"eyeTrackR"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{functionsOverview}{%
+\chapter{Functions Overview}\label{functionsOverview}}
+
+\hypertarget{the-basics}{%
+\section{The Basics}\label{the-basics}}
+
+The functions in eyeTrackR are mostly split up into two categories: \textbf{Organise} functions and \textbf{Analyse} functions.\footnote{Future versions may include \emph{OrganiZe} and \emph{AnalyZe} functions, who knows.}
+
+\textbf{Organise} functions are there to help you clean and organise your data.
+
+\textbf{Analyse} functions are there to work out means of common dependent variables and put them together in a format that can easily then be analysed by standard statistical methods (e.g., ANOVAs), as well as visualising those dependent variables.
+
+For most of my projects, I have two key sets of files:
+
+\begin{itemize}
+\tightlist
+\item
+  ORGANISE\_\_markup.R : this marks up the dataset and cleans it, as you'll see in this chapter.
+\item
+  ANALYSE\_\_XYZ.R : this either contains all of my analyses (if there aren't that many), OR I split this file up, so that I have one ANALYSE\_\_XYZ.R file for each dependent variable.
+\end{itemize}
+
+Here, I'll begin by giving you an overview of how and why the organise and analyse functions are necessary, and what they do. The remaining chapters involve walkthroughs describing how to use these functions in practice.
+
+\hypertarget{organise-functions}{%
+\section{Organise Functions}\label{organise-functions}}
+
+There are a handful of key tasks that take place in the organise functions. They are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Marking up events in each trial.
+\item
+  Removing outliers or other fixations that you're not interested in.
+\end{itemize}
+
+I'll now talk about each of these in detail before providing a walkthrough of the functions with example code and data.
+
+\hypertarget{marking-up-events}{%
+\subsection{Marking up Events}\label{marking-up-events}}
+
+In a typical study, there will be multiple events in a single trial. For example, you might ask participants to fixate a certain point, after which the main display is presented. Then, the participant is given a task of some kind. In the example below, they are given a visual search task wherein they press one button on a response box if they see a T shape, and a different button if no T shapes are present. Their response then terminates the trial. Here's a diagram:
+
+\includegraphics[width=15.22in]{files/images/baseTrial}
+
+Here, we assume that when there is an event or display change of some kind, you send a `message' to the eye-tracker. These messages are recorded within a fraction of a second of being sent, meaning that they have a high level of temporal accuracy. Let's add another bit of information to the diagram to signify the messages being recorded in the data. These are the bottom row of arrows with text written in green:
+
+\includegraphics[width=18.81in]{files/images/baseTrialMessages}
+
+For this example, there are three events, and each is recorded with a message in the data:
+
+\begin{itemize}
+\tightlist
+\item
+  Message saying `DISPLAY\_START': Display fixation point.
+\item
+  Message saying `DISPLAY\_CHANGE': Display a trial. Again, participants here search for a T shape amongst L shapes.
+\item
+  Message saying `BUTTON\_PRESS': Participant response. They press one button (button XYZ) if they spot a T shape, and a different button (button XYZ) if there are no T shapes present.
+\end{itemize}
+
+Even if you have the most carefully-controlled study, it's unlikely that even the first and second of these events will occur at the same time in each trial. There will be variability when they occur. This means you can't just assume that an event occurred at the same time each trial: you actually have to check the timings for each trial on an individual basis. If you don't do this, in a best-case scenario, you'll be adding noise to your measures, and in a worst-case scenario, your results will be incorrect.
+
+So, the solution is to examine when each event occurred for that participant and for that trial. The functions relating to events and contingencies enable you to do this. What eyeTrackR does for you is gives you full control of how these events, and the different ways they can pan out, can arise. In doing so, it gives you control over which trials and fixations to include or select into your final analyses. The first aspect of this control and organising process is to talk about contingencies.
+
+\hypertarget{contingencies}{%
+\subsubsection{Contingencies}\label{contingencies}}
+
+Contingencies enable you to draw together the events in a trial. Imagine our simple example above. A participant may fixate the fixation cross (the green circle in the image below), then make several more during the main trial (the yellow circles in the image below) before making a response (which occurs during the fixation signified by the red circle). Indeed, in most experiments, you would probably hope they would do this\footnote{Or at least, without an eye-tracker, you would assume people do this and behave themselves as you expect.}.
+
+\includegraphics[width=15.44in]{files/images/baseTrialFixes}
+
+In the above example, you have a set of different fixation contingencies occuring. You have:
+* Fixation that overlaps the fixation point display and the search display.
+* Two fixations that occur during the search display.
+* One fixation that overlaps the search display event and the button press event.
+
+Let's add these in to the image, with a coloured bar representing the time periods that the fixations overlap with:
+
+\includegraphics[width=18.25in]{files/images/baseTrialFixesGantt}
+
+It helps to be selective about which of these you want to include in your analyses. There are many reasons for this, but one of the most important of them is the fact that people have a tendency to hold their fixations while button pressing, thereby creating a substantial jump in the durations of fixations that co-incide with a button press. To give an example, there's a density plot below using the data from a paper of mine \citep{Godwin2015}. In the yellow you have the fixations that didn't overlap with the button press response, and in the red, you have the fixations that did overlap with button press responses. The means, for what they are worth with such skewed distributions, are 161ms for the fixations that didn't overlap with a response and 215ms for those that did overlap with a response\footnote{I trimmed this down to fixations with a duration of less than 800ms, since there weren't many higher than this. There were also a lot more of the fixations that didn't overlap with a response (about 127,000) than those that did overlap with a response (just under 15,000). This is not surprising given that there is only one response per trial.}.
+
+\includegraphics[width=39.69in]{files/images/fixDurationsEyeTrackR}
+
+To make things more complex, the situation described above is not the only way that events can unfold during a search trial. On some trials, participants will fixate the fixation point, and hold a fixation throughout the display of the main trial, and then make a response, without making any new fixations, as shown by the red circle in the example below:
+
+\includegraphics[width=17.03in]{files/images/baseTrialSingleFix}
+
+The first point to consider here is that fixations of this type will naturally be longer than when a participant makes multiple fixations around a display - a fixation held throughout a trial will have a longer duration than one which is made right at the end of a trial. The question really is whether participants were actually searching in that trial at all. Trials like this will often be quite short, perhaps because the participant zoned out, perhaps because they could resolve the trial easily. But it helps to know what actually happened so you can again be selective and careful about removing trials where something `weird' or unexpected happened.
+
+Having set out just some of the ways that the contigencies can be mapped out, we can now put together a table of contingencies across all of the trials in our example experiment. These contingencies map out the different events that fixations coincide with. A full mapping is shown in the table below.
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-17}Fixation contingencies in our example experiment.}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{tabular}{llll}
+\toprule
+DISPLAY\_START & DISPLAY\_CHANGE & BUTTON\_PRESS & FIXATION\_CONTINGENCY\\
+\midrule
+X &  &  & DISPLAY\_START\\
+X & X &  & DISPLAY\_START\_\_DISPLAY\_CHANGE\\
+X & X & X & DISPLAY\_START\_\_DISPLAY\_CHANGE\_\_BUTTON\_PRESS\\
+ & X &  & DISPLAY\_CHANGE\\
+ & X & X & DISPLAY\_CHANGE\_\_BUTTON\_PRESS\\
+\addlinespace
+ &  & X & BUTTON\_PRESS\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+So this is where the contingencies used by eyeTrackR are helpful. Contingencies were developed to help you work out the various events that occurred during a fixation. They are there to help you make an informed decision about the fixations that you want to include in your analyses. The \textbf{contingency} functions add a column to your fixation report, called \textbf{FIXATION\_CONTINGENCY}. This column tells you what events occurred during the fixation in question. Again, we'll talk more about this in the walkthroughs in the next chapter, but the goal here is to familiarise you with the logic behind all of this.
+
+Let's take some examples in terms of the fixation contingencies. As the table above shows, if a fixation lasted through both a fixation cross and the main trial display, it would have a contingency of FIX\_CROSS\_\_MAIN\_DISPLAY. If it only lasted through the fixation cross time period, it would have a contingency of FIX\_CROSS. Likewise, if the fixation occurred only during the main display, it would have a contingency of MAIN\_DISPLAY.
+
+The nice thing about the way that contingencies work is that they are marked up automatically. All you have to do is tell EyeTrackR the names of the events to consider when labelling the \textbf{FIXATION\_CONTINGENCY} column. This means that any contingencies which do occur can be detected, and, furthermore, also means that you can be clear about exactly what types of events are occurring during the fixations that you are analysing for your various measures. You can also omit and ignore events that you're not interested in, or events that are there for checking purposes.
+
+\hypertarget{analyse-functions}{%
+\section{Analyse Functions}\label{analyse-functions}}
+
+The analyse functions in eyeTrackR are there to provide some basic means both for analyses and for visualisations for commonly-analysed measures in eye-tracking. They include:
+
+\begin{itemize}
+\tightlist
+\item
+  Fixation count - mean number of fixations
+\item
+  Fix duration - mean fixation duration
+\item
+  Total time - mean total fixation time
+\item
+  Saccade amplitude - mean saccade amplitude
+\item
+  Visit count - mean number of visits to interest areas
+\end{itemize}
+
+For all of the above, you are given a data.table which includes not only the by-trial and by-participant means, but also a table that is ready for plotting (i.e., includes means as well as SDs). All of the above allow you to group your data and aggregate by as many columns as you like.
+
+There are more detailed examples of how this works in practice in the later walkthrough chapters.
+
+\hypertarget{organiseWakthrough}{%
+\chapter{Organise Functions Walkthrough}\label{organiseWakthrough}}
+
+The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer.
+
+To make things easier, we have collected all of the R code in this section into one file for you to download and look at, which is available in the \href{https://github.com/hjgodwin/eyeTrackR/blob/master/Walkthroughs/walkthrough.R}{walkthrough.R} file.
+
+\hypertarget{getting-started}{%
+\section{Getting Started}\label{getting-started}}
+
+To use events and contingencies, two files will be needed: a fixation report, and a message report. The message report serves as a `fool-proof' way of examining the timings and occurrences of events.\footnote{If you rely only on the \textbf{CURRENT\_FIX\_MSG\_X} columns in the fixation report to determine when event occurs, you wil make errors and fail to detect when events occur (occasionally, and it's very difficult to determine). For that reason, eyeTrackR uses only the message report to determine event timing and occurrences. In fact, I've seen people use only these columns in DataViewer, or worse, guess when events occurred.}
+
+We begin by loading the fixation report and message report - these are the ones that come pre-packaged with EyeTrackR. It's a dummy dataset. You can of course replace them with whatever you want.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(fixationreport)}
+\KeywordTok{data}\NormalTok{(messagereport)}
+\end{Highlighting}
+\end{Shaded}
+
+Next, we begin `marking up' the events, which is why I usually call the file with my organise functions in ORGANISE\_\_Markup.R. The first step is to replace the spaces in any messages with underscores. This is needed as a safety measure because spaces in the event labels can disrupt the process of working out contingencies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# REPLACE SPACES IN MESSAGES}
+\NormalTok{messagereport <-}\StringTok{ }\KeywordTok{organise.message.replace_spaces}\NormalTok{(messagereport)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{descriptives}{%
+\section{Descriptives}\label{descriptives}}
+
+Now, we can get some descriptive statistics from the message report. This is helpful in getting an understanding of what happened in our dataset. It can also be helpful in highlighting any weird issues that have cropped up.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# TAKE A LOOK}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{organise.message.descriptives}\NormalTok{(messagereport))}
+\end{Highlighting}
+\end{Shaded}
+
+From that, we get the following - formatted nicely here for easy reading:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-22}Message report descriptives}
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+CURRENT\_MSG\_TEXT & EVENT\_COUNT & TIME\_MEAN & TIME\_MIN & TIME\_MAX\\
+\midrule
+DISPLAY\_START & 15000 & 30.4704 & 26.0000 & 35.000\\
+DISPLAY\_CHANGE & 15000 & 255.4810 & 251.0000 & 260.000\\
+BUTTON\_PRESS & 15000 & 1137.6133 & 404.4914 & 1982.368\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The table above, which you get in the console output by running \textbf{organise.message.descriptives}, has some useful information in it that you can use to spot and diagnose any problems with your data.
+
+First, it lists all of the messages it finds in your message report file, in turn, and puts them in the \textbf{CURRENT\_MSG\_TEXT} column. Then, it gives you a count of how many times each message has been detected in your message report, the mean time each message occurred from the start of each trial, and then, as well as that, the maximum and minimum times each message occurred. There will always be variability in terms of when events occur in a trial, but this does enable you to make sure that, for the most part at least, things happened when they were supposed to.
+
+One thing you can do at this point is a back-of-the-envelope calculation and check to make sure all the trials are there as you would expect. Assuming you know how many participants were in your dataset, and how many trials, you should be able to check to make sure the right number of trials have started (i.e., had a \textbf{DISPLAY\_START} message appear). If that's not the case, then you may need to delve deeper to find why data are missing.
+
+Now that you have checked to make sure things appear as they should - here, we have XYZ participants in our example dataset who took part in XYZ trials, giving us XYZ trials across everyone, which is what is being reported in the table, we can continue.
+
+\hypertarget{message-markup}{%
+\section{Message Markup}\label{message-markup}}
+
+Our next step is to begin to \textbf{markup} the fixation report file based on the messages we are interested in. As we talked about above, because fixations can span multiple messages or events, we need to get the information on when each message of interest occurred in each trial. The \textbf{organise.message.markup} function is the start of that process. Let's run it first then talk about what it does to your fixation report:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# MARKUP FIXATION REPORT}
+\NormalTok{fixationreport <-}\StringTok{ }\KeywordTok{organise.message.markup}\NormalTok{(}\DataTypeTok{message_df=}\NormalTok{ messagereport, }
+                                     \DataTypeTok{fixreport_df =}\NormalTok{ fixationreport, }
+                                     \DataTypeTok{message=}\StringTok{"DISPLAY_START"}\NormalTok{)}
+
+\NormalTok{fixationreport <-}\StringTok{ }\KeywordTok{organise.message.markup}\NormalTok{(}\DataTypeTok{message_df=}\NormalTok{ messagereport, }
+                                     \DataTypeTok{fixreport_df =}\NormalTok{ fixationreport, }
+                                     \DataTypeTok{message=}\StringTok{"DISPLAY_CHANGE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+If you now take a look at \textbf{fixationreport} - which I would recommend you do - you'll now see some new columns have been added. One is called \textbf{DISPLAY\_START} and the other is called \textbf{DISPLAY\_CHANGE}. If you look closely, what this has done is\footnote{In SQL parlance, it's a simple join, of course.}:
+
+\begin{itemize}
+\tightlist
+\item
+  Work out when each \textbf{DISPLAY\_START} and \textbf{DISPLAY\_CHANGE} occurred in each of the trials.
+\item
+  Take the timings of those messages and then add that information to the fixation report.
+\end{itemize}
+
+This process also gives you some diagnostic information that helps to check for any problems. It compares the number of rows your fixation report had before you marked it up with each new message with what happens to the fixation report after you have marked it up with each new message. If the number of rows are different, that suggests something has gone wrong. Usually this is the case that you have got participants or trials that are missing from either the fixation report or the message report. If you get the following message, then you have nothing to worry about because the dataset has been matched up perfectly:
+
+\begin{quote}
+Difference between input and output rows: 0
+\end{quote}
+
+\hypertarget{behavioural-markup}{%
+\subsection{Behavioural Markup}\label{behavioural-markup}}
+
+We now have two of the major events in each trial marked up into our fixation report. The only thing that is missing is the other main event in each trial: the response made by each participant!
+
+Here, there are two ways to markup the fixation report. If you use a button box, you can use the method here. If you are not using a button box, you'll need to use the method described in \protect\hyperlink{bma}{Behavioural Markup (Alternative)}.
+
+To mark up the fixation report with the timings of each response, as well as the button press of each response, and finally the outcome (correct or incorrect) of each response, we can use \textbf{organise.responses.markup}. This function needs to be fed the fixation report you are using, as well as the column which states what the correct response on each trial is. Here, since the button boxes you can connect to Experiment Builder get given numbers (1-8), the correct response lists the correct numerical value of the button that needs to be pressed on each trial. Let's run the code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NOW DO ACCURACY AND RT MARKUP}
+\NormalTok{fixationreport <-}\StringTok{ }\KeywordTok{data.table}\NormalTok{(}\KeywordTok{organise.responses.markup}\NormalTok{(fixationreport, }\StringTok{"CORRECT_RESPONSE"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+This function has added the following columns to your fixation report file:
+
+\begin{itemize}
+\tightlist
+\item
+  BUTTON\_NUMBER - the button number pressed on that trial.
+\item
+  OUTCOME - the outcome (`CORRECT' or `INCORRECT' of the response).
+\item
+  RESPONSE\_TIME - the time from the start of the trial that the response was made.
+\end{itemize}
+
+It's worth noting that RESPONSE\_TIME isn't necessarily what you want to use as your Reaction Time measure, since, with this experiment, as in many others, the display doesn't actually appear for people to look at until DISPLAY\_CHANGE. We'll talk more about this later.
+
+\hypertarget{bma}{%
+\subsection{Behavioural Markup (Alternative)}\label{bma}}
+
+If your participants didn't use a standard button box, then you need to use a slightly different approach. This is the case if participants responded using a keyboard or a mouse. There are other ways to achieve this, but here is what I would recommend to go for since the approach suggested below fits in with the expected inputs and outputs of other functions that form part of eyeTrackR.
+
+To begin with, what we need to have is a message sent to the message report detailing two things: the time of the response, and the response itself. Suppose that participants here are asked to press the Z key for one response to indicate that they have found a target and the M key for a second response to indicate that they think no targets are present. I would recommend that you set up your experiment software so that when the participants press the Z key, it sends a message at the same time saying `RESPONSE\_PRESENT' and so that when participants press the M key, it sends a message at the same time saying `RESPONSE\_ABSENT'. This can be acheived in Experiment Builder by creating two keyboard triggers, one for Z and one for M, and setting them up to send the appropriate RESPONSE\_PRESENT or RESPONSE\_ABSENT message the moment the keyboard is pressed. That way, you'll get messages sent at the right time (the moment the keyboard is pressed) and with the right information.
+
+Now, if you do this, you'll get either a RESPONSE\_PRESENT or RESPONSE\_ABSENT message appearing in each trial. You'll also have the responses logged directly into the message report. To work with this approach, rather than using organise.responses.markup as in the above example that focused on button boxes, you need instead to mark up trials as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fixationreport <-}\StringTok{ }\KeywordTok{organise.message.markup}\NormalTok{(}\DataTypeTok{message_df=}\NormalTok{messagereport, }
+                                          \DataTypeTok{fixreport_df =}\NormalTok{ fixationreport, }\DataTypeTok{message=}\StringTok{"KEYBOARD_PRESENT"}\NormalTok{)}
+\NormalTok{fixationreport <-}\StringTok{ }\KeywordTok{organise.message.markup}\NormalTok{(}\DataTypeTok{message_df=}\NormalTok{messagereport, }
+                                          \DataTypeTok{fixreport_df =}\NormalTok{ fixationreport, }\DataTypeTok{message=}\StringTok{"KEYBOARD_ABSENT"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+By doing so, you'll end up with two new columns in fixationreport. One will say KEYBOARD\_PRESENT, and the other will say KEYBOARD\_ABSENT. These will represent the time at which participants pressed either the Z key or the M key.
+
+The final steps are to mimic the function of organise.responses.markup by using the code below. This creates a RESPONSE column and sets it to `PRESENT' when the KEYBOARD\_PRESENT column is not set to NA. The KEYBOARD\_PRESENT column is not set to NA on trials where the present key was pressed. It then does the same for the KEYBOARD\_ABSENT column and absent responses. Next, it creates the OUTCOME column and sets this to `CORRECT' on trials where the RESPONSE column matches the PRESENCE column. Here, we're assuming that PRESENCE says either `PRESENT' or `ABSENT', representing the two trial types. Finally, it sets the RESPONSE\_TIME column which organise.responses.markup would normally have set up.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# HERE WE ASSUME THAT fixationreport IS A data.table}
+\CommentTok{# WE ALSO ASSUME THAT PRESENCE LISTS 'PRESENT' OR 'ABSENT' DEPENDING ON THE}
+\CommentTok{# TRIAL TYPE}
+
+\NormalTok{fixationreport[}\KeywordTok{is.na}\NormalTok{(KEYBOARD_PRESENT)}\OperatorTok{==}\NormalTok{F,RESPONSE}\OperatorTok{:}\ErrorTok{=}\StringTok{'PRESENT'}\NormalTok{,]}
+\NormalTok{fixationreport[}\KeywordTok{is.na}\NormalTok{(KEYBOARD_ABSENT)}\OperatorTok{==}\NormalTok{F,RESPONSE}\OperatorTok{:}\ErrorTok{=}\StringTok{'ABSENT'}\NormalTok{,]}
+
+\NormalTok{fixationreport[PRESENCE}\OperatorTok{==}\NormalTok{RESPONSE,OUTCOME}\OperatorTok{:}\ErrorTok{=}\StringTok{'CORRECT'}\NormalTok{,]}
+\NormalTok{fixationreport[PRESENCE}\OperatorTok{!=}\NormalTok{RESPONSE,OUTCOME}\OperatorTok{:}\ErrorTok{=}\StringTok{'INCORRECT'}\NormalTok{,]}
+
+\NormalTok{fixationreport[}\KeywordTok{is.na}\NormalTok{(KEYBOARD_ABSENT)}\OperatorTok{==}\NormalTok{F,RESPONSE_TIME}\OperatorTok{:}\ErrorTok{=}\NormalTok{KEYBOARD_ABSENT,]}
+\NormalTok{fixationreport[}\KeywordTok{is.na}\NormalTok{(KEYBOARD_PRESENT)}\OperatorTok{==}\NormalTok{F,RESPONSE_TIME}\OperatorTok{:}\ErrorTok{=}\NormalTok{KEYBOARD_PRESENT,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fixation-contingencies}{%
+\section{Fixation Contingencies}\label{fixation-contingencies}}
+
+We now know at what point in each trial each of the three major events occurred- the DISPLAY\_START events, the DISPLAY\_CHANGE events, and the RESPONSE\_TIME events. We know what button participants pressed, and we know if they were right or wrong in each trial. The final step now is to markup the fixation \textbf{contingencies}. Again, these are important in helping us be sure that we've included what we want to include when it comes to analysing our eye-tracking data.
+
+To get going with this, we need to use the \textbf{organise.message.fix\_contingencies} function. You need to feed this function the fixation report you're using, as well as a list of the messages you want to mark up in terms of your contingencies. Note that you don't need to include all the messages here, just the ones you're interested in. Let's run it as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NOW MARK UP FIXATION CONTINGENCIES}
+\NormalTok{fixationreport<-}\KeywordTok{organise.message.fix_contingencies}\NormalTok{(fixationreport, }
+                                              \KeywordTok{list}\NormalTok{(}\StringTok{"DISPLAY_START"}\NormalTok{, }
+                                                   \StringTok{"DISPLAY_CHANGE"}\NormalTok{, }
+                                                   \StringTok{"RESPONSE_TIME"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DISPLAY_START
+\end{verbatim}
+
+\begin{verbatim}
+## DISPLAY_CHANGE
+\end{verbatim}
+
+\begin{verbatim}
+## RESPONSE_TIME
+\end{verbatim}
+
+If you now look at your fixation report, a bunch of new columns have been added to it. They are as follows:
+
+\begin{itemize}
+\item
+  WITHIN\_PRE\_DISPLAY\_START - this lets you know if a given fixation started before the first message you were interested in. In this case, the first message we were interested in is DISPLAY\_\_START, so this column is helpful in letting us focus in on fixations that occurred before even the fixation cross came up. You might be wondering how there can possibly be any time before the fixation cross which literally starts the trial, but in fact, the eye-tracker actually turns on for a \emph{little while} before the display comes up. Any fixation labelled as TRUE under WITHIN\_PRE\_DISPLAY\_START began before the fixation cross came up.
+\item
+  WITHIN\_DISPLAY\_START - this lets you know if a given fixation was occuring when the DISPLAY\_START message came up. The cells say TRUE if that is the case and FALSE if not.
+\item
+  WITHIN\_DISPLAY\_CHANGE - this lets you know if a given fixation was occuring when the DISPLAY\_CHANGE message came up. The cells say TRUE if that is the case and FALSE if not.
+\item
+  WITHIN\_RESPONSE\_TIME - this lets you know if a given fixation was occuring when the RESPONSE\_TIME message came up. The cells say TRUE if that is the case and FALSE if not.
+\item
+  FIXATION\_CONTINGENCY - this is the most important column added by the \textbf{organise.message.fix\_contingencies} function. It pastes together all of the message names that each fixation spanned.
+\end{itemize}
+
+Let's give some more detailed examples of how to interepret the important FIXATION\_CONTINGENCY column. It'll help if we begin by looking at the final columns of the fixation report after \textbf{organise.message.fix\_contingencies} has been run:
+
+\begin{table}[t]
+
+\caption{\label{tab:createtable}Fixation report final columns}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{tabular}{lllll}
+\toprule
+WITHIN\_PRE\_DISPLAY\_START & WITHIN\_DISPLAY\_START & WITHIN\_DISPLAY\_CHANGE & WITHIN\_RESPONSE\_TIME & FIXATION\_CONTINGENCY\\
+\midrule
+TRUE & TRUE & FALSE & FALSE & PRE\_DISPLAY\_START\_\_DISPLAY\_START\\
+FALSE & TRUE & FALSE & FALSE & DISPLAY\_START\\
+FALSE & TRUE & TRUE & FALSE & DISPLAY\_START\_\_DISPLAY\_CHANGE\\
+FALSE & FALSE & TRUE & FALSE & DISPLAY\_CHANGE\\
+FALSE & FALSE & TRUE & FALSE & DISPLAY\_CHANGE\\
+\addlinespace
+FALSE & FALSE & TRUE & FALSE & DISPLAY\_CHANGE\\
+FALSE & FALSE & TRUE & FALSE & DISPLAY\_CHANGE\\
+FALSE & FALSE & TRUE & FALSE & DISPLAY\_CHANGE\\
+FALSE & FALSE & TRUE & TRUE & DISPLAY\_CHANGE\_\_RESPONSE\_TIME\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Browsing through these, you may have already worked out what FIXATION\_CONTINGENCY really does. Let's give some examples:
+
+\begin{itemize}
+\item
+  The fixation in the first row began before DISPLAY\_START and then ended during the period of time when the fixation cross was up. For that reason it gets a contingency of PRE\_DISPLAY\_START\_\_DISPLAY\_START.
+\item
+  The fixation in the second row began when the fixation cross was up, and ended when the fixation cross was up, giving it a contingency of DISPLAY\_START.
+\item
+  The fixation in the third row began when the fixation cross was up, and ended when the main search array was visible. For that reason, it gets a contingency of DISPLAY\_START\_\_DISPLAY\_CHANGE.
+\item
+  The next five fixations began and ended when the search array was visible, so they get a contingency of DISPLAY\_CHANGE.
+\item
+  The final fixation began when the search array was visible, and ended when the response was made. For that reason, this fixation gets a contingency of DISPLAY\_CHANGE\_\_\_\_RESPONSE\_TIME.
+\end{itemize}
+
+With the fixation report marked up in this manner, you can then, at a later point, be careful in how you select your data down to focus only on the trials and/or fixations that you are definitely interested in.
+
+\hypertarget{behavioural-data}{%
+\section{Behavioural Data}\label{behavioural-data}}
+
+You already have the responses, outcomes and reaction times marked up for each trial at this point. But one problem is that these will require some work to convert to, say, mean accuracy rates. This is because the fixation report has one row per fixation, rather than one row per trial. Therefore, if you want the mean accuracy rate for your participants, you'll need to crunch the data down to one row per trial before computing your means.
+
+Fortunately, eyeTrackR can do this for you! Our first step in doing this is to work out the \textbf{TRUE\_RT} column. This is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# SET UP TRUE RT}
+\NormalTok{fixationreport[,TRUE_RT }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\NormalTok{RESPONSE_TIME}\OperatorTok{-}\NormalTok{DISPLAY_START,]}
+\end{Highlighting}
+\end{Shaded}
+
+This subtracts the display start time from the response time, to enable us to focus just on the time that we are interested in.
+
+Next, you just need to run \textbf{analyse.behavioural.data}, feed it the fixation report, and the list of columns you want to aggregate by (using the \textbf{aggregation\_column\_list} input). Here, in the example below, the output is saved to the behaviouralData data.table.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{behaviouralData <-}\StringTok{ }\KeywordTok{analyse.behavioural.data}\NormalTok{(fixationreport, }
+                                                \DataTypeTok{aggregation_column_list =} \KeywordTok{list}\NormalTok{(}\StringTok{'TRIALTYPE_TEXT'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The \textbf{behaviouralData} table looks like this:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-32}Summarised Behavioural Data}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}{rlrrrrr}
+\toprule
+RECORDING\_SESSION\_LABEL & TRIALTYPE\_TEXT & MEDIAN\_RT & MEAN\_RT & CORRECT\_COUNT & TOTAL\_TRIALS & ACCURACY\\
+\midrule
+1 & YES & 1157.400 & 1185.641 & 1423 & 2449 & 0.5810535\\
+1 & NO & 1250.787 & 1183.069 & 1012 & 2473 & 0.4092196\\
+2 & YES & 1250.100 & 1220.968 & 1196 & 2509 & 0.4766839\\
+2 & NO & 1285.536 & 1252.586 & 1136 & 2579 & 0.4404808\\
+3 & YES & 1229.856 & 1184.251 & 1281 & 2408 & 0.5319767\\
+\addlinespace
+3 & NO & 1223.563 & 1205.574 & 1142 & 2502 & 0.4564349\\
+4 & YES & 1216.778 & 1198.994 & 1239 & 2475 & 0.5006061\\
+4 & NO & 1427.213 & 1304.166 & 1280 & 2563 & 0.4994147\\
+5 & YES & 1329.680 & 1248.196 & 1254 & 2509 & 0.4998007\\
+5 & NO & 1226.644 & 1177.300 & 1214 & 2442 & 0.4971335\\
+\addlinespace
+6 & YES & 1268.918 & 1228.710 & 1327 & 2562 & 0.5179547\\
+6 & NO & 1252.378 & 1209.104 & 1124 & 2462 & 0.4565394\\
+7 & YES & 1171.000 & 1156.252 & 1304 & 2438 & 0.5348646\\
+7 & NO & 1239.448 & 1208.071 & 1133 & 2450 & 0.4624490\\
+8 & YES & 1271.286 & 1227.473 & 1295 & 2498 & 0.5184147\\
+\addlinespace
+8 & NO & 1291.235 & 1256.557 & 1283 & 2580 & 0.4972868\\
+9 & YES & 1392.445 & 1323.624 & 1310 & 2587 & 0.5063780\\
+9 & NO & 1149.848 & 1130.382 & 1014 & 2392 & 0.4239130\\
+10 & YES & 1323.778 & 1242.543 & 1150 & 2491 & 0.4616620\\
+10 & NO & 1343.560 & 1259.842 & 1357 & 2568 & 0.5284268\\
+\addlinespace
+11 & YES & 1252.289 & 1233.529 & 1189 & 2476 & 0.4802100\\
+11 & NO & 1291.085 & 1256.649 & 1324 & 2563 & 0.5165821\\
+12 & YES & 1286.929 & 1237.908 & 1282 & 2537 & 0.5053212\\
+12 & NO & 1272.208 & 1230.583 & 1277 & 2557 & 0.4994134\\
+13 & YES & 1228.433 & 1206.480 & 1225 & 2425 & 0.5051546\\
+\addlinespace
+13 & NO & 1201.048 & 1149.940 & 1068 & 2476 & 0.4313409\\
+14 & YES & 1214.384 & 1162.218 & 1061 & 2438 & 0.4351928\\
+14 & NO & 1287.243 & 1235.081 & 1273 & 2624 & 0.4851372\\
+15 & YES & 1184.089 & 1161.135 & 1063 & 2462 & 0.4317628\\
+15 & NO & 1262.098 & 1221.638 & 1358 & 2489 & 0.5456006\\
+\addlinespace
+16 & YES & 1281.403 & 1229.739 & 1256 & 2445 & 0.5137014\\
+16 & NO & 1124.128 & 1132.306 & 1060 & 2475 & 0.4282828\\
+17 & YES & 1243.181 & 1210.754 & 1298 & 2459 & 0.5278569\\
+17 & NO & 1248.391 & 1209.368 & 1291 & 2529 & 0.5104784\\
+18 & YES & 1395.318 & 1289.188 & 1372 & 2532 & 0.5418641\\
+\addlinespace
+18 & NO & 1240.013 & 1205.530 & 1255 & 2476 & 0.5068659\\
+19 & YES & 1223.599 & 1175.338 & 1223 & 2362 & 0.5177815\\
+19 & NO & 1280.064 & 1216.492 & 1322 & 2547 & 0.5190420\\
+20 & YES & 1205.162 & 1185.567 & 1285 & 2486 & 0.5168946\\
+20 & NO & 1324.557 & 1274.230 & 1331 & 2608 & 0.5103528\\
+\addlinespace
+21 & YES & 1247.392 & 1206.089 & 1220 & 2416 & 0.5049669\\
+21 & NO & 1300.559 & 1267.571 & 1384 & 2574 & 0.5376845\\
+22 & YES & 1280.249 & 1204.834 & 1143 & 2454 & 0.4657702\\
+22 & NO & 1340.408 & 1260.651 & 1228 & 2507 & 0.4898285\\
+23 & YES & 1237.279 & 1168.773 & 1282 & 2470 & 0.5190283\\
+\addlinespace
+23 & NO & 1259.285 & 1222.358 & 1436 & 2565 & 0.5598441\\
+24 & YES & 1298.970 & 1227.991 & 1290 & 2504 & 0.5151757\\
+24 & NO & 1268.487 & 1240.864 & 1316 & 2474 & 0.5319321\\
+25 & YES & 1229.703 & 1190.179 & 1075 & 2423 & 0.4436649\\
+25 & NO & 1277.152 & 1238.156 & 1335 & 2566 & 0.5202650\\
+\addlinespace
+26 & YES & 1277.503 & 1241.456 & 1313 & 2525 & 0.5200000\\
+26 & NO & 1223.005 & 1217.925 & 1291 & 2511 & 0.5141378\\
+27 & YES & 1182.850 & 1185.837 & 1079 & 2383 & 0.4527906\\
+27 & NO & 1307.262 & 1254.601 & 1144 & 2519 & 0.4541485\\
+28 & YES & 1229.227 & 1205.312 & 1162 & 2508 & 0.4633174\\
+\addlinespace
+28 & NO & 1200.175 & 1168.751 & 1072 & 2513 & 0.4265818\\
+29 & YES & 1263.412 & 1209.283 & 1208 & 2526 & 0.4782264\\
+29 & NO & 1240.007 & 1179.010 & 1128 & 2472 & 0.4563107\\
+30 & YES & 1226.636 & 1201.704 & 1093 & 2443 & 0.4474007\\
+30 & NO & 1232.063 & 1201.976 & 1120 & 2528 & 0.4430380\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Note a few useful columns in that table to help you back-calculate and double-check to make sure everything is going ok. You should look through this to be certain. Is there the right number of trials? The right number of participants? Does it look like anything is missing? Has the accuracy rate been calculated properly? Also, do the reaction times make sense?
+
+Again, the goal here is to help you be certain that there are no problems with your data and catch those problems as early as possible.
+
+\hypertarget{final-checks}{%
+\section{Final Checks}\label{final-checks}}
+
+We are almost ready to save our marked-up fixation report. It's worth at this point to suggest running some checks on our data. Have a go at running the \textbf{organise.checks.random\_trial} function. This is a simple one - the function does, in fact, do nothing at all to your code. All it does it pick, from a random trial and participant, the fixations from that trial and display them in the console for you. You can repeatedly run this function to inspect all sorts of trials to make sure that any code you have run on your data makes sense and has worked how you think it should have done.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# RANDOM TRIAL TO CHECK THINGS OUT}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{organise.checks.random_trial}\NormalTok{(fixationreport))}
+\end{Highlighting}
+\end{Shaded}
+
+I can't tell you the number of times I have thought things were working as they should, but then this function has shown me the error of my ways! This is particularly worth running multiple times for eye-tracking datasets since they can often be huge (hundreds of thousands of fixations), making it virtually impossible to conduct a visual inspection of everything.
+
+Next, we can get descriptive and summary statistics of the contingencies. Here's what we have for our current fixationreport:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# FIX CONTINGENCIES}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{organise.contingencies.descriptives}\NormalTok{(fixationreport))}
+\end{Highlighting}
+\end{Shaded}
+
+That will give a table that looks like this:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-35}Descriptives for Fixation Contingencies}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}{lr}
+\toprule
+FIXATION\_CONTINGENCY & FIXATION\_COUNT\\
+\midrule
+PRE\_DISPLAY\_START\_\_DISPLAY\_START & 15000\\
+DISPLAY\_START & 10872\\
+DISPLAY\_START\_\_DISPLAY\_CHANGE & 15000\\
+DISPLAY\_CHANGE & 93861\\
+DISPLAY\_CHANGE\_\_RESPONSE\_TIME & 15007\\
+\addlinespace
+RESPONSE\_TIME & 44\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+It tells you how many instances of each fixation contingency have been found. It also tells you how many fixations haven't been set to a contingency. If you see a row that says `UNCLASSIFIED', this is the count of fixations that have not had a contingency assigned to them.
+
+\hypertarget{removing-trials}{%
+\section{Removing Trials}\label{removing-trials}}
+
+Our final steps focus on cleaning the dataset. We do this in two ways:
+* We remove trials that missed important events, such as display changes or responses
+* We remove fixations that were outliers, i.e., those that were too long or too short
+
+Ideally, the first step of this process should remove zero trials for the simple reason that, in most experiments, we should have the same series of events in each trial. Again, this serves as a health check of our dataset to ensure that everything has worked as it should.
+
+\hypertarget{removing-trials-with-missing-events}{%
+\subsection{Removing Trials with Missing Events}\label{removing-trials-with-missing-events}}
+
+Let's begin with the first of our steps in terms of cleaning - removing trials that missed important events. Here, we want to make sure we remove all the trials that lacked the DISPLAY\_CHANGE or RESPONSE\_TIME messages.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# REMOVE TRIALS THAT LACKED A DISPLAY CHANGE AND/OR A RESPONSE TIME}
+\NormalTok{messageRemovals <-}\StringTok{ }\KeywordTok{organise.message.removals}\NormalTok{(}\DataTypeTok{fixreport_df=}\NormalTok{fixationreport, }
+    \DataTypeTok{required_message_list=}\KeywordTok{list}\NormalTok{(}\StringTok{"DISPLAY_CHANGE"}\NormalTok{, }\StringTok{"RESPONSE_TIME"}\NormalTok{))}
+
+\CommentTok{# LOOK AT MESSAGE REMOVALS}
+\KeywordTok{print}\NormalTok{(messageRemovals[[}\DecValTok{1}\NormalTok{]])}
+
+\CommentTok{# GRAB THE FIXATION REPORT WITH TRIALS REMOVED}
+\NormalTok{fixMessagesRemoved <-}\StringTok{ }\NormalTok{messageRemovals[[}\DecValTok{2}\NormalTok{]]}
+
+\CommentTok{# THIS SHOWS WE HAVE NO UNCLASSIFIED FIXATIONS, GOOD!}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{organise.contingencies.descriptives}\NormalTok{(fixMessagesRemoved))}
+\end{Highlighting}
+\end{Shaded}
+
+In the above code, \emph{messageRemovals} is a list of data.tables. The first item in the list, accessed using \emph{messageRemovals{[}{[}1{]}{]}}, gives you details information regarding how many trials, and what percentage of trials was removed for each participant, and why. The second item in the list, accessed using \emph{messageRemovals{[}{[}2{]}{]}} is the fixation report data.table which has had all the trials where the specified events of DISPLAY\_CHANGE and RESPONSE\_TIME didn't occur removed.
+
+As you can see from \emph{messageRemovals{[}{[}1{]}{]}}, no trials have been removed because everything happened as it should. Here is what that looks like:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-37}Message Removals Summary Table}
+\centering
+\fontsize{8}{10}\selectfont
+\begin{tabular}{rrrrrrr}
+\toprule
+RECORDING\_SESSION\_LABEL & TRIAL\_TOTAL & TRIAL\_COUNT\_DISPLAY\_CHANGE & TRIAL\_COUNT\_RESPONSE\_TIME & FINAL\_TRIAL\_COUNT & LOST\_TRIALS & LOST\_TRIALS\_PERC\\
+\midrule
+1 & 500 & 500 & 500 & 500 & 0 & 1\\
+2 & 500 & 500 & 500 & 500 & 0 & 1\\
+3 & 500 & 500 & 500 & 500 & 0 & 1\\
+4 & 500 & 500 & 500 & 500 & 0 & 1\\
+5 & 500 & 500 & 500 & 500 & 0 & 1\\
+\addlinespace
+6 & 500 & 500 & 500 & 500 & 0 & 1\\
+7 & 500 & 500 & 500 & 500 & 0 & 1\\
+8 & 500 & 500 & 500 & 500 & 0 & 1\\
+9 & 500 & 500 & 500 & 500 & 0 & 1\\
+10 & 500 & 500 & 500 & 500 & 0 & 1\\
+\addlinespace
+11 & 500 & 500 & 500 & 500 & 0 & 1\\
+12 & 500 & 500 & 500 & 500 & 0 & 1\\
+13 & 500 & 500 & 500 & 500 & 0 & 1\\
+14 & 500 & 500 & 500 & 500 & 0 & 1\\
+15 & 500 & 500 & 500 & 500 & 0 & 1\\
+\addlinespace
+16 & 500 & 500 & 500 & 500 & 0 & 1\\
+17 & 500 & 500 & 500 & 500 & 0 & 1\\
+18 & 500 & 500 & 500 & 500 & 0 & 1\\
+19 & 500 & 500 & 500 & 500 & 0 & 1\\
+20 & 500 & 500 & 500 & 500 & 0 & 1\\
+\addlinespace
+21 & 500 & 500 & 500 & 500 & 0 & 1\\
+22 & 500 & 500 & 500 & 500 & 0 & 1\\
+23 & 500 & 500 & 500 & 500 & 0 & 1\\
+24 & 500 & 500 & 500 & 500 & 0 & 1\\
+25 & 500 & 500 & 500 & 500 & 0 & 1\\
+\addlinespace
+26 & 500 & 500 & 500 & 500 & 0 & 1\\
+27 & 500 & 500 & 500 & 500 & 0 & 1\\
+28 & 500 & 500 & 500 & 500 & 0 & 1\\
+29 & 500 & 500 & 500 & 500 & 0 & 1\\
+30 & 500 & 500 & 500 & 500 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{removing-outlier-fixations}{%
+\subsection{Removing Outlier Fixations}\label{removing-outlier-fixations}}
+
+Our final step of the cleaning process is to remove fixations that were too long or too short. The convention I use, and the default set by eyeTrackR, is to remove fixations that were less than 60ms or greater than 1200ms in duration\footnote{I know I know, outlier limits can be so arbitrary but I'm actually working on a review of the data pipelines in search studies in this regard with a view to getting a better handle on this. Please bear with me.}.
+
+The approach here is very similar to that above. We use \emph{organise.exclusions.fix\_durations}, and feed it a fixation report. Here we are giving it the fixation report after cleaning trials that lacked certain messages. Here's the code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# REMOVALS BASED ON FIXATION DURATIONS}
+\NormalTok{durationRemovals <-}\StringTok{ }\KeywordTok{organise.exclusions.fix_durations}\NormalTok{(}\DataTypeTok{fixreport_df=}\NormalTok{fixMessagesRemoved)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## CURRENT_FIX_DURATION<1200 & CURRENT_FIX_DURATION>60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# SUMMARY STATS OF HOW MANY FIXATIONS REMOVED PER PARTICIPANT}
+\NormalTok{durationsRemoved <-}\StringTok{ }\NormalTok{durationRemovals[[}\DecValTok{1}\NormalTok{]]}
+
+\CommentTok{# FINAL DATASET WHICH CAN BE ANALYSED }
+\NormalTok{finalDT <-}\StringTok{ }\NormalTok{durationRemovals [[}\DecValTok{2}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+In the above example you can take a look at \emph{durationsRemoved} to get a handle on how many fixations were removed from your fixation report, at a participant level. This can be useful in spotting problems with certain participants or datasets. Let's take a quick look:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-39}Fixation Removals Summary Table}
+\centering
+\fontsize{8}{10}\selectfont
+\begin{tabular}{rrrrr}
+\toprule
+RECORDING\_SESSION\_LABEL & FIX\_TOTAL & FINAL\_FIX\_COUNT & LOST\_FIXES & LOST\_FIXES\_PERC\\
+\midrule
+1 & 4922 & 4922 & 0 & 1\\
+2 & 5088 & 5088 & 0 & 1\\
+3 & 4910 & 4910 & 0 & 1\\
+4 & 5038 & 5038 & 0 & 1\\
+5 & 4951 & 4951 & 0 & 1\\
+\addlinespace
+6 & 5024 & 5024 & 0 & 1\\
+7 & 4888 & 4888 & 0 & 1\\
+8 & 5078 & 5078 & 0 & 1\\
+9 & 4979 & 4979 & 0 & 1\\
+10 & 5059 & 5059 & 0 & 1\\
+\addlinespace
+11 & 5039 & 5039 & 0 & 1\\
+12 & 5094 & 5094 & 0 & 1\\
+13 & 4901 & 4901 & 0 & 1\\
+14 & 5062 & 5062 & 0 & 1\\
+15 & 4951 & 4951 & 0 & 1\\
+\addlinespace
+16 & 4920 & 4920 & 0 & 1\\
+17 & 4988 & 4988 & 0 & 1\\
+18 & 5008 & 5008 & 0 & 1\\
+19 & 4909 & 4909 & 0 & 1\\
+20 & 5094 & 5094 & 0 & 1\\
+\addlinespace
+21 & 4990 & 4990 & 0 & 1\\
+22 & 4961 & 4961 & 0 & 1\\
+23 & 5035 & 5035 & 0 & 1\\
+24 & 4978 & 4978 & 0 & 1\\
+25 & 4989 & 4989 & 0 & 1\\
+\addlinespace
+26 & 5036 & 5036 & 0 & 1\\
+27 & 4902 & 4902 & 0 & 1\\
+28 & 5021 & 5021 & 0 & 1\\
+29 & 4998 & 4998 & 0 & 1\\
+30 & 4971 & 4971 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Finally, though, \emph{finalDT} is the marked up and cleaned dataset that is ready for analysis.
+
+\hypertarget{time-to-save}{%
+\section{Time to Save}\label{time-to-save}}
+
+The last step is to save the data.table for later analyses. Here's an example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# THAT'S IT! LET'S NOW SAVE THE FINAL THING ##########################################################}
+\KeywordTok{write.table}\NormalTok{(finalDT, }\StringTok{"finalDT.txt"}\NormalTok{, }\DataTypeTok{row.names=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{putting-it-together}{%
+\section{Putting it Together}\label{putting-it-together}}
+
+I'll close with one last example from a different, and, in fact, real, experiment \citep{Godwin2013}. I'm going to include this to provide an example of why the organise functions can be so useful.
+
+Let's turn back the clock to some time around 2009. At that point, I was trying to learn eye-tracking. I started working under the expert guidance of the legendary Val Benson and equally legendary Denis Drieghe on a set of experiments that really shouldn't have been anyone's first attempt at eye-tracking. There were display changes that needed to be programmed and fine-tuned, trial and fixation filtering to work out, and much more.
+
+I initially was interested in looking at how getting distracted from a visual search interrupts people - specifically, I was keen to know if, after stopping a search and getting distracted by a secondary task, people would pick up where they left off, or start their searches again from scratch. But I was getting ahead of myself, and so we settled on what was effectively a control condition where there was no secondary task, and just a blank-screened interruption (much like visual world paradigm research, for a review see: \citep{FERREIRA2008405}).
+
+The basic trial sequence was as follows:
+
+\includegraphics[width=22.89in]{files/images/displayInterruption}
+
+People started searching, and then, after a random delay of between 1200 and 1400 ms, the display disappeared. We wanted to make sure that the display disappeared during a saccade, so had to be very careful about which trials to include in our analyses. The scripts and code I used to process and filter the data formed the first, somewhat primordial, version of eyeTrackR.\footnote{I tried to tidy it up and make it usable, but didn't get far, though it exists as \href{https://github.com/hjgodwin/Inpsyte-Data-Analysis}{Inpsyte Data Analysis}. It was done in a combination of PHP and MySQL, if you can believe it, at least at first. This was partly because I didn't know R all that well at the time, and also because I needed to visualise the trials to make sure that I was processing and filtering things properly, and I knew how to whip up images quickly using web langauges. That experience taught me a great deal, especially about how important it was to check, check and check again to make sure your code and processing scripts are doing what you think they are doing.}
+
+Ultimately, what I ended up putting together was the need to do the following:
+- Filter out trials with an incorrect response
+- Remove trials where the interruption was `seen' by participants - in other words, when the display disappeared during a fixation
+- Filter out trials where the interruption didn't occur even though it was supposed to. In these trials, participants responded before the interruption could occur
+- Filter out fixations that were \textless{} 60ms in duration
+- Filter out any fixations that spanned different display types
+
+This was all necessary to ensure that we analysed a pure and uncontaminated set of fixations that occurred during the interruption only. What we ended up finding was that, even when the display was removed from view, people could keep searching the display, albeit only for a few fixations.
+
+Hopefully that provides you with at least some of the details and considerations that need to go into ensuring that your dataset is properly prepared and ready for your analyses.
+
+\hypertarget{analyseWakthrough}{%
+\chapter{Analyse Functions Walkthrough}\label{analyseWakthrough}}
+
+The walkthrough here assumes you're familiar with the basics of eye-tracking and output from DataViewer, and also assumes you've gone through the previous section on the organise functions as well.
+
+The analyse functions are more indpendent from one another than the organise functions, so this section is going to be much briefer. Unlike the organise functions, the analyse functions can be run in any order you want, and of course, don't have to be run if you aren't interested in the dependent variables that they calculate for you.
+
+For the most part, these are intended as generic helper functions, and your own analyses may well end up being much more specific. The good news, however, is that these functions are built on the same basic input and output structure, so we'll start with what that is to give us a foundation.
+
+\hypertarget{input-structure}{%
+\section{Input Structure}\label{input-structure}}
+
+The analyse functions all have the same basic structure, which is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{analyse.X.X}\NormalTok{(fixreport_df, }
+            \DataTypeTok{aggregation_column_list =} \KeywordTok{c}\NormalTok{(),}
+            \DataTypeTok{spss =} \OtherTok{FALSE}\NormalTok{, }
+            \DataTypeTok{prefixLabel =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+That's the basic structure of the functions. Let's go through the components:
+
+\begin{itemize}
+\tightlist
+\item
+  fixreport\_df is the name of your input fixation report
+\item
+  aggregation\_column\_list is a list of columns that you want to group/aggregate your data by, such as TRIALTYPE\_TEXT in our example fixation report that we've been working on
+\item
+  spss can be set to TRUE or FALSE. By default its set to FALSE. If you set it to TRUE, it will return the output in a wide format, ready for SPSS (see \href{https://www.theanalysisfactor.com/wide-and-long-data/}{here} for more info).
+\item
+  prefixLabel is only needed in some rare cases so I would avoid doing anything with it.
+\end{itemize}
+
+The simple summary we can give here is that, to use any of the analyse functions, you need to give the functions a fixation report, and then tell the functions which columns to group or aggregate the data by. Let's move on to what the analyse functions give back to you when you've run them.
+
+\hypertarget{output-structure}{%
+\section{Output Structure}\label{output-structure}}
+
+To talk about what each analyse function gives you, let's look at one example - here, we're using the analyse.fix.count function, which gives us the mean number of fixations per trial.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fixCounts <-}\StringTok{ }\KeywordTok{analyse.fix.count}\NormalTok{(fixationreport, }
+                               \DataTypeTok{aggregation_column_list =} \KeywordTok{list}\NormalTok{(}\StringTok{'TRIALTYPE_TEXT'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+If you look at fixCounts, you'll see this is actually a list of three data.tables. They are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  First, there is fixCounts\$byTrial. This is a data.table of the fixation count for every trial, broken down for each participant, and also by the aggregation\_column\_list variables
+\item
+  Next, there is fixCounts\$byppt. This is a data.table of the mean fixation count for every participant, and also by the aggregation\_column\_list variables
+\item
+  Finally, there is fixCounts\$graphs. This is a data.table of the mean fixation count for the different aggregation\_column\_list variables
+\end{itemize}
+
+Let's inspect each on in turn now. First, fixCounts\$byTrial - this should be pretty self-explanatory:
+
+\textbackslash{}begin\{table\}{[}t{]}
+
+\textbackslash{}caption\{\label{tab:unnamed-chunk-44}fixCounts\$byTrial - first handful of rows only\}
+\centering
+\fontsize{9}{11}\selectfont
+
+\begin{tabular}{}
+\toprule
+
+\bottomrule
+\end{tabular}
+
+\textbackslash{}end\{table\}
+
+Next is fixCounts\$byppt - again, this is the same thing except now it's averaged by participant and by the aggregation\_column\_list columns only:
+
+\textbackslash{}begin\{table\}{[}t{]}
+
+\textbackslash{}caption\{\label{tab:unnamed-chunk-45}fixCounts\$byppt - first handful of rows only\}
+\centering
+\fontsize{9}{11}\selectfont
+
+\begin{tabular}{rlr}
+\toprule
+RECORDING\_SESSION\_LABEL & TRIALTYPE\_TEXT & MEAN\_FIX\_COUNT\\
+\midrule
+1 & YES & 9.835341\\
+1 & NO & 9.852590\\
+2 & YES & 10.076305\\
+2 & NO & 10.274900\\
+3 & YES & 9.670683\\
+\addlinespace
+3 & NO & 9.968127\\
+\bottomrule
+\end{tabular}
+
+\textbackslash{}end\{table\}
+
+Finally is fixCounts\$graphs, which provide means and SEs ready for putting into graphs:
+
+\begin{table}[t]
+
+\caption{\label{tab:unnamed-chunk-46}Fixation report final columns}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{tabular}{lrr}
+\toprule
+TRIALTYPE\_TEXT & AVERAGE & SE\\
+\midrule
+YES & 9.933066 & 0.0380288\\
+NO & 10.037716 & 0.0395597\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Let's get an example graph put together. My preference is to use ggplot2 in combination with the cowplot package for ready-made APA formatting:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(cowplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'cowplot'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:ggplot2':
+## 
+##     ggsave
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(fixCounts}\OperatorTok{$}\NormalTok{graphs)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{TRIALTYPE_TEXT, }\DataTypeTok{y=}\NormalTok{AVERAGE)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\DecValTok{2}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\StringTok{'Mean Fixation Count'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\StringTok{'Trialtype Text'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_errorbar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{ymin=}\NormalTok{AVERAGE}\OperatorTok{-}\NormalTok{SE, }\DataTypeTok{ymax=}\NormalTok{AVERAGE}\OperatorTok{+}\NormalTok{SE), }\DataTypeTok{width=}\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{eyeTrackR-guide_files/figure-latex/unnamed-chunk-47-1.pdf}
+
+\hypertarget{understanding-the-analyse-approach}{%
+\section{Understanding the Analyse Approach}\label{understanding-the-analyse-approach}}
+
+You might be thinking to yourself something along the lines of `hey, how come we get by-trial and then by-participant means?' The answer to this is simple: it's how I put my means together. I'll be honest here and say that when I first started learning eye-tracking, taking the mean of some means seemed weird to me. How come it's best to take a by-trial mean followed by a by-participant mean?
+
+To explain this more clearly, let's look at a different measure such as fixation durations. If we simply took the mean of the CURRENT\_FIX\_DURATION column in our fixation report, why isn't that going to give us the correct mean? The simple answer is that, if you do things in that manner, then you're going to have a very imbalanced mean come out from your calculations. This is because some trials have more fixations than others - sometimes, many more fixations. As a consequence, if you don't average down to the by-trial means first, you'll be allowing the trials with a lot of fixations to contribute more to the final mean than those with only a few fixations. By calculating the by-trial means first, you permit each trial to contribute equally to the final mean that goes into your analyses.
+
+In addition, this sort of issue is made more pressing by the existence of coarse-to-fine effects in eye movement behaviour, which have mostly been studied in visual search tasks \citep{Godwin2014a, Over2007}. As a trial goes on, fixations tend to get longer in duration while saccades get shorter - hence the term `coarse-to-fine': at the start of a trial, fixations are short and dispersed (coarse), but towards the end of a trial, fixations are longer and closer together (fine). Again, a consequence of this is that it could lead to an imbalance in your means if you don't take the by-trial means first.
+
+\hypertarget{participants}{%
+\section{Participants}\label{participants}}
+
+By default, the analyse functions, as you may have seen, group your data in terms of a column called RECORDING\_SESSION\_LABEL. This column refers to the session name if you use Experiment Builder. Usually, this one is unique for each participant, which is why the analyse functions automatically assume that RECORDING\_SESSION\_LABEL is unique for each participant. If you participants took part in more than one session, you'll need to re-organise your data before feeding the data to these functions.
+
+\hypertarget{list-of-analyse-functions}{%
+\section{List of Analyse Functions}\label{list-of-analyse-functions}}
+
+Here is a list of the analyse functions currently available:
+
+\begin{itemize}
+\tightlist
+\item
+  Fixation count - mean number of fixations
+\item
+  Fix duration - mean fixation duration
+\item
+  Total time - mean total fixation time
+\item
+  Saccade amplitude - mean saccade amplitude
+\item
+  Visit count - mean number of visits to interest areas
+\end{itemize}
+
+\hypertarget{references}{%
+\chapter{References}\label{references}}
+
+\bibliography{book.bib}
+
+
+\end{document}

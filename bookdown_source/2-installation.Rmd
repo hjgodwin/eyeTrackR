@@ -1,0 +1,53 @@
+
+# Installation and Preparation {#installation}
+
+## Installing via CRAN
+
+You can install eyeTrackR via **CRAN** in the same way that you would install most R packages:
+
+```{r, eval=F}
+install.packages("eyeTrackR")
+```
+
+Alternatively, in RStudio, head over to the **Packages** tab, click **Install** and search for eyeTrackR.
+
+## Installing via Devtools
+
+From R using the **devtools** package:
+
+```{r, eval=F}
+library(devtools)
+install_github('hjgodwin/eyetrackR/source')
+```
+
+## Required Files
+
+To start with, you'll need to output three different types of report from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). You'll need:
+
+* Fixation Report
+* Message Report
+* Interest Area Report
+
+When I generate these reports, I typically get DataViewer to output every single column of data it can. It has a whole bunch of different ones, but my preference is to be greedy. The simple reason for this is that DataViewer can take a long, long time to load up and output all your data, so you don't want to have to go back into it and do everything again just because you've missed a vital column. That being said, if you have a lower-spec or older computer, or are short on space, you may struggle with these files.
+
+When saving these reports, it's best to save them as tab-delimited text files (.txt).
+
+## Required R Skills
+
+Before using eyeTrackR and the output it provides, you may well want to get familiar with the excellent data.table package. I use that extensively in this guide, so you may want to learn about that first, or in addition to, going through this.
+
+There's a very helpful introduction to using data.table available [here.](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+
+## Removing eyeTrackR
+
+Please don't!!
+
+Ok, if you want to, either to update it or because you just want to get rid of it, run the following from R:
+
+```{r, eval=F}
+remove.packages(pkgs="eyeTrackR")
+```
+
+
+
+
