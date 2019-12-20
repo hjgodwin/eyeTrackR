@@ -37,9 +37,20 @@ I hope so! I mean, at least, I hope it is useful to you. Every software package 
 
 ```{r, echo=F}
 kable(
-  data.table(Paradigm=c('Visual Search', 'Scene Perception', 'Visual World', 'Oculomotor Control (e.g.,   antisaccade tasks)', 'Pupillometry', 
-                      'Reading - single line', 'Reading - mutli-line'),
-             Recommendation =c('eyeTrackR is for you','eyeTrackR is for you','eyeTrackR is for you', 'eyeTrackR is for you','eyeTrackR is for you, though you will be spending most of your time working on the sample reports rather than the fixation reports.', 'You will want to use the [popEYE](https://github.com/sascha2schroeder/popEye/) R package by Sascha Schroeder for this.', 'You will want to use [popEYE](https://github.com/sascha2schroeder/popEye/) for this as well, but I have used eyeTrackR to examine multi-line text experiments as well.'))
+  data.table(Paradigm=c('Visual Search', 
+                        'Scene Perception', 
+                        'Visual World', 
+                        'Oculomotor Control (e.g.,   antisaccade tasks)', 
+                        'Pupillometry', 
+                      'Reading - single line', 
+                      'Reading - mutli-line'),
+             Recommendation =c('eyeTrackR is for you',
+                               'eyeTrackR is for you',
+                               'eyeTrackR can be helpful for organising your data, and you may also want to use the [Gazer](https://github.com/dmirman/gazer) R package for this.',
+                               'eyeTrackR is for you',
+                               'You will want to use the [Gazer](https://github.com/dmirman/gazer) R package for this.', 
+                               'You will want to use the [popEYE](https://github.com/sascha2schroeder/popEye/) R package for this.', 
+                               'You will want to use [popEYE](https://github.com/sascha2schroeder/popEye/) for this as well, but I have used eyeTrackR to examine multi-line text experiments as well.'))
   , booktabs = TRUE, 
   caption = 'Paradigms and recommendations')
 
@@ -49,7 +60,7 @@ kable(
 
 If you have used eyeTrackR and would like to cite it, please use the following citation:
 
-Godwin, H. J. & Muhl-Rihardson, A. (2019). eyeTrackR: Organising and Analysing Eye-Tracking Data. R package version 1.0.0.
+Godwin, H. J. & Muhl-Richardson, A. (2019). eyeTrackR: Organising and Analysing Eye-Tracking Data. R package version 1.0.0.
 
 ## Some History
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Analyse Functions Walkthrough | A Guide to eyeTrackR</title>
   <meta name="description" content="This is a guide to using the eyeTrackR R package." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Analyse Functions Walkthrough | A Guide to eyeTrackR" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hayward J. Godwin" />
 
 
-<meta name="date" content="2019-11-24" />
+<meta name="date" content="2019-12-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -381,16 +384,18 @@ NO
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">library</span>(cowplot)</a></code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     ggsave</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
+## ********************************************************</code></pre>
+<pre><code>## Note: As of version 1.0.0, cowplot does not change the</code></pre>
+<pre><code>##   default ggplot2 theme anymore. To recover the previous</code></pre>
+<pre><code>##   behavior, execute:
+##   theme_set(theme_cowplot())</code></pre>
+<pre><code>## ********************************************************</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(fixCounts<span class="op">$</span>graphs)<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x=</span>TRIALTYPE_TEXT, <span class="dt">y=</span>AVERAGE)<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&#39;Mean Fixation Count&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="st">&#39;Trialtype Text&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>AVERAGE<span class="op">-</span>SE, <span class="dt">ymax=</span>AVERAGE<span class="op">+</span>SE), <span class="dt">width=</span><span class="fl">0.1</span>)</a></code></pre></div>
 <p><img src="eyeTrackR-guide_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
 <div id="understanding-the-analyse-approach" class="section level2">
@@ -436,11 +441,13 @@ NO
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -448,12 +455,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -462,6 +468,10 @@ gitbook.start({
 },
 "edit": null,
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
