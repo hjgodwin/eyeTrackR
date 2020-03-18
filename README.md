@@ -20,6 +20,6 @@ Here we do testing and updates. There's a set of slides available at the link be
 
 Please feel free to let us know what you think. You can do this via email, via the twitters, or by commenting directly on the slides themselves.
 
-[[Click here to view and comment ](https://drive.google.com/file/d/1iTdHwiwN6YzQYZVKqISh3sf6hDV5culT/view?usp=sharing)]
+[Click here to view and comment](https://drive.google.com/file/d/1iTdHwiwN6YzQYZVKqISh3sf6hDV5culT/view?usp=sharing)
 
 [![Downloads ](https://cranlogs.r-pkg.org/badges/grand-total/eyeTrackR)](https://cran.r-project.org/package=eyeTrackR)
