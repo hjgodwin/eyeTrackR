@@ -1,0 +1,17 @@
+- markup_pipeline
+- Organise Functions for eyeTrackR
+- ''
+- FUNCTION__organise.message.replace_spaces:messagereport
+- FUNCTION__organise.message.markupMultiple:messagereport, fixationreport, list('DISPLAY_START','DISPLAY_CHANGE')
+- FUNCTION__organise.responses.markup:fixationreport, 'CORRECT_RESPONSE'
+- FUNCTION__organise.message.fix_contingencies:fixationreport, list('DISPLAY_START','DISPLAY_CHANGE','RESPONSE_TIME')
+- FUNCTION__organise.message.removals:fixationreport, list('DISPLAY_CHANGE', 'RESPONSE_TIME')
+- FUNCTION__organise.exclusions.fix_durations:messageRemovals[[2]], list(60,1200)
+- OUTPUT:messagereport
+- OUTPUT:fixationreport
+- OUTPUT:fixationreport
+- OUTPUT:fixationreport
+- OUTPUT:messageRemovals
+- OUTPUT:durationRemovals
+- ''
+- 1.0.0

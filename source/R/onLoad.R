@@ -1,4 +1,5 @@
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage("Welcome to eyeTrackR!")
+  packageStartupMessage("For a guide on how to use this package, please visit: http://hjgodwin.github.io/eyeTrackR/")
   packageStartupMessage("Institutional disclaimer: These free software programs provided by The University of Southampton may be freely distributed, provided that no charge above the cost of distribution is levied, and that the disclaimer below is always attached to it. The programs are provided 'as is' without any guarantees or warranty. Although the author has attempted to find and correct any bugs in the free software programs, the author is not responsible for any damage or losses of any kind caused by the use or misuse of the programs. The author is under no obligation to provide support, service, corrections, or upgrades to the free software programs.")
 }

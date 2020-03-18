@@ -1,16 +1,4 @@
-library(eyeTrackR)
-library(data.table)
 
-data(fixationreport)
-data(messagereport)
-
-#### ORGANISE WALKTHROUGH ####################################################################################################
-
-# REPLACE SPACES IN MESSAGES
-messagereport <- organise.message.replace_spaces(messagereport)
-
-# TAKE A LOOK
-print(organise.message.descriptives(messagereport))
 
 # MARKUP FIXATION REPORT
 fixationreport <- organise.message.markup(message_df= messagereport,
