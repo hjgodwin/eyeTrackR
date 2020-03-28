@@ -4,8 +4,12 @@
 \alias{analyse.fix.first_duration}
 \title{Analyse first fixation duration}
 \usage{
-analyse.fix.first_duration(fixreport_df, aggregation_column_list = c(),
-  spss = FALSE, prefixLabel = "")
+analyse.fix.first_duration(
+  fixreport_df,
+  aggregation_column_list = c(),
+  spss = FALSE,
+  prefixLabel = ""
+)
 }
 \arguments{
 \item{fixreport_df}{Fixation report}

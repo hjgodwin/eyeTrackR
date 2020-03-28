@@ -4,8 +4,11 @@
 \alias{organise.behavioural.base}
 \title{Save RT and Accuracy split by specified columns.}
 \usage{
-organise.behavioural.base(fixreport_df, grouping_column_list,
-  response_period_start = "")
+organise.behavioural.base(
+  fixreport_df,
+  grouping_column_list,
+  response_period_start = ""
+)
 }
 \arguments{
 \item{fixreport_df}{Fixation report.}

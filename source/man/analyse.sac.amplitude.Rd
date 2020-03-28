@@ -4,8 +4,12 @@
 \alias{analyse.sac.amplitude}
 \title{Analyse saccade amplitude}
 \usage{
-analyse.sac.amplitude(fixreport_df, aggregation_column_list = c(),
-  spss = FALSE, prefixLabel = "")
+analyse.sac.amplitude(
+  fixreport_df,
+  aggregation_column_list = c(),
+  spss = FALSE,
+  prefixLabel = ""
+)
 }
 \arguments{
 \item{fixreport_df}{Fixation report}

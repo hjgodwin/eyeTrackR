@@ -1,9 +1,9 @@
 Package: eyeTrackR
 Type: Package
 Title: Organising and Analysing Eye-Tracking Data
-Version: 1.0.0
-Date: 2019-10-04
-Authors@R:c(
+Version: 1.0.1
+Date: 2020-03-28
+Authors@R: c(
     person("Hayward", "Godwin", email = "hg102@soton.ac.uk",role = c("aut", "cre")),
     person("Alexander", "Muhl-Richardson", role = c("ctb")))
 Maintainer: Hayward Godwin <hg102@soton.ac.uk>
@@ -16,7 +16,7 @@ Description: A set of functions for organising and analysing datasets from
     the appropriate statistical analyses and graphing packages as necessary.
 License: GPL-3
 Depends: data.table, stringr, plyr, R (>= 3.5)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 LazyData: False
 Suggests: knitr,
     rmarkdown

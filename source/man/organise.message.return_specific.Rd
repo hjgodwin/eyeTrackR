@@ -4,8 +4,12 @@
 \alias{organise.message.return_specific}
 \title{Return trials where a specific message is found.}
 \usage{
-organise.message.return_specific(message_df, fixreport_df, message,
-  show_working = FALSE)
+organise.message.return_specific(
+  message_df,
+  fixreport_df,
+  message,
+  show_working = FALSE
+)
 }
 \arguments{
 \item{message_df}{Message report.}

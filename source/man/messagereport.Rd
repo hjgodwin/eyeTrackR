@@ -14,7 +14,6 @@ Message report data from a visual search experiment.
 \examples{
 data(messagereport)
 
-\donttest{iplotCurves(phe, times)}
 }
 \references{
 TBA.
