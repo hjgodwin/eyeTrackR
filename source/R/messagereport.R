@@ -13,5 +13,4 @@
 #' @examples
 #' data(messagereport)
 #' 
-#' \donttest{iplotCurves(phe, times)}
 "messagereport"
