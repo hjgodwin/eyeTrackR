@@ -1,13 +1,5 @@
-
-
 library(eyeTrackR)
 library(ggplot2)
-
-# SET WORKING DIRECTORY TO THE SAME ONE THIS SCRIPT IS IN
-# REPLACE iareport.txt with an interest area report
-iaDT <- fread('IAsExp1FULL.csv') # fread is a data.table function that does super fast data loading
-
-# SELECLT THE FUNCTIONS BELOW AND 'RUN' THEM
 
 # THIS JUST DOES THE MEAN
 organise.reading.calculateAverage <- function(ia_df, source_column_name, output_column_name, filterBy, aggregation_column_list){
@@ -124,7 +116,7 @@ organise.reading.SingleFixationDuration <- function(iaDT, sdLimit=3, aggregation
 }
 
 
-# IGNORE THE STUFF BELOW
+# IGNORE THE STUFF BELOW - THIS IS TO COPY AND PASTE BACK ABOVE FOR DOCUMENTATION LATER
 
 ##############################################################################################################################################################
 # MARKS UP EACH TRIAL WHERE A MESSAGE OCCURRED WITH THE MESSAGE VALUE
@@ -156,42 +148,3 @@ organise.reading.SingleFixationDuration <- function(iaDT, sdLimit=3, aggregation
 #' 
 #' fixationreport <- organise.message.markup(message_df=messagereport, 
 #'     fixreport_df = fixationreport, message="DISPLAY_CHANGE")
-organise.message.markup <- function(message_df, fixreport_df, message, show_working=FALSE){
-  
-  # SORT OUT THE MESSAGE REPORT
-  mDT <- data.table(message_df)
-  setkey(mDT, RECORDING_SESSION_LABEL, TRIAL_INDEX)
-  
-  # ORGANISE THE FIX REPORT
-  fix_DT <- data.table(fixreport_df)
-  setkey(fix_DT, RECORDING_SESSION_LABEL, TRIAL_INDEX)
-  
-  message(message)
-  
-  selectExpr <- parse(text=paste("list('", message, "'", "=", "CURRENT_MSG_TIME)", sep=""))                    
-  
-  selected_mDT <- mDT[CURRENT_MSG_TEXT==message,
-                      eval(selectExpr),
-                      list(RECORDING_SESSION_LABEL, TRIAL_INDEX)]
-  
-  setkey(selected_mDT, RECORDING_SESSION_LABEL, TRIAL_INDEX)
-  
-  # PRINTS THE MESSAGES
-  if (show_working == TRUE){
-    #print(mDT)
-    #print(fix_DT)
-    message(selected_mDT)
-  }  
-  
-  # JOIN - A WORK IN PROGRESS
-  joined_mDT <- join(data.frame(fix_DT), data.frame(selected_mDT)) #fix_DT[J(selected_mDT)]
-  #joined_mDT <- selected_mDT[fix_DT] # THIS WORKS BUT HAS THE COLUMNS IN AN ANNOYING ORDER
-  
-  inputrow <- nrow(fixreport_df)
-  outputrow <- nrow(data.frame(joined_mDT))
-  
-  message(paste("Difference between input and output rows:", inputrow-outputrow, sep=' '))
-  if(inputrow-outputrow!=0){warning('There was a difference between input and output rows. Check your data.')}
-  
-  return(data.frame(joined_mDT))  
-}

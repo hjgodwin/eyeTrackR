@@ -12,11 +12,11 @@ A set of functions for organising and analysing datasets from experiments run us
 
 Here we do testing and updates. There are two branches of work going on here - one that will be completed in the short term, and one that will take a bit longer. The one that will be completed in the short term is eyeTrackR 1.0.5, which introduces the ability to work on data from reading experiments. The one that will be completed in the longer term is eyeTrackR 1.1, which introduces many new features.
 
-# What will be new in **eyeTrackR 1.1**
+# What will be new in **eyeTrackR 1.0.5**
 
 The main headline features of eyeTrackR 1.0.5 are:
--- **READING!** Functions to create standard measures for eye movements and reading studies. These are a hugely popular approach.
--- **MAKING READING STIMULI** Functions to create stimuli for eye movements and reading experiments. This avoids some of the time-consuming tasks that people face when making reading experiments using Experiment Builder.
+- **READING!** Functions to create standard measures for eye movements and reading studies. These are a hugely popular approach.
+- **MAKING READING STIMULI** Functions to create stimuli for eye movements and reading experiments. This avoids some of the time-consuming tasks that people face when making reading experiments using Experiment Builder.
 
 # What will be new in **eyeTrackR 1.1**
 
