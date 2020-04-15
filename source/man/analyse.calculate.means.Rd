@@ -4,9 +4,16 @@
 \alias{analyse.calculate.means}
 \title{Generic function for calculating means}
 \usage{
-analyse.calculate.means(fixreport_df, aggregation_column_list,
-  output_column_expression, final_output_column_expression, spss,
-  dvColumnName, prefixLabel = "", debug = FALSE)
+analyse.calculate.means(
+  fixreport_df,
+  aggregation_column_list,
+  output_column_expression,
+  final_output_column_expression,
+  spss,
+  dvColumnName,
+  prefixLabel = "",
+  debug = FALSE
+)
 }
 \arguments{
 \item{fixreport_df}{Fixation report}

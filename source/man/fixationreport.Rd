@@ -4,7 +4,9 @@
 \name{fixationreport}
 \alias{fixationreport}
 \title{Example fixation report dataset}
-\format{A data.table object.}
+\format{
+A data.table object.
+}
 \usage{
 data(fixationreport)
 }

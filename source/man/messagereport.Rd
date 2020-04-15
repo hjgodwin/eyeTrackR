@@ -4,7 +4,9 @@
 \name{messagereport}
 \alias{messagereport}
 \title{Example message report dataset}
-\format{A data.table object.}
+\format{
+A data.table object.
+}
 \usage{
 data(messagereport)
 }
@@ -14,7 +16,6 @@ Message report data from a visual search experiment.
 \examples{
 data(messagereport)
 
-\donttest{iplotCurves(phe, times)}
 }
 \references{
 TBA.

@@ -1,8 +1,42 @@
-library(eyeTrackR)
-library(ggplot2)
 
-# THIS JUST DOES THE MEAN
-organise.reading.calculateAverage <- function(ia_df, source_column_name, output_column_name, filterBy, aggregation_column_list){
+# 
+# # TESTING CODE IS HERE FOR LATER REMOVAL 
+# 
+# # LOAD IA REPORT FOR TESTING
+# iareport <- fread(file.choose())
+# 
+# # # NOW THE FUNCTIONS ARE SET UP, RUN THIS ONE
+# # # CHANGE TRIAL INDEX TO SOMETHING THAT YOU WANT LIKE IF YOU WANT THE FIRST TRIAL INDEX ONLY WRITE TRIAL_INDEX
+# iaDT <- iareport
+# iaDT <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'FFD',
+#                                            filterBy = ' IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = 3,
+#                                            aggregation_column_list=list('Participant')) # THIS IS DOING BY-PARTIIPANT OUTLIERS, CHANGE TO
+# 
+
+
+globalVariables(c('IA_INDEX','IA_LABEL','image_blank','randomColor','image_annotate','image_write','iaDT'))
+
+##############################################################################################################################################################
+# CALCULATE REMOVALS - GENERIC FUNCTION
+#' Generic function for calculating outliers in a reading study.
+#'
+#' @param ia_df Interest area data.frame
+#' @param source_column_name The source column name for the outlier calculation.
+#' @param output_column_name The output column name.
+#' @param filterBy Which columns to filter by. This can be formatted as a 'WHERE' statement in data.table language.
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#'
+#' @examples
+organise.reading.calculateRemovals <- function(ia_df, source_column_name, output_column_name, filterBy = '', sdLimit = 2.5, 
+                                               aggregation_column_list){
+  
+  # MAKE SURE ITS A DATA.TABLE
+  ia_df <- data.table(ia_df)
+  
+  # MEANS FIRST ##############################################################################################################################
   
   # REMOVE FULL STOPS AND CONVERT THEM TO NAs
   eval(parse(text=paste("ia_df[,", eval(source_column_name), ":=as.numeric(as.character(",eval(source_column_name),")),]", sep='')))
@@ -10,10 +44,7 @@ organise.reading.calculateAverage <- function(ia_df, source_column_name, output_
   # CALCULATE MEANS GROUPED BY aggregation_column_list
   eval(parse(text=paste("ia_df[", eval(filterBy), ",", eval(output_column_name), ":=mean(", eval(source_column_name), " [is.na(", eval(source_column_name), ")==F]),", eval(aggregation_column_list), "]", sep='')))
   
-}
-
-# THIS DOES THE UPPER AND LOWER SDs
-organise.reading.calculateSDs <- function(ia_df, source_column_name, output_column_name, filterBy, sdLimit, aggregation_column_list){
+  # SDS NEXT ##############################################################################################################################
   
   # CALCULATE SD GROUPED BY aggregation_column_list
   sd_column_name <- paste(output_column_name, '_SD', sep="")
@@ -35,116 +66,175 @@ organise.reading.calculateSDs <- function(ia_df, source_column_name, output_colu
   if (nchar(filterBy)>0){filterBy <- paste(filterBy, ' & ', sep="")}
   
   eval(parse(text=paste("ia_df[", eval(filterBy), "is.na(", eval(source_column_name), ")==F & 
-                                (", eval(source_column_name), " < ", eval(lower_column_name), " | 
-                                  ", eval(source_column_name), " > ", eval(upper_column_name), "), ",
-                              eval(keeper_column_name), ":=1,]", sep="")))
+                                (", eval(source_column_name), " > ", eval(lower_column_name), " | 
+                                  ", eval(source_column_name), " < ", eval(upper_column_name), "), ",
+                        eval(keeper_column_name), ":=1,]", sep="")))
   
+  
+  return(ia_df)
 }
 
-# THIS COMBINES THE OTHERS TOGETHER
-organise.reading.calculateRemovals <- function(ia_df, source_column_name, output_column_name, filterBy = '', sdLimit = 3, 
-                                               aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  suppressWarnings(organise.reading.calculateAverage(ia_df, source_column_name, output_column_name, filterBy, aggregation_column_list))
-  suppressWarnings(organise.reading.calculateSDs(ia_df, source_column_name, output_column_name, filterBy, sdLimit, aggregation_column_list))
-  
-}
-
-# NOW THE FUNCTIONS ARE SET UP, RUN THIS ONE
-# CHANGE TRIAL INDEX TO SOMETHING THAT YOU WANT LIKE IF YOU WANT THE FIRST TRIAL INDEX ONLY WRITE TRIAL_INDEX
-organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'FFD', 
-                                   filterBy = ' IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = 3, 
-                                   aggregation_column_list=list('RECORDING_SESSION_LABEL')) # THIS IS DOING BY-PARTIIPANT OUTLIERS, CHANGE TO 
-                                                                                              # A CONDITION COLUMN TO DO IT BY-CONDITION
-          
-# THEN TAKE A LOOK AT iaDT in the viewer and see what it's done
-
-# YOUR NEW ONES GO HERE
-organise.reading.totalReadingTime <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_DWELL_TIME', output_column_name = 'TOTAL_READING_TIME',
-                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.firstFixationDuration <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'FIRST_FIXATION_DURATION',
-                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.Skipping <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_SKIP', output_column_name = 'SKIP',
-                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.RegressionsIn <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_REGRESSION_IN_COUNT', output_column_name = 'REGRESSIONS_IN',
-                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.RegressionsOut <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_REGRESSION_OUT_COUNT', output_column_name = 'REGRESSIONS_OUT',
-                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.SaccadeAmplitude <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_SACCADE_AMPLITUDE', output_column_name = 'FIRST_SACCADE_AMPLITUDE',
-                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-
-organise.reading.GazeDuration <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_RUN_DWELL_TIME', output_column_name = 'GAZE_DURATION',
-                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.GoPast <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_SELECTIVE_REGRESSION_PATH_DURATION', output_column_name = 'GO_PAST_TIME',
-                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-organise.reading.SingleFixationDuration <- function(iaDT, sdLimit=3, aggregation_column_list=list('RECORDING_SESSION_LABEL')){
-  
-  organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'SINGLE_FIXATION_DURATION',
-                                     filterBy = 'IA_FIRST_RUN_FIXATION_COUNT == 1'& 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
-}
-
-
-# IGNORE THE STUFF BELOW - THIS IS TO COPY AND PASTE BACK ABOVE FOR DOCUMENTATION LATER
 
 ##############################################################################################################################################################
-# MARKS UP EACH TRIAL WHERE A MESSAGE OCCURRED WITH THE MESSAGE VALUE
-#' Markup trial messages.
+# CALCULATE REMOVALS - SPECFIC FUNCTIONS
+
+
+
+#' Reading study - determine total reading time outliers.
 #'
-#' @param message_df Message report
-#' @param fixreport_df Fixation report
-#' @param message The message or event you want to mark up
-#' @param show_working Should eyeTrackR show more detail when calculating the output?
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
 #'
-#' @return An updated fixation report with the message marked up into each trial.
-#' If there is a difference between the number of input and output rows, there was a problem
-#' with the joining of your data. You'll have a repeated session name or trial index.
-#' @export
-#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#' 
 #' @examples
-#' data(fixationreport)
-#' data(messagereport)
+organise.reading.totalReadingTime <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(ia_df, source_column_name = 'IA_DWELL_TIME', output_column_name = 'TOTAL_READING_TIME',
+                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine first fixation time outliers.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
 #' 
-#' # REPLACE SPACES IN MESSAGES
-#' messagereport <- organise.message.replace_spaces(messagereport)
+#' @examples
+organise.reading.firstFixationDuration <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(ia_df, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'FIRST_FIXATION_DURATION',
+                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine skipping outliers.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
 #' 
-#' # TAKE A LOOK
-#' print(organise.message.descriptives(messagereport))
+#' @examples
+organise.reading.Skipping <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(ia_df, source_column_name = 'IA_SKIP', output_column_name = 'SKIP',
+                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for the number of regressions into an Interest Area.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
 #' 
-#' # MARKUP
-#' fixationreport <- organise.message.markup(message_df=messagereport, 
-#'     fixreport_df = fixationreport, message="DISPLAY_START")
+#' @examples
+organise.reading.RegressionsIn <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_REGRESSION_IN_COUNT', output_column_name = 'REGRESSIONS_IN',
+                                     filterBy = '', sdLimit = sdLimit, 
+                                     aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for the number of regressions out of an Interest Area.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
 #' 
-#' fixationreport <- organise.message.markup(message_df=messagereport, 
-#'     fixreport_df = fixationreport, message="DISPLAY_CHANGE")
+#' @examples
+organise.reading.RegressionsOut <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_REGRESSION_OUT_COUNT', output_column_name = 'REGRESSIONS_OUT',
+                                     filterBy = '', sdLimit = sdLimit, 
+                                     aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for saccade amplitudes.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#' 
+#' @examples
+organise.reading.SaccadeAmplitude <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_SACCADE_AMPLITUDE', output_column_name = 'FIRST_SACCADE_AMPLITUDE',
+                                     filterBy = '', sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for gaze durations.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#' 
+#' @examples
+organise.reading.GazeDuration <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_RUN_DWELL_TIME', output_column_name = 'GAZE_DURATION',
+                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, 
+                                     aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for go-past times.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#' 
+#' @examples
+organise.reading.GoPast <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_SELECTIVE_REGRESSION_PATH_DURATION', output_column_name = 'GO_PAST_TIME',
+                                     filterBy = 'IA_FIRST_FIX_PROGRESSIVE == 1', sdLimit = sdLimit, 
+                                     aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+
+#' Reading study - determine outliers for single fixation durations.
+#'
+#' @param ia_df Interest area data.frame
+#' @param sdLimit The SD limit - how many times the SD is the upper and lower limit? (Default is 2.5)
+#' @param aggregation_column_list The columns to group by - can usualy be the factors in your study, or in some cases, the participants themselves.
+#'
+#' @return An updated interest area data.table with additional columns marked up. There will be a 'KEEP' column where 1 says it's safe to keep and 0 says to remove.
+#' 
+#' @examples
+organise.reading.SingleFixationDuration <- function(ia_df, sdLimit=2.5, aggregation_column_list){
+  
+  ia_df <- organise.reading.calculateRemovals(iaDT, source_column_name = 'IA_FIRST_FIXATION_DURATION', output_column_name = 'SINGLE_FIXATION_DURATION',
+                                     filterBy = 'IA_FIRST_RUN_FIXATION_COUNT == 1'& 'IA_FIRST_FIX_PROGRESSIVE == 1', 
+                                     sdLimit = sdLimit, aggregation_column_list = aggregation_column_list)
+  
+  return(ia_df)
+}
+

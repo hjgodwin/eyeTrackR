@@ -4,8 +4,12 @@
 \alias{organise.message.markup}
 \title{Markup trial messages.}
 \usage{
-organise.message.markup(message_df, fixreport_df, message,
-  show_working = FALSE)
+organise.message.markup(
+  message_df,
+  fixreport_df,
+  message,
+  show_working = FALSE
+)
 }
 \arguments{
 \item{message_df}{Message report}
