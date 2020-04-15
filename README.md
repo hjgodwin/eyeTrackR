@@ -15,8 +15,16 @@ Here we do testing and updates. There are two branches of work going on here - o
 # What will be new in **eyeTrackR 1.0.5**
 
 The main headline features of eyeTrackR 1.0.5 are:
-- **READING!** Functions to create standard measures for eye movements and reading studies. These are a hugely popular approach.
+- **READING!** Functions to create standard measures for eye movements and reading studies. These are a hugely popular approach. This has **now been implemented** using the **generate.reading.trial()*** function.
 - **MAKING READING STIMULI** Functions to create stimuli for eye movements and reading experiments. This avoids some of the time-consuming tasks that people face when making reading experiments using Experiment Builder.
+
+These functions are currently being tested and a basic version of them is available. To install, just run the following:
+
+```R
+library(devtools)
+install_github('hjgodwin/eyetrackR/devel')
+```
+Give them a try and let us know what you think! A more detailed guide will be available once the functions are all in place.
 
 # What will be new in **eyeTrackR 1.1**
 
