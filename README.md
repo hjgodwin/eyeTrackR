@@ -22,7 +22,7 @@ These functions are currently being tested and a basic version of them is availa
 
 ```R
 library(devtools)
-install_github('hjgodwin/eyetrackR/devel')
+install_github(repo = 'hjgodwin/eyeTrackR/source/eyeTrackR-devel')
 ```
 Give them a try and let us know what you think! A more detailed guide will be available once the functions are all in place.
 
