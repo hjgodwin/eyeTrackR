@@ -11,13 +11,20 @@ install.packages("eyeTrackR")
 
 Alternatively, in RStudio, head over to the **Packages** tab, click **Install** and search for eyeTrackR.
 
-## Installing via Devtools
+## Installing via Github
 
 From R using the **devtools** package:
 
 ```{r, eval=F}
 library(devtools)
 install_github('hjgodwin/eyetrackR/source')
+```
+
+If you would like to try out a development version of eyeTrackR (much of which might not work), you can run the following commands:
+
+```{r, eval=F}
+library(devtools)
+install_github("hjgodwin/eyeTrackR", branch = "devel", subdir = "source")
 ```
 
 ## Required Files

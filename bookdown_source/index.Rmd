@@ -15,7 +15,6 @@ editor_options:
 ---
 
 
-
 ```{r, echo=F}
 suppressMessages(library(eyeTrackR))
 suppressMessages(library(kableExtra))
@@ -26,6 +25,13 @@ suppressMessages(library(kableExtra))
 Welcome! So, eyeTrackR is an R package of functions geared towards analysing eye-tracking datasets. For now, it can handle output from [SR Research's Eyelink eye trackers](https://www.sr-research.com/).
 
 This guide is written to allow you to read through the text in chapter order, and assumes familiarity with the Eyelink system and how to output data from [SR Research DataViewer](https://www.sr-research.com/data-viewer/). The software that you use for data collection can be Experiment Builder, but could also be including E-prime, Matlab, OpenSesame and others.
+
+# REAMINING CHANGES REQUIRED HERE
+
+- Further citations in second section
+- Talk about ecosystem in is eyetrackr for you section
+- brm cheap tracker paper you reviewed.
+- this version of the guide is out of date for some bizarre reason. save this file and copy it back through
 
 ## What can eyeTrackR do?
 
@@ -45,11 +51,17 @@ kable(
 
 ```
 
+## Data from other Eye-trackers
+
+I'm no stranger to using eye-trackers other than SR-Research's Eyelink trackers[@Riggs2018:1], even if it means building one from scratch. However, I'm also of the view that just because you can buy a tracker now for $50, or set someone's front-facing camera on their phone to work as an eye-tracker, that doesn't mean the data is of any value to you as a researcher. Saying that, I'm more than aware of the value of different types of equipment for different situations, such as using cheaper trackers as a teaching tool and the like! 
+
+For now, both for consistency and for data quality, eyeTrackR will focus on one type of tracker only, but the underpinnings and framework for how it operates should be relatively easy to move over to other formats in the future.
+
 ## Citing eyeTrackR
 
 If you have used eyeTrackR and would like to cite it, please use the following citation:
 
-Godwin, H. J. & Muhl-Rihardson, A. (2019). eyeTrackR: Organising and Analysing Eye-Tracking Data. R package version 1.0.0.
+Godwin, H. J. & Muhl-Richardson, A. (2019). eyeTrackR: Organising and Analysing Eye-Tracking Data. R package version 1.0.0.
 
 ## Some History
 
